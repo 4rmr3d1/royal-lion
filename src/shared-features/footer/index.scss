@@ -1,0 +1,13 @@
+footer{
+  background: #FCFEFF;
+  padding: 16.14px 0;
+  nav{
+    display: flex;
+    justify-content: center;
+    a{
+      &:first-child{
+        margin-right: 122px;
+      }
+    }
+  }
+}

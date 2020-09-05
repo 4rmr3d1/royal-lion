@@ -1,0 +1,32 @@
+.contact{
+  margin-top: 20px;
+  margin-bottom: 100px;
+  .subtitle{
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  h2{
+    margin-bottom: 34px;
+  }
+  p{
+    line-height: 1.4;
+    font-size: 18px;
+    color: #939A9E;
+  }
+  .text{
+    margin-bottom: 50px;
+  }
+  .graffic{
+    margin-bottom: 30px;
+  }
+
+  &-email{
+    font-weight: bold;
+    font-size: 32px;
+    color: #343949;
+  }
+  .btn{
+    width: 100%;
+  }
+}

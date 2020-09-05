@@ -1,25 +1,23 @@
+import './styles/style.scss';
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter } from "react-router-dom";
 
-function App() {
+import Header from './shared-features/header';
+import Footer from './shared-features/footer';
+import Sidebar from './shared-features/sidebar';
+
+import Content from './features/content';
+
+
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Sidebar />
+      <Content />
+      <Footer />
+    </BrowserRouter>
   );
 }
 
