@@ -1,24 +1,19 @@
-import './styles/style.scss';
-import React from 'react';
-import { BrowserRouter } from "react-router-dom";
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import { Sidebar, Header, Footer } from '@app/shared-features'
+import { Router } from '@app/components'
 
-import Header from './shared-features/header';
-import Footer from './shared-features/footer';
-import Sidebar from './shared-features/sidebar';
-
-import Content from './features/content';
-
-
+import './styles/style.scss'
 
 const App = () => {
-  return (
-    <BrowserRouter>
-      <Header />
-      <Sidebar />
-      <Content />
-      <Footer />
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<Header />
+			<Sidebar />
+			<Router />
+			<Footer />
+		</BrowserRouter>
+	)
 }
 
-export default App;
+export default App
