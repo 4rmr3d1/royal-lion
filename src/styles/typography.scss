@@ -1,127 +1,106 @@
-body{
-  font-family: "Rubik", sans-serif;
-  line-height: 1.35;
-  background-color: #F4F6FC;
-  background-image: url('../img/bodyBg.png');
-  background-size: cover;
-  background-position: bottom center;
+body {
+	font-family: 'Rubik', sans-serif;
+	line-height: 1.35;
+	background-color: #f4f6fc;
+	background-image: url('../img/bodyBg.png');
+	background-size: cover;
+	background-position: bottom center;
 }
-h2{
-  font-weight: bold;
-  font-size: 42px;
-  line-height: 1.4;
+h2 {
+	font-weight: bold;
+	font-size: 42px;
+	line-height: 1.4;
 }
-h3{
-  font-weight: bold;
-  font-size: 21px;
-  line-height: 1.24;
+h3 {
+	font-weight: bold;
+	font-size: 21px;
+	line-height: 1.24;
 }
-h4{
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 1.16;
+h4 {
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 1.16;
 }
-.btn{
-  border-radius: 8px;
-  background: linear-gradient(151.68deg, #526BFF 0%, #4286F4 100%);
-  box-shadow: 0px 10px 15px rgba(130, 179, 233, 0.2), 0px 5px 10px rgba(118, 170, 225, 0.15);
-  color: #FFF;
-  &:hover{
-    color: #ffffffd9;
-    background: linear-gradient(151.68deg, #445FFB 0%, #2C76ED 100%);
-    box-shadow: 0px 10px 30px rgba(130, 179, 233, 0.4), 0px 5px 25px rgba(118, 170, 225, 0.3);
-  }
-  &:active{
-    color: #FFF;
-    background: linear-gradient(151.68deg, #1833D3 0%, #1958BE 100%);
-    box-shadow: none;
-  }
-  &-big{
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 1.16;
-    padding: 19px 45px 20px;
-    text-transform: uppercase;
-  }
-  &-mini{
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.4;
-    padding: 11px 33px 11px 34px;
-  }
-  &-sort{
-    font-size: 29px;
-    color: #DCDCDC;
-    display: block;
-    padding: 9px;
-    margin: 0 auto;
-    border-radius: 8px;
-    i{
-      display: block;
-    }
-    &:not(.select):not(:active):hover{
-      background: linear-gradient(151.68deg, #526BFF 0%, #4286F4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-shadow: 0px 5px 30px rgba(21, 119, 225, 0.3),
-                   0px 5px 10px rgba(112, 171, 235, 0.5);
-    }
-    &.select,&:active{
-      color: #FFF;
-      background: linear-gradient(151.68deg, #526BFF 0%, #4286F4 100%);
-      box-shadow: 0px 10px 25px rgba(21, 119, 225, 0.18), 0px 8px 30px rgba(112, 171, 235, 0.13);
-    }
-  }
+.btn {
+	border-radius: 8px;
+	background: linear-gradient(151.68deg, #526bff 0%, #4286f4 100%);
+	box-shadow: 0px 10px 15px rgba(130, 179, 233, 0.2),
+		0px 5px 10px rgba(118, 170, 225, 0.15);
+	color: #fff;
+	&:hover {
+		color: #ffffffd9;
+		background: linear-gradient(151.68deg, #445ffb 0%, #2c76ed 100%);
+		box-shadow: 0px 10px 30px rgba(130, 179, 233, 0.4),
+			0px 5px 25px rgba(118, 170, 225, 0.3);
+	}
+	&:active {
+		color: #fff;
+		background: linear-gradient(151.68deg, #1833d3 0%, #1958be 100%);
+		box-shadow: none;
+	}
+	&-big {
+		font-weight: bold;
+		font-size: 18px;
+		line-height: 1.16;
+		padding: 19px 45px 20px;
+		text-transform: uppercase;
+	}
+	&-mini {
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 1.4;
+		padding: 11px 33px 11px 34px;
+	}
 }
 
-.form{
-  &-row{
-    margin-bottom: 30px;
-  }
-  label{
-    color: #939A9E;
-    font-size: 16px;
-    line-height: 1.4;
-    margin-bottom: 10px;
-  }
-  input{
-    &[type="text"],
-    &[type="tel"],
-    &[type="email"]{
-      padding: 18px 20px;
-      display: block;
-      font-size: 18px;
-      line-height: 1.4;
-      width: 100%;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid #EDEFF5;
-      outline: none;
-      &::placeholder{
-        color: #939A9E;
-      }
-    }
-  }
-  textarea{
-    display: block;
-    padding: 18px 20px;
-    display: block;
-    font-size: 18px;
-    line-height: 1.4;
-    width: 100%;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid #EDEFF5;
-    outline: none;
-    height: 150px;
-  }
-  .agree{
-    color: #939A9E;
-    font-size: 14px;
-    line-height: 1.4;
-    span{
-      text-decoration-line: underline;
-      color: #343949;
-    }
-  }
+.form {
+	&-row {
+		margin-bottom: 30px;
+	}
+	label {
+		color: #939a9e;
+		font-size: 16px;
+		line-height: 1.4;
+		margin-bottom: 10px;
+	}
+	input {
+		&[type='text'],
+		&[type='tel'],
+		&[type='email'] {
+			padding: 18px 20px;
+			display: block;
+			font-size: 18px;
+			line-height: 1.4;
+			width: 100%;
+			border-radius: 10px;
+			background: rgba(255, 255, 255, 0.8);
+			border: 1px solid #edeff5;
+			outline: none;
+			&::placeholder {
+				color: #939a9e;
+			}
+		}
+	}
+	textarea {
+		display: block;
+		padding: 18px 20px;
+		display: block;
+		font-size: 18px;
+		line-height: 1.4;
+		width: 100%;
+		border-radius: 10px;
+		background: rgba(255, 255, 255, 0.8);
+		border: 1px solid #edeff5;
+		outline: none;
+		height: 150px;
+	}
+	.agree {
+		color: #939a9e;
+		font-size: 14px;
+		line-height: 1.4;
+		span {
+			text-decoration-line: underline;
+			color: #343949;
+		}
+	}
 }

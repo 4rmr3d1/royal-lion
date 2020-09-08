@@ -1,0 +1,34 @@
+.aside {
+	margin-top: 30px;
+}
+.category {
+	padding: 10px 0;
+	background: #fcfeff;
+	border-radius: 10px;
+}
+
+.btnSort {
+	font-size: 29px;
+	color: #dcdcdc;
+	display: block;
+	padding: 9px;
+	margin: 0 auto;
+	border-radius: 8px;
+	i {
+		display: block;
+	}
+	&:not(.select):not(:active):hover {
+		background: linear-gradient(151.68deg, #526bff 0%, #4286f4 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		text-shadow: 0px 5px 30px rgba(21, 119, 225, 0.3),
+			0px 5px 10px rgba(112, 171, 235, 0.5);
+	}
+	&.select,
+	&:active {
+		color: #fff;
+		background: linear-gradient(151.68deg, #526bff 0%, #4286f4 100%);
+		box-shadow: 0px 10px 25px rgba(21, 119, 225, 0.18),
+			0px 8px 30px rgba(112, 171, 235, 0.13);
+	}
+}

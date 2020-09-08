@@ -1,6 +1,7 @@
 import React from 'react'
-import './index.scss'
 import { Link } from 'react-router-dom'
+
+import './index.scss'
 
 export const Registration = () => {
 	return (

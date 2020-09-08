@@ -1,76 +1,94 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import cn from 'classnames'
 import { useDispatch } from '@app/store'
-import './index.scss'
+import classes from './style.module.scss'
+
+const categories = {
+	football: 'Football',
+	tennis: 'Tennis',
+	hockey: 'Hockey',
+	basketball: 'Basketball',
+	volleyball: 'Volleyball',
+	baseball: 'Baseball',
+	pingPong: 'PingPong',
+	gandbol: 'Gandbol',
+	americanFootball: 'AmericanFootball',
+	badminton: 'Badminton'
+}
 
 export const Sidebar = () => {
-	const { dispatch } = useDispatch()
-
-	const onClick = React.useCallback(() => {
-		dispatch({
-			type: 'change-category',
-			category: 'pohui'
-		})
-	}, [dispatch])
+	const [activeCategory, setActveCategory] = React.useState(categories.football)
 
 	return (
-		<aside>
+		<aside className={classes.aside}>
 			<div className='container'>
-				<nav className='category'>
+				<nav className={classes.category}>
 					<div className='row justify-content-around'>
-						<div className='col-lg-auto'>
-							<Link className='btn-sort select' onClick={onClick}>
-								<i className='icon-football'></i>
-							</Link>
-						</div>
-						<div className='col-lg-auto'>
-							<Link className='btn-sort'>
-								<i className='icon-tennis'></i>
-							</Link>
-						</div>
-						<div className='col-lg-auto'>
-							<Link className='btn-sort'>
-								<i className='icon-hockey'></i>
-							</Link>
-						</div>
-						<div className='col-lg-auto'>
-							<Link className='btn-sort'>
-								<i className='icon-basketball'></i>
-							</Link>
-						</div>
-						<div className='col-lg-auto'>
-							<Link className='btn-sort'>
-								<i className='icon-volleyball'></i>
-							</Link>
-						</div>
-						<div className='col-lg-auto'>
-							<Link className='btn-sort'>
-								<i className='icon-baseball'></i>
-							</Link>
-						</div>
-						<div className='col-lg-auto'>
-							<Link className='btn-sort'>
-								<i className='icon-ping-pong'></i>
-							</Link>
-						</div>
-						<div className='col-lg-auto'>
-							<Link className='btn-sort'>
-								<i className='icon-gandbol'></i>
-							</Link>
-						</div>
-						<div className='col-lg-auto'>
-							<Link className='btn-sort'>
-								<i className='icon-american-football'></i>
-							</Link>
-						</div>
-						<div className='col-lg-auto'>
-							<Link className='btn-sort'>
-								<i className='icon-badminton'></i>
-							</Link>
-						</div>
+						<Categories.Provider
+							activeCategory={activeCategory}
+							onCategoryChange={setActveCategory}
+						>
+							{Object.values(categories).map((category, index) => (
+								<div className='col-lg-auto'>
+									<Categories.Link key={index} categoryKey={category}>
+										<i className={`icon${category}`}></i>
+									</Categories.Link>
+								</div>
+							))}
+						</Categories.Provider>
 					</div>
 				</nav>
 			</div>
 		</aside>
 	)
+}
+
+const CategoryContext = React.createContext({
+	onCategoryChange: () => {},
+	activeCategory: ''
+})
+
+function Provider({ children, ...providerProps }) {
+	return (
+		<CategoryContext.Provider value={providerProps}>
+			{children}
+		</CategoryContext.Provider>
+	)
+}
+
+function Link({ children, categoryKey }) {
+	const { dispatch } = useDispatch()
+
+	const { onCategoryChange, activeCategory } = React.useContext(CategoryContext)
+
+	const onLinkClick = React.useCallback(
+		(e, key) => {
+			e.preventDefault()
+
+			dispatch({
+				type: 'change-category',
+				category: categoryKey
+			})
+
+			onCategoryChange(key)
+		},
+		[onCategoryChange, dispatch]
+	)
+
+	return (
+		<a
+			href={String(categoryKey)}
+			onClick={(e) => onLinkClick(e, categoryKey)}
+			className={cn(classes.btnSort, {
+				[classes.select]: activeCategory === categoryKey
+			})}
+		>
+			{children}
+		</a>
+	)
+}
+
+export const Categories = {
+	Provider,
+	Link
 }

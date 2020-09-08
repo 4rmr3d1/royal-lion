@@ -1,12 +1,13 @@
-import React from 'react';
+import React from 'react'
 import {
 	Accordion,
 	AccordionSummary,
 	AccordionDetails
-} from '@material-ui/core/';
-import { MatchInfo } from '@app/ui';
+} from '@material-ui/core/'
+import { MatchInfo } from '@app/ui'
+import { useSelector } from '@app/store'
 
-import './index.scss';
+import './index.scss'
 
 const matches = [
 	{
@@ -20,19 +21,23 @@ const matches = [
 		cf5: '2.37',
 		cf6: '2.37'
 	}
-];
+]
 
 export const Line = () => {
+	const currentCategory = useSelector((state) => state.reducer.category)
+
 	return (
 		<section className='line'>
+			<h2>{currentCategory}</h2>
 			<div className='container'>
 				<Accordion>
 					<AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>
 						Table Soccer League
 					</AccordionSummary>
 					<AccordionDetails>
-						{matches.map((match) => (
+						{matches.map((match, index) => (
 							<MatchInfo
+								key={index}
 								date={match.date}
 								team1={match.team1}
 								team2={match.team2}
@@ -117,5 +122,5 @@ export const Line = () => {
 				</Accordion>
 			</div>
 		</section>
-	);
-};
+	)
+}
