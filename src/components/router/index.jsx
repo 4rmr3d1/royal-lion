@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { Line, Live, Contact, Registration } from '@app/features'
+import { Line, Live, Contact, Registration, Profile } from '@app/features'
 
 export const Router = () => {
 	return (
@@ -10,6 +10,7 @@ export const Router = () => {
 				<Route path='/live' component={Live} />
 				<Route path='/contact' component={Contact} />
 				<Route path='/registration' component={Registration} />
+				<Route path='/profile' component={Profile} />
 			</Switch>
 		</div>
 	)

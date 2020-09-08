@@ -22,7 +22,7 @@ export const Header = () => {
 						<NavLink to='/contact'>Контакты</NavLink>
 					</nav>
 					<div className='col-lg-3 col-auto user-nav'>
-						<button className='enter'>Вход</button>
+						<NavLink to='/profile' className='enter'>Вход</NavLink>
 						<NavLink to='/registration' className='btn btn-mini'>
 							Регистрация
 						</NavLink>
