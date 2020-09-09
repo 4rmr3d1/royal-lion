@@ -1,23 +1,23 @@
-import React from 'react';
-import './index.scss';
+import React from 'react'
+import classes from './style.module.scss'
 
 export const Contact = () => {
 	return (
-		<section className='contact'>
+		<section className={classes.contact}>
 			<div className='container'>
 				<div className='row'>
 					<div className='col-lg-5'>
-						<p className='subtitle'>Обратная связь</p>
+						<p className={classes.subtitle}>Обратная связь</p>
 						<h2>Остались вопросы?</h2>
-						<p className='text'>
+						<p className={classes.text}>
 							У вас остались вопросы или есть предложения по улучшению сервиса?
 							Пишите нам на почту или в форме справа, наш менеджер вам ответит в
 							ближайшее время
 						</p>
 
-						<p className='graffic'>Понедельник - Воскресенье: 8:00 - 22:00</p>
+						<p className={classes.graffic}>Понедельник - Воскресенье: 8:00 - 22:00</p>
 
-						<div className='contact-email'>mailforexample@gmail.com</div>
+						<div className={classes.contactEmail}>mailforexample@gmail.com</div>
 					</div>
 					<form className='form col-lg-6 ml-lg-auto'>
 						<div className='row form-row'>

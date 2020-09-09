@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import './index.scss'
+import classes from './style.module.scss'
 
 export const Registration = () => {
 	return (
-		<section className='registration'>
+		<section className={classes.registration}>
 			<div className='container'>
-				<div className='row justify-content-between title'>
+				<div className={`row justify-content-between ${classes.title}`}>
 					<div className='col-auto'>
 						<h3>Регистрация</h3>
 					</div>

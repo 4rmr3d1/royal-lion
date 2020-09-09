@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './index.scss';
+import classes from './style.module.scss'
 
 export const MatchInfo = ({
 	date,
@@ -15,49 +15,49 @@ export const MatchInfo = ({
 	cf6
 }) => {
 	return (
-		<div className='match row'>
+		<div className={`row ${classes.match}`}>
 			<div className='col-lg-1'>
-				<div className='time'>23:30</div>
-				<div className='date'>26 авг</div>
+				<div className={classes.time}>23:30</div>
+				<div className={classes.date}>26 авг</div>
 			</div>
 			<div className='col-lg-5'>
-				<div className='name'>
-					<div className='command'>
-						<div className='label'>{team1}</div>
-						<div className='logo'>
+				<div className={classes.name}>
+					<div className={classes.command}>
+						<div className={classes.label}>{team1}</div>
+						<div className={classes.logo}>
 							<img src='img/barselona.png' alt='' />
 						</div>
 					</div>
-					<div className='score'>— : —</div>
-					<div className='command'>
-						<div className='logo'>
+					<div className={classes.score}>— : —</div>
+					<div className={classes.command}>
+						<div className={classes.logo}>
 							<img src='img/barselona.png' alt='' />
 						</div>
-						<div className='label'>{team2}</div>
+						<div className={classes.label}>{team2}</div>
 					</div>
 				</div>
 			</div>
 			<div className='col-lg-6'>
-				<div className='coefficient'>
-					<Link className='item'>
-						1x <span className='number'>{cf1}</span>
+				<div className={classes.coefficient}>
+					<Link className={classes.item}>
+						1x <span className={classes.number}>{cf1}</span>
 					</Link>
-					<Link className='item'>
-						x <span className='number'>{cf2}</span>
+					<Link className={classes.item}>
+						x <span className={classes.number}>{cf2}</span>
 					</Link>
-					<Link className='item'>
-						2x <span className='number'>{cf3}</span>
+					<Link className={classes.item}>
+						2x <span className={classes.number}>{cf3}</span>
 					</Link>
-					<Link className='item'>
-						Б <span className='number'>{cf4}</span>
+					<Link className={classes.item}>
+						Б <span className={classes.number}>{cf4}</span>
 					</Link>
-					<Link className='item'>
-						Т <span className='number'>{cf5}</span>
+					<Link className={classes.item}>
+						Т <span className={classes.number}>{cf5}</span>
 					</Link>
-					<Link className='item'>
-						М <span className='number'>{cf6}</span>
+					<Link className={classes.item}>
+						М <span className={classes.number}>{cf6}</span>
 					</Link>
-					<Link className='more'>+16 событий</Link>
+					<Link className={classes.more}>+16 событий</Link>
 				</div>
 			</div>
 		</div>

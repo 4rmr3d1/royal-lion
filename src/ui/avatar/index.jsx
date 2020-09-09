@@ -1,17 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import './index.scss'
+import classes from './style.module.scss'
 
 export const ProfileCard = ({ firstName, lastName, email, balance }) => {
 	return (
-		<div className='avatar'>
+		<div className={classes.avatar}>
 			<img src='img/avatar.png' alt='' />
 			<h3>
 				{firstName} {lastName}
 			</h3>
 			<Link> {email} </Link>
-			<div className='ballance'> {balance} </div>
+			<div className={classes.ballance}> {balance} </div>
 		</div>
 	)
 }
