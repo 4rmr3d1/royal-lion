@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider as ReduxProvider } from 'react-redux'
 import { createStore } from '@app/store'
-import App from './App'
+import { App } from '@app/components'
 import * as serviceWorker from './serviceWorker'
 
 const { store } = createStore()

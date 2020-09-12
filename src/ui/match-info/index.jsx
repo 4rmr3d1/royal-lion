@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 import classes from './style.module.scss'
 
@@ -61,5 +61,5 @@ export const MatchInfo = ({
 				</div>
 			</div>
 		</div>
-	);
-};
+	)
+}

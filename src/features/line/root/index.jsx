@@ -24,7 +24,9 @@ const matches = [
 ]
 
 export const Line = () => {
-	const currentCategory = useSelector((state) => state.reducer.category)
+	const currentCategory = useSelector(
+		(state) => state.selectedCategory.category
+	)
 
 	return (
 		<section className='line'>

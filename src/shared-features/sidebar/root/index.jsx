@@ -72,7 +72,7 @@ function Link({ children, categoryKey }) {
 
 			onCategoryChange(key)
 		},
-		[onCategoryChange, dispatch]
+		[onCategoryChange, dispatch, categoryKey]
 	)
 
 	return (

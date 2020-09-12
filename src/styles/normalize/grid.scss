@@ -1,22 +1,20 @@
 $grid-breakpoints: (
-  xs: 0,
-  sm: 767px,
-  md: 991px,
-  lg: 1200px,
-  xl: 1500px
+	xs: 0,
+	sm: 767px,
+	md: 991px,
+	lg: 1200px,
+	xl: 1500px
 );
 $container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 1170px
+	sm: 540px,
+	md: 720px,
+	lg: 1170px
 );
 $grid-gutter-width: 30px;
 
-@import "../../../node_modules/bootstrap/scss/bootstrap-grid";
-
-@media(max-width:767px){
-  .container{
-    padding-right: 20px;
-    padding-left: 20px;
-  }
+@media (max-width: 767px) {
+	.container {
+		padding-right: 20px;
+		padding-left: 20px;
+	}
 }

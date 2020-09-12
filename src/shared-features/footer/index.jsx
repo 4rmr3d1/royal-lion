@@ -1,5 +1,4 @@
-import React from 'react';
-import classes from './style.module.scss'
+import React from 'react'
 
 export const Footer = () => {
 	return (
@@ -21,5 +20,5 @@ export const Footer = () => {
 				</div>
 			</div>
 		</footer>
-	);
-};
+	)
+}

@@ -1,7 +1,7 @@
 import { createStore as createReduxStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
-import { rootReducer } from './reducer'
+import { rootReducer } from './config'
 
 export const createStore = () => {
 	const composeEnhancers = composeWithDevTools({})
@@ -14,4 +14,4 @@ export const createStore = () => {
 }
 
 export * from './hooks'
-export * from './reducer'
+export * from './config'

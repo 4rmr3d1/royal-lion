@@ -1,5 +1,6 @@
 import React from 'react'
 import classes from './style.module.scss'
+import { Button } from '@app/ui'
 
 export const Contact = () => {
 	return (
@@ -15,7 +16,9 @@ export const Contact = () => {
 							ближайшее время
 						</p>
 
-						<p className={classes.graffic}>Понедельник - Воскресенье: 8:00 - 22:00</p>
+						<p className={classes.graffic}>
+							Понедельник - Воскресенье: 8:00 - 22:00
+						</p>
 
 						<div className={classes.contactEmail}>mailforexample@gmail.com</div>
 					</div>
@@ -38,7 +41,7 @@ export const Contact = () => {
 						</div>
 						<div className='row form-row align-items-center'>
 							<div className='col-lg-6'>
-								<button className='btn btn-big'>задать вопрос</button>
+								<Button className='btn btn-big'>задать вопрос</Button>
 							</div>
 							<div className='col-lg-6'>
 								<div className='agree'>
@@ -51,5 +54,5 @@ export const Contact = () => {
 				</div>
 			</div>
 		</section>
-	);
-};
+	)
+}
