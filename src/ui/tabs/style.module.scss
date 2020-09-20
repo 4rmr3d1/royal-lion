@@ -1,0 +1,19 @@
+.tabLink {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color:#939A9E;
+  padding: 12px 20px;
+}
+
+.pane {
+  
+}
+
+.activeTabLink {
+  color: #fff;
+  background: #4286F4;
+  box-shadow: 0px 10px 25px rgba(21, 119, 225, 0.18), 0px 8px 30px rgba(112, 171, 235, 0.13);
+  border-radius: 5px;
+}

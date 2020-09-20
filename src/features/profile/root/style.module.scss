@@ -22,3 +22,13 @@
 .rates{
   margin-top: 40px;
 }
+
+.tabPanel {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 27px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ECF2FC;
+  border-radius: 10px;
+  margin-bottom: 38px;
+}
