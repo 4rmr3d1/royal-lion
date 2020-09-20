@@ -1,77 +1,90 @@
-import { userService } from '@app/services/user'
-import { useHistory } from 'react-router-dom'
+import axios from 'axios'
+const API_URL = 'http://45.67.58.94'
 
-function login(username, password) {
-	return (dispatch) => {
-		dispatch(request({ username }))
+export function authHeader () {
+  const user = JSON.parse(window.localStorage.getItem('user'))
 
-		userService.login(username, password).then(
-			(user) => {
-				dispatch(success(user))
-			},
-			(error) => {
-				dispatch(failure(error.toString()))
-			}
-		)
-	}
-	function request(user) {
-		return { type: '@USER/login-request', user }
-	}
-	function success(user) {
-		return { type: '@USER/login-success', user }
-	}
-	function failure(error) {
-		return { type: '@USER/login-error', error }
-	}
+  if (user && user.key) {
+    return { Authorization: `Token ${user.key}` }
+  } else {
+    return {}
+  }
 }
 
-function register(user) {
-	return (dispatch) => {
-		dispatch(request(user))
+const login = ({ username, password }) => (dispatch) => {
+  return axios
+    .post(`${API_URL}/user/auth/login/`, { username, password })
+    .then((response) => {
+      dispatch({ type: '@USER/login-request', response })
 
-		userService.register(user).then(
-			(user) => {
-				dispatch(success())
-			},
-			(error) => {
-				dispatch(failure(error.toString()))
-			}
-		)
-	}
+      if (response.data.key) {
+        window.localStorage.setItem('user', JSON.stringify(response.data))
 
-	function request(user) {
-		return { type: '@USER/register-request', user }
-	}
-	function success(user) {
-		return { type: '@USER/register-success', user }
-	}
-	function failure(error) {
-		return { type: '@USER/register-error', error }
-	}
+        dispatch({ type: '@USER/login-success', isLoggedIn: true })
+        dispatch({
+          type: '@USER/change-property',
+          payload: {
+            authModalVisible: false
+          }
+        })
+      }
+
+      return response.data.key
+    })
+    .catch((error) => {
+      dispatch({ type: '@USER/login-error', error: error.response.data })
+    })
 }
 
-function getUser() {
-	return (dispatch) => {
-		dispatch(request())
+const register = (user) => (dispatch) => {
+  return axios
+    .post(`${API_URL}/user/create/`, {
+      first_name: user.firstName,
+      second_name: user.secondName,
+      date_birth: user.dateBirth,
+      phone_number: user.phoneNumber,
+      gender: user.gender,
+      email: user.email,
+      city: user.city,
+      username: user.username,
+      password1: user.password1,
+      password2: user.password2
+    })
+    .then((response) => {
+      dispatch({ type: '@USER/register-success' })
+    })
+    .catch((error) => {
+      dispatch({ type: '@USER/register-error', error: error?.response })
+    })
+}
 
-		userService.getUser().then((user) => {
-			dispatch(success(user.data))
-		})
-	}
+const getUser = () => (dispatch) => {
+  return axios
+    .get(`${API_URL}/user/my`, {
+      headers: authHeader()
+    })
+    .then((response) => {
+      dispatch({ type: '@USER/get-info-request' })
 
-	function request() {
-		return { type: '@USER/get-info-request' }
-	}
-	function success(user) {
-		return { type: '@USER/get-info-success', user }
-	}
-	function failure(error) {
-		return { type: '@USER/get-info-failure', error }
-	}
+      if (response.data) {
+        dispatch({ type: '@USER/get-info-success', isLoggedIn: true, user: response.data })
+      }
+
+      return response.data
+    })
+    .catch((error) => {
+      dispatch({ type: '@USER/get-info-error', error: error?.response })
+    })
+}
+
+const logout = () => (dispatch) => {
+  dispatch({ type: '@USER/logout' })
+  window.localStorage.removeItem('user')
 }
 
 export const userActions = {
-	login,
-	register,
-	getUser
+  login,
+  logout,
+  register,
+  getUser
 }

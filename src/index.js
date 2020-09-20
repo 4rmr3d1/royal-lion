@@ -8,10 +8,10 @@ import * as serviceWorker from './serviceWorker'
 const { store } = createStore()
 
 ReactDOM.render(
-	<ReduxProvider store={store}>
-		<App />
-	</ReduxProvider>,
-	document.getElementById('root')
+  <ReduxProvider store={store}>
+    <App />
+  </ReduxProvider>,
+  document.getElementById('root')
 )
 
 // If you want your app to work offline and load faster, you can change

@@ -1,4 +1,4 @@
-.avatar{
+.profileCard{
   background: #FFF;
   padding: 30px 40px 31px 41px;
   text-align: center;
@@ -11,20 +11,47 @@
   h3{
     margin-bottom: 16px;
   }
-  a{
+  h4{
     font-size: 16px;
     line-height: 1.1875;
     color: #939A9E;
     margin-bottom: 25px;
     display: block;
   }
+  .balance{
+    background: linear-gradient(151.68deg, #526BFF 0%, #4286F4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 1.2;
+  }
 }
 
-.ballance{
-  background: linear-gradient(151.68deg, #526BFF 0%, #4286F4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: bold;
-  font-size: 30px;
-  line-height: 1.2;
+.headerProfileCard{
+  display: flex;
+  img {
+    max-width: 50px;
+    max-height: 50px;
+  }
+  &>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  button {
+    color: #526BFF;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: left;
+  }
+  .balance{
+    font-size: 14px;
+    line-height: 17px;
+    color: #939A9E;
+    padding-top: 5px;
+  }
 }
+
+

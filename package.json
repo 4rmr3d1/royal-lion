@@ -11,16 +11,21 @@
     "bootstrap": "^4.5.2",
     "classnames": "^2.2.6",
     "craco-alias": "^2.1.1",
+    "formik": "^2.1.5",
     "node-sass": "^4.14.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-input-mask": "^2.0.4",
     "react-intl": "^5.8.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-text-mask": "^5.4.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "start": "craco start",
@@ -41,6 +46,12 @@
     ]
   },
   "devDependencies": {
-    "axios": "^0.20.0"
+    "axios": "^0.20.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-standard": "^4.0.1"
   }
 }

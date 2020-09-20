@@ -8,11 +8,11 @@ import '@app/styles/style.scss'
 import 'bootstrap/dist/css/bootstrap-grid.min.css'
 
 export const App = () => {
-	return (
-		<ThemeProvider theme={theme}>
-			<BrowserRouter>
-				<PageLayout />
-			</BrowserRouter>
-		</ThemeProvider>
-	)
+  return (
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <PageLayout />
+      </BrowserRouter>
+    </ThemeProvider>
+  )
 }

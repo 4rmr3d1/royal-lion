@@ -1,85 +1,111 @@
 import React from 'react'
-import { Redirect, useHistory } from 'react-router-dom'
+import * as yup from 'yup'
+import { useFormik } from 'formik'
+import { Redirect } from 'react-router-dom'
 import {
-	Dialog,
-	DialogTitle,
-	DialogContent,
-	TextField
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  TextField
 } from '@material-ui/core'
 import { useDispatch, useSelector } from '@app/store'
-import { Button } from '@app/ui'
-
+import { Button, ErrorText } from '@app/ui'
 import { userActions } from '@app/store/actions/userActions'
 
 import classes from './style.module.scss'
 
+const validationSchema = yup.object({
+  username: yup.string().required('Поле необходимо для заполнения'),
+  password: yup.string().required('Поле необходимо для заполнения')
+})
+
 export const LoginModal = ({ visible, onClose }) => {
-	const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn)
-	const { dispatch } = useDispatch()
-	const history = useHistory()
+  const { dispatch } = useDispatch()
 
-	const [authData, setAuthData] = React.useState({
-		username: '',
-		password: ''
-	})
+  const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn)
+  const serverErrors = useSelector(state => state.authReducer.user?.error)
 
-	const onUsernameChange = React.useCallback(
-		(e) => {
-			const username = e.target.value
-			setAuthData({ ...authData, username })
-		},
-		[authData]
-	)
+  const initialValues = {
+    username: '',
+    password: ''
+  }
 
-	const onPasswordChange = React.useCallback(
-		(e) => {
-			const password = e.target.value
-			setAuthData({ ...authData, password })
-		},
-		[authData]
-	)
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: values => dispatch(userActions.login(values)),
+    validateOnChange: false
+  })
 
-	const onSubmit = React.useCallback(
-		(e) => {
-			e.preventDefault()
+  const hasErrors = React.useMemo(() => {
+    return formik.errors || null
+  }, [formik])
 
-			dispatch(userActions.login(authData))
+  const hasServerErrors = React.useMemo(() => {
+    if (serverErrors) {
+      return Object.values(serverErrors)
+    }
+  })
 
-			if (isLoggedIn) {
-				history.push('/profile')
-			}
-		},
-		[dispatch, authData]
-	)
+  if (isLoggedIn) {
+    return <Redirect to='/profile' />
+  }
 
-	return (
-		<Dialog open={visible} onClose={onClose}>
-			<DialogTitle style={{ textAlign: 'center' }} disableTypography>
-				<h2>Авторизация</h2>
-			</DialogTitle>
-			<DialogContent>
-				<form className={classes.form} onSubmit={onSubmit}>
-					<div>
-						<TextField
-							variant='outlined'
-							placeholder={'Почта'}
-							onChange={onUsernameChange}
-						/>
-					</div>
+  return (
+    <Dialog
+      open={visible}
+      onClose={onClose}
+    >
+      <DialogTitle
+        disableTypography
+        style={{ textAlign: 'center' }}
+      >
+        <h2>Авторизация</h2>
+      </DialogTitle>
 
-					<div>
-						<TextField
-							variant='outlined'
-							placeholder={'Пароль'}
-							onChange={onPasswordChange}
-						/>
-					</div>
+      <DialogContent>
+        <form
+          className={classes.form}
+          onSubmit={formik.handleSubmit}
+        >
+          {hasServerErrors && (
+            <ErrorText message='Неверный логин или пароль'/>
+          )}
+          <div>
+            <TextField
+              error={!!hasErrors.username || hasServerErrors}
+              fullWidth
+              name='username'
+              placeholder='Почта'
+              value={formik.values.username}
+              variant='outlined'
+              onChange={formik.handleChange}
+            />
+            <ErrorText message={hasErrors.username}/>
+          </div>
 
-					<div>
-						<Button type='small'> Войти </Button>
-					</div>
-				</form>
-			</DialogContent>
-		</Dialog>
-	)
+          <div>
+            <TextField
+              error={!!hasErrors.password || hasServerErrors}
+              fullWidth
+              name='password'
+              placeholder='Пароль'
+              value={formik.values.password}
+              variant='outlined'
+              onChange={formik.handleChange}
+            />
+            <ErrorText message={hasErrors.password}/>
+          </div>
+
+          <Button
+            fullWidth
+            type='submit'
+            variant='big'
+          >
+            Войти
+          </Button>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
 }
