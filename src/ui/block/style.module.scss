@@ -1,0 +1,18 @@
+.block {
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #EDEFF5;
+  width: 100%;
+}
+
+.blockPadding {
+  padding: 30px 25px;
+}
+
+.block + .block {
+  margin-top: 30px;
+}
+
+.blockItem {
+  margin-bottom: 25px;
+}

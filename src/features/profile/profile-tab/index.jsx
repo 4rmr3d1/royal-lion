@@ -1,25 +1,25 @@
 import React from 'react'
-import { Button } from '@app/ui'
+import { Button, Block } from '@app/ui'
 
 import classes from './style.module.scss'
 
 export const ProfileTab = () => {
   return (
     <>
-      <div className={classes.ballanceUp}>
-        <h3>Пополнение баланса</h3>
-        <form className='form'>
-          <div className='form-row row'>
-            <div className='col-lg-5'>
-              <input
-                placeholder='Введите сумму'
-                type='text'
-              />
-            </div>
+      <h3>Пополнение баланса</h3>
+      <form className='form'>
+        <div className='form-row row'>
+          <div className='col-lg-5'>
+            <input
+              placeholder='Введите сумму'
+              type='text'
+            />
           </div>
+        </div>
 
-          <div className='row'>
-            <div className='col-lg-6'>
+        <div className='row'>
+          <div className='col-lg-6'>
+            <Block>
               <div className={classes.card}>
                 <img
                   alt=''
@@ -27,9 +27,11 @@ export const ProfileTab = () => {
                 />
                 <Button variant='big'>пополнить баланс</Button>
               </div>
-            </div>
+            </Block>
+          </div>
 
-            <div className='col-lg-6'>
+          <div className='col-lg-6'>
+            <Block>
               <div className={classes.card}>
                 <img
                   alt=''
@@ -37,10 +39,10 @@ export const ProfileTab = () => {
                 />
                 <Button variant='big'>пополнить баланс</Button>
               </div>
-            </div>
+            </Block>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
 
       <div className={`row ${classes.rates}`}></div>
     </>

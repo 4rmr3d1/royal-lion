@@ -4,6 +4,7 @@ import { ProfileCard, Tabs } from '@app/ui'
 import { useDispatch, useSelector } from '@app/store'
 import { userActions } from '@app/store/actions/userActions'
 import { ProfileTab } from '../profile-tab'
+import { ConfigurationTab } from '../configuration-tab'
 
 import classes from './style.module.scss'
 
@@ -78,14 +79,14 @@ export const Profile = () => {
               />
             </div>
 
-            <div className='col-lg-8'>
+            <div className='col-lg-9'>
               <Tabs.PaneContainer>
                 <Tabs.Pane key={tabs.profile}>
                   <ProfileTab />
                 </Tabs.Pane>
 
                 <Tabs.Pane key={tabs.configurations}>
-                  <div>настройки </div>
+                  <ConfigurationTab />
                 </Tabs.Pane>
 
                 <Tabs.Pane key={tabs.history}>
