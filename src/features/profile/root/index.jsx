@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { ProfileCard, Tabs } from '@app/ui'
 import { useDispatch, useSelector } from '@app/store'
 import { userActions } from '@app/store/actions/userActions'
-import { ProfileTab } from './profile-tab'
+import { ProfileTab } from '../profile-tab'
 
 import classes from './style.module.scss'
 
@@ -20,9 +20,9 @@ export const Profile = () => {
   const { dispatch } = useDispatch()
 
   const isLoggedIn = useSelector(state => state.authReducer?.isLoggedIn)
-  const firstName = useSelector((state) => state.authReducer?.user?.data?.first_name)
-  const secondName = useSelector((state) => state.authReducer?.user?.data?.second_name)
-  const email = useSelector((state) => state.authReducer.user?.data?.email)
+  const firstName = useSelector(state => state.authReducer?.user?.data?.first_name)
+  const secondName = useSelector(state => state.authReducer?.user?.data?.second_name)
+  const email = useSelector(state => state.authReducer.user?.data?.email)
 
   const [activeTab, setActiveTab] = React.useState(tabs.profile)
 
