@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Menu, MenuItem } from '@material-ui/core'
 import { useDispatch } from '@app/store'
 import { userActions } from '@app/store/actions/userActions'
@@ -61,6 +62,9 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           onClose={onMenuClose}
         >
+          <MenuItem>
+            <Link to='/profile'>Профиль</Link>
+          </MenuItem>
           <MenuItem
             onClick={onLogout}
           >

@@ -1,26 +1,23 @@
 import React from 'react'
 import * as yup from 'yup'
-import MaskedInput from 'react-text-mask'
-import PropTypes from 'prop-types'
 import { useFormik } from 'formik'
 import { TextField, Select, MenuItem, FormControl, OutlinedInput } from '@material-ui/core'
-import { useDispatch } from '@app/store'
-import { Button, ErrorText } from '@app/ui'
-import { userActions } from '@app/store/actions/userActions'
+import { useDispatch, userActions } from '@app/store'
+import { Button, ErrorText, PhoneTextMask, DateBirthTextMask } from '@app/ui'
 
 import classes from './style.module.scss'
 
 const validationSchema = yup.object({
-  firstName: yup.string().required('Поле необходимо для заполнения'),
-  secondName: yup.string().required('Поле необходимо для заполнения'),
-  email: yup.string().email('Данные введены не корректно').required('Поле необходимо для заполнения'),
-  dateBirth: yup.date().required('Поле необходимо для заполнения').typeError('Введите корректное значение'),
-  phoneNumber: yup.string().required('Поле необходимо для заполнения'),
-  gender: yup.number().min(1, 'Выберите пол').max(2, 'Выберите пол').required('Поле необходимо для заполнения'),
-  city: yup.string().required('Поле необходимо для заполнения'),
-  username: yup.string().required('Поле необходимо для заполнения'),
-  password1: yup.string().required('Поле необходимо для заполнения'),
-  password2: yup.string().oneOf([yup.ref('password1'), null])
+  firstName: yup.string().required('Поле необходимо заполнить'),
+  secondName: yup.string().required('Поле необходимо заполнить'),
+  email: yup.string().email('Данные введены не корректно').required('Поле необходимо заполнить'),
+  dateBirth: yup.date().required('Поле необходимо заполнить').typeError('Введите корректное значение'),
+  phoneNumber: yup.string().required('Поле необходимо заполнить'),
+  gender: yup.number().min(1, 'Выберите пол').max(2, 'Выберите пол').required('Поле необходимо заполнить'),
+  city: yup.string().required('Поле необходимо заполнить'),
+  username: yup.string().required('Поле необходимо заполнить'),
+  password1: yup.string().required('Поле необходимо заполнить'),
+  password2: yup.string().oneOf([yup.ref('password1'), null], 'Пароли должны совпадать').required()
 })
 export const Registration = () => {
   const { dispatch } = useDispatch()
@@ -251,38 +248,4 @@ export const Registration = () => {
       </div>
     </section>
   )
-}
-
-const PhoneTextMask = ({ inputRef, ...other }) => {
-  return (
-    <MaskedInput
-      {...other}
-      mask={[
-        '+', '7', '(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/
-      ]}
-      placeholderChar={'\u2000'}
-      ref={ref => { inputRef(ref ? ref.inputElement : null) }}
-    />
-  )
-}
-
-PhoneTextMask.propTypes = {
-  inputRef: PropTypes.func.isRequired
-}
-
-const DateBirthTextMask = ({ inputRef, ...other }) => {
-  return (
-    <MaskedInput
-      {...other}
-      mask={[
-        /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/
-      ]}
-      placeholderChar={'\u2000'}
-      ref={ref => { inputRef(ref ? ref.inputElement : null) }}
-    />
-  )
-}
-
-DateBirthTextMask.propTypes = {
-  inputRef: PropTypes.func.isRequired
 }

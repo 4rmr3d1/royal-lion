@@ -15,8 +15,8 @@ import { userActions } from '@app/store/actions/userActions'
 import classes from './style.module.scss'
 
 const validationSchema = yup.object({
-  username: yup.string().required('Поле необходимо для заполнения'),
-  password: yup.string().required('Поле необходимо для заполнения')
+  username: yup.string().required('Поле необходимо заполнить'),
+  password: yup.string().required('Поле необходимо заполнить')
 })
 
 export const LoginModal = ({ visible, onClose }) => {

@@ -82,9 +82,50 @@ const logout = () => (dispatch) => {
   window.localStorage.removeItem('user')
 }
 
+const changePassword = (data) => (dispatch) => {
+  return axios.post(`${API_URL}/user/password/change/`, {
+    old_password: data.oldPassword,
+    password1: data.newPassword,
+    password2: data.newPasswordConfirm
+  }, {
+    headers: authHeader()
+  })
+    .then(response => {
+      dispatch({ type: '@USER/change-password' })
+
+      if (response.data) {
+        dispatch({ type: '@USER/change-password-success', user: response.data })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@USER/change-password-error', error: error?.response })
+    })
+}
+
+const changeContacts = data => dispatch => {
+  return axios.put(`${API_URL}/user/my/change/`, {
+    phone_number: String(data.phoneNumber).trim(),
+    email: data.email
+  }, {
+    headers: authHeader()
+  })
+    .then(response => {
+      dispatch({ type: '@USER/change-contacts' })
+
+      if (response.data) {
+        dispatch({ type: '@USER/change-contacts-success', user: response.data })
+      }
+    })
+    .catch(error => {
+      dispatch({ tpye: '@USER/change-contacts-error', error: error.response })
+    })
+}
+
 export const userActions = {
   login,
   logout,
   register,
-  getUser
+  getUser,
+  changePassword,
+  changeContacts
 }

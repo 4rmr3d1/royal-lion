@@ -4,14 +4,15 @@ import thunk from 'redux-thunk'
 import { rootReducer } from './config'
 
 export const createStore = () => {
-	const composeEnhancers = composeWithDevTools({})
-	const store = createReduxStore(
-		rootReducer,
-		composeEnhancers(applyMiddleware(thunk))
-	)
+  const composeEnhancers = composeWithDevTools({})
+  const store = createReduxStore(
+    rootReducer,
+    composeEnhancers(applyMiddleware(thunk))
+  )
 
-	return { store }
+  return { store }
 }
 
 export * from './hooks'
 export * from './config'
+export * from './actions/userActions'
