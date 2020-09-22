@@ -12,7 +12,7 @@ const validationSchema = yup.object({
   secondName: yup.string().required('Поле необходимо заполнить'),
   email: yup.string().email('Данные введены не корректно').required('Поле необходимо заполнить'),
   dateBirth: yup.date().required('Поле необходимо заполнить').typeError('Введите корректное значение'),
-  phoneNumber: yup.string().required('Поле необходимо заполнить'),
+  phoneNumber: yup.string().matches(/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){11}(\s*)?$/, 'Введите номер полностью').required('Поле необходимо заполнить'),
   gender: yup.number().min(1, 'Выберите пол').max(2, 'Выберите пол').required('Поле необходимо заполнить'),
   city: yup.string().required('Поле необходимо заполнить'),
   username: yup.string().required('Поле необходимо заполнить'),

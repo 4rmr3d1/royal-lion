@@ -1,5 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
+import { Link as RouterLink } from 'react-router-dom'
 
 import classes from './style.module.scss'
 
@@ -40,23 +41,21 @@ const Pane = ({ children }) => {
   )
 }
 
-function Link ({ children, tabKey, className }) {
+function Link ({ children, tabKey, className, to }) {
   const { onTabChange, activeTab } = React.useContext(TabsContext)
 
   const onLinkClick = React.useCallback((e, key) => {
-    e.preventDefault()
-
     onTabChange(key)
   }, [onTabChange])
 
   return (
-    <a
+    <RouterLink
       className={cn(classes.tabLink, className, { [classes.activeTabLink]: activeTab === tabKey })}
-      href={String(tabKey)}
+      to={to}
       onClick={e => onLinkClick(e, tabKey)}
     >
       {children}
-    </a>
+    </RouterLink>
   )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Menu, MenuItem } from '@material-ui/core'
 import { useDispatch } from '@app/store'
 import { userActions } from '@app/store/actions/userActions'
@@ -26,6 +26,8 @@ export const ProfileCard = ({ firstName, lastName, email, balance }) => {
 
 export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
   const { dispatch } = useDispatch()
+  const history = useHistory()
+
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const onMenuOpen = React.useCallback(e => {
@@ -62,9 +64,30 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           onClose={onMenuClose}
         >
-          <MenuItem>
-            <Link to='/profile'>Профиль</Link>
+          <MenuItem onClick={() => history.push('/profile')}>
+            Профиль
           </MenuItem>
+
+          <MenuItem onClick={() => history.push('/profile/configurations')}>
+            Настройки профиля
+          </MenuItem>
+
+          <MenuItem onClick={() => history.push('/profile/history')}>
+            История ставок
+          </MenuItem>
+
+          <MenuItem onClick={() => history.push('/profile/withdraw')}>
+            Вывод средств
+          </MenuItem>
+
+          <MenuItem onClick={() => history.push('/profile/support')}>
+            Поддержка
+          </MenuItem>
+
+          <MenuItem onClick={() => history.push('/profile/coupon')}>
+            Купон
+          </MenuItem>
+
           <MenuItem
             onClick={onLogout}
           >
