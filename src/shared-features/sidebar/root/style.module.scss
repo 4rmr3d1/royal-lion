@@ -1,11 +1,21 @@
 .aside {
 	margin-top: 30px;
 }
-.category {
+.categoryRow {
 	padding: 10px 0;
 	background: #fcfeff;
 	border-radius: 10px;
 }
+
+.categoryColumn {
+	padding-top: 40px;
+	background: #fcfeff;
+  border-radius: 10px;
+  &>div {
+    padding: 0 10px 30px 10px;
+  }
+}
+
 
 .btnSort {
 	font-size: 29px;
