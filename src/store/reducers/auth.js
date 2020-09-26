@@ -2,6 +2,7 @@ const user = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {
   isLoggedIn: false,
+  isRegistred: false,
   properties: {
     authModalVisible: false
   },
@@ -13,20 +14,30 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
+  case '@USER/register-request':
+    return {
+      ...state,
+      isRegistered: false
+    }
+
   case '@USER/register-success':
     return {
       ...state,
-      isLoggedIn: false
+      isRegistred: action.isRegistred,
+      user: {
+        ...action.user,
+        error: null
+      }
     }
 
   case '@USER/register-error':
     return {
       ...state,
+      isRegistred: false,
       user: {
         ...state.user,
         error: action.error
-      },
-      isLoggedIn: false
+      }
     }
 
   case '@USER/login-request':

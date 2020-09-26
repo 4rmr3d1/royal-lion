@@ -5,7 +5,7 @@ import {
   AccordionDetails
 } from '@material-ui/core/'
 import { MatchInfo } from '@app/ui'
-import { useSelector } from '@app/store'
+import { useSelector, useDispatch, line } from '@app/store'
 
 import './index.scss'
 
@@ -24,9 +24,12 @@ const matches = [
 ]
 
 export const Line = () => {
-  const currentCategory = useSelector(
-    (state) => state.selectedCategory.category
-  )
+  const { dispatch } = useDispatch()
+  const currentCategory = useSelector(state => state.selectedCategory.category)
+
+  React.useEffect(() => {
+    dispatch(line.loadLineTournaments({ sportId: 1 }))
+  }, [])
 
   return (
     <section className='line'>

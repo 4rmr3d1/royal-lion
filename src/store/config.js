@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { authReducer } from './reducers/auth'
-import message from './reducers/sportEvents'
+import { lineMatches } from './reducers/sportEvents'
 
 const initialState = {
   category: null
@@ -23,5 +23,5 @@ const selectedCategory = (state = initialState, action) => {
 export const rootReducer = combineReducers({
   selectedCategory,
   authReducer,
-  message
+  lineMatches
 })

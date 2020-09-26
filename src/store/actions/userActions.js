@@ -12,8 +12,7 @@ export function authHeader () {
 }
 
 const login = ({ username, password }) => (dispatch) => {
-  return axios
-    .post(`${API_URL}/user/auth/login/`, { username, password })
+  return axios.post(`${API_URL}/user/auth/login/`, { username, password })
     .then((response) => {
       dispatch({ type: '@USER/login-request', response })
 
@@ -36,7 +35,7 @@ const login = ({ username, password }) => (dispatch) => {
     })
 }
 
-const register = (user) => (dispatch) => {
+const register = (user, { resetForm }) => (dispatch) => {
   return axios
     .post(`${API_URL}/user/create/`, {
       first_name: user.firstName,
@@ -51,10 +50,15 @@ const register = (user) => (dispatch) => {
       password2: user.password2
     })
     .then((response) => {
-      dispatch({ type: '@USER/register-success' })
+      dispatch({ type: '@USER/register-request' })
+
+      if (response.data?.success) {
+        dispatch({ type: '@USER/register-success', isRegistred: response.data?.success })
+        resetForm()
+      }
     })
     .catch((error) => {
-      dispatch({ type: '@USER/register-error', error: error?.response })
+      dispatch({ type: '@USER/register-error', error: error?.response?.data?.errors })
     })
 }
 
@@ -117,7 +121,7 @@ const changeContacts = data => dispatch => {
       }
     })
     .catch(error => {
-      dispatch({ tpye: '@USER/change-contacts-error', error: error.response })
+      dispatch({ type: '@USER/change-contacts-error', error: error.response })
     })
 }
 
@@ -128,4 +132,70 @@ export const userActions = {
   getUser,
   changePassword,
   changeContacts
+}
+
+const loadLineTournaments = ({ sportId, countryId = '0', count = '0' }) => dispatch => {
+  return axios.get(`${API_URL}/sport_events/line/tournaments/list/${sportId}`)
+    .then(response => {
+      dispatch({ type: '@EVENTS/load-line-tournaments-request', isLoading: true })
+
+      if (response.data) {
+        dispatch({ type: '@EVENTS/load-line-tournaments-success', tournaments: response.data })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@EVENTS/load-line-tournaments-error', error: error.response })
+    })
+}
+
+const loadLineTournametMatches = ({ tournamentId, count = '0' }) => dispatch => {
+  return axios.get(`${API_URL}/sport_events/line/tournaments/${tournamentId}/${count}`)
+    .then(response => {
+      dispatch({ type: '@EVENTS/load-line-tournament-matches-request', isLoading: true })
+
+      if (response.data) {
+        dispatch({ type: '@EVENTS/load-line-tournament-matches-success', matches: response.data })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@USER/load-line-tournament-matches-error', error: error.response })
+    })
+}
+
+export const line = {
+  loadLineTournaments,
+  loadLineTournametMatches
+}
+
+const loadLiveTournaments = ({ sportId, countryId = '0', count = '0' }) => dispatch => {
+  return axios.get(`${API_URL}/sport_events/live/tournaments/list/${sportId}`)
+    .then(response => {
+      dispatch({ type: '@EVENTS/load-live-tournaments-request', isLoading: true })
+
+      if (response.data) {
+        dispatch({ type: '@EVENTS/load-live-tournaments-success', tournaments: response.data })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@EVENTS/load-live-tournaments-error', error: error.response })
+    })
+}
+
+const loadLiveTournametMatches = ({ tournamentId, count = '0' }) => dispatch => {
+  return axios.get(`${API_URL}/sport_events/live/tournaments/${tournamentId}/${count}`)
+    .then(response => {
+      dispatch({ type: '@EVENTS/load-live-tournament-matches-request', isLoading: true })
+
+      if (response.data) {
+        dispatch({ type: '@EVENTS/load-live-tournament-matches-success', matches: response.data })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@USER/load-live-tournament-matches-error', error: error.response })
+    })
+}
+
+export const live = {
+  loadLiveTournaments,
+  loadLiveTournametMatches
 }

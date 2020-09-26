@@ -9,7 +9,6 @@ export const createStore = () => {
     rootReducer,
     composeEnhancers(applyMiddleware(thunk))
   )
-
   return { store }
 }
 
