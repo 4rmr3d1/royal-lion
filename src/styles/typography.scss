@@ -56,6 +56,35 @@ h4 {
 		line-height: 1.4;
 		padding: 11px 33px 11px 34px;
 	}
+	&-coefficient{
+    min-width: 60px;
+    height: 38px;
+    text-align: center;
+    background: #F6F8FD;
+    border: 1px solid #EDEFF5;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 38px;
+    color: #939A9E;
+		display: block;
+		padding: 0 8px;
+    .number{
+      color: #343949;
+    }
+    &:hover{
+      background: #E8EEFF;
+      border: 1px solid #E1E7F9;
+    }
+    &:active{
+      background: #4286F4;
+      border: 1px solid #4286F4;
+      color: #FFF;
+      span{
+        color: #FFF;
+      }
+    }
+	}
 }
 
 .form {

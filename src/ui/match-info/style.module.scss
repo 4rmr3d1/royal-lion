@@ -10,7 +10,39 @@
   }
 
 }
+.matchMore{
+  padding: 0 20px;
+  margin-top: 30px;
+  display: flex;
+  margin-bottom: 30px;
+}
+.matchMoreButtons{
+  display: flex;
+  a{
+    margin-right: 7px;
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}
+.item{
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 30px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  &:last-child{
+    margin-right: 0;
+  }
+  .title{
+    color: #08131A;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.15;
+  }
 
+}
 .time{
   color: #343949;
   font-weight: 500;
@@ -59,33 +91,7 @@
 .coefficient{
   display: flex;
   justify-content: space-between;
-  .item{
-    width: 60px;
-    height: 38px;
-    text-align: center;
-    background: #F6F8FD;
-    border: 1px solid #EDEFF5;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 38px;
-    color: #939A9E;
-    .number{
-      color: #343949;
-    }
-    &:hover{
-      background: #E8EEFF;
-      border: 1px solid #E1E7F9;
-    }
-    &:active{
-      background: #4286F4;
-      border: 1px solid #4286F4;
-      color: #FFF;
-      span{
-        color: #FFF;
-      }
-    }
-  }
+
   .more{
     background: #EDF1FF;
     border: 1px solid #D6DDF8;
@@ -96,6 +102,13 @@
     margin-right: 20px;
     line-height: 38px;
     text-align: center;
+    font-size: 12px;
+    cursor: pointer;
+    &.active{
+      background: #4286F4;
+      color: #FFF;
+      border-color: #D5DEFD;
+    }
     &:hover{
       background: #D5DEFD;
       border: 1px solid #B6C2EF;
