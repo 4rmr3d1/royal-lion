@@ -1,1 +1,1 @@
-export * from './root'
+export { Profile } from './root'

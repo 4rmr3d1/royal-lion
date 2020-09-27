@@ -1,1 +1,1 @@
-export * from './root'
+export { Contact } from './root'

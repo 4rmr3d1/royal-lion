@@ -1,1 +1,1 @@
-export * from './root'
+export { Line } from './root'
