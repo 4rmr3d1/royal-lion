@@ -1,5 +1,6 @@
 import React from 'react'
 import { TextField, FormControl, Select, MenuItem } from '@material-ui/core'
+import { Button } from '@app/ui'
 
 import classes from './style.module.scss'
 
@@ -45,6 +46,8 @@ export const SupportTab = () => {
             </FormControl>
           </div>
         </div>
+
+        <Button variant='big'> задать вопрос </Button>
       </form>
     </>
   )

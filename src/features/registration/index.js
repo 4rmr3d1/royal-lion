@@ -1,1 +1,1 @@
-export * from './root'
+export { Registration } from './root'

@@ -8,6 +8,7 @@ import { ConfigurationTab } from '../configuration-tab'
 import { BetHistoryTab } from '../bet-history-tab'
 import { WithdrawTab } from '../withdraw-tab'
 import { SupportTab } from '../support-tab'
+import { CouponTab } from '../coupon-tab'
 
 import classes from './style.module.scss'
 
@@ -124,7 +125,9 @@ export const Profile = () => {
                   <SupportTab/>
                 </Tabs.Pane>
 
-                <Tabs.Pane key={tabs.coupon}></Tabs.Pane>
+                <Tabs.Pane key={tabs.coupon}>
+                  <CouponTab/>
+                </Tabs.Pane>
 
               </Tabs.PaneContainer>
             </div>
