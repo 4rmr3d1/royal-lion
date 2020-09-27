@@ -1,8 +1,9 @@
 import React from 'react'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
-import { useDispatch, useSelector, userActions } from '@app/store'
+import { Alert } from '@material-ui/lab'
 import { TextField, FormControl, OutlinedInput } from '@material-ui/core'
+import { useDispatch, useSelector, userActions } from '@app/store'
 import { Block, BlockItem, Button, ErrorText, PhoneTextMask } from '@app/ui'
 
 export const ConfigurationTab = () => {
@@ -22,13 +23,22 @@ export const ConfigurationTab = () => {
 }
 
 const passwordChangeValidationSchema = yup.object({
-  oldPassword: yup.string().length(4, 'Пароль должен содержать минимум 4 символа').required('Поле необходимо заполнить'),
-  newPassword: yup.string().length(4, 'Пароль должен содержать минимум 4 символа').required('Поле необходимо заполнить'),
-  newPasswordConfirm: yup.string().length(4, 'Пароль должен содержать минимум 4 символа').oneOf([yup.ref('newPassword'), null], 'Пароли должны совпадать').required('Поле необходимо заполнить')
+  oldPassword: yup.string()
+    .test('stringLength', 'Пароль должен содержать минимум 4 символа', string => string.length >= 4)
+    .required('Поле необходимо заполнить'),
+  newPassword: yup.string()
+    .test('stringLength', 'Пароль должен содержать минимум 4 символа', string => string.length >= 4)
+    .required('Поле необходимо заполнить'),
+  newPasswordConfirm: yup.string()
+    .test('stringLength', 'Пароль должен содержать минимум 4 символа', string => string.length >= 4)
+    .oneOf([yup.ref('newPassword'), null], 'Пароли должны совпадать').required('Поле необходимо заполнить')
 })
 
 const PasswordChange = () => {
   const { dispatch } = useDispatch()
+  const serverErrors = useSelector(state => state.authReducer?.error)
+  const isChanged = useSelector(state => state.authReducer.user?.changePassword?.isChanged)
+  const isPasswordChanging = useSelector(state => state.authReducer?.isPasswordChanging)
 
   const initialValues = {
     oldPassword: '',
@@ -40,7 +50,9 @@ const PasswordChange = () => {
     initialValues,
     validationSchema: passwordChangeValidationSchema,
     validateOnChange: false,
-    onSubmit: values => dispatch(userActions.changePassword(values))
+    onSubmit: (values, { resetForm }) => {
+      dispatch(userActions.changePassword(values, { resetForm }))
+    }
   })
 
   const hasErrors = React.useMemo(() => {
@@ -56,12 +68,28 @@ const PasswordChange = () => {
         <h4>Изменить пароль:</h4>
       </BlockItem>
 
+      {serverErrors &&
+        <BlockItem>
+          <Alert severity='error'>
+            {serverErrors.errors}
+          </Alert>
+        </BlockItem>
+      }
+
+      {isChanged &&
+        <BlockItem>
+          <Alert severity='success'>
+            Пароль успешно изменен!
+          </Alert>
+        </BlockItem>
+      }
+
       <BlockItem>
         <div className='row'>
           <div className='col-lg-4'>
             <FormControl>
               <TextField
-                error={!!hasErrors?.oldPassword}
+                error={!!hasErrors?.oldPassword || serverErrors}
                 name='oldPassword'
                 placeholder='Старый пароль'
                 type='password'
@@ -77,7 +105,7 @@ const PasswordChange = () => {
           <div className='col-lg-4'>
             <FormControl>
               <TextField
-                error={!!hasErrors?.newPassword}
+                error={!!hasErrors?.newPassword || serverErrors}
                 name='newPassword'
                 placeholder='Новый пароль'
                 type='password'
@@ -93,7 +121,7 @@ const PasswordChange = () => {
           <div className='col-lg-4'>
             <FormControl>
               <TextField
-                error={!!hasErrors?.newPasswordConfirm}
+                error={!!hasErrors?.newPasswordConfirm || serverErrors}
                 name='newPasswordConfirm'
                 placeholder='Новый пароль еще раз'
                 type='password'
@@ -109,6 +137,7 @@ const PasswordChange = () => {
       </BlockItem>
 
       <Button
+        disabled={isPasswordChanging}
         type='submit'
         variant='big'
       >

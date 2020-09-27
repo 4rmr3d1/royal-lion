@@ -96,6 +96,38 @@ export const authReducer = (state = initialState, action) => {
       }
     }
 
+  case '@USER/change-password':
+    return {
+      ...state,
+      isPasswordChanging: true
+    }
+
+  case '@USER/change-password-success':
+    return {
+      ...state,
+      error: null,
+      isPasswordChanging: false,
+      user: {
+        ...state.user,
+        changePassword: {
+          isChanged: action.user
+        }
+      }
+    }
+
+  case '@USER/change-password-error':
+    return {
+      ...state,
+      error: action.error,
+      isPasswordChanging: false,
+      user: {
+        ...state.user,
+        changePassword: {
+          isChanged: action.changed
+        }
+      }
+    }
+
   case '@USER/reset':
     return {
       ...state

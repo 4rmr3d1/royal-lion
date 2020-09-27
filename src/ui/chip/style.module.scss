@@ -1,0 +1,62 @@
+.chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 17px;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+  &>span {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+  }
+}
+
+.outlined {
+  background: #F6F8FD;
+  border-color: #EDEFF5;
+  &>span {
+    color: #4286F4;
+  }
+}
+
+.contained {
+  background: #4286F4;
+  border-color: #4286F4;
+  &>span {
+    color: #fff
+  }  
+}
+
+.muted {
+  background: #F6F8FD;
+  border-color:#EDEFF5;
+  &>span {
+    color: #939A9E;
+  }
+}
+
+.pending {
+  background: #FFEAC0;
+  border-color:#FFD687;
+  &>span {
+    color: #D7981E;
+  }
+}
+
+.error {
+  background: #FFECEC;
+  border-color: #FFB9B9;
+  &>span {
+    color:#E84A4A;
+  }
+}
+
+.success {
+  background: #ECF8ED;
+  border-color:#BEE8C2;
+  &>span {
+    color: #58CC78;
+  }
+}

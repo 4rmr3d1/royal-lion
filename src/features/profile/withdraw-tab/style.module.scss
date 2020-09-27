@@ -1,0 +1,30 @@
+.form {
+  &>h4 {
+    padding-bottom: 30px;
+  }
+}
+
+.title {
+  padding: 20px;
+}
+
+.withdrawHistoryItem {
+  display: flex;
+  justify-content: space-between;
+  
+  padding: 11px 17px;
+  
+  &>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  &>div:first-child {
+    flex: 0 0 35%;
+  }
+  
+  &>div:last-child {
+    flex: 0 0 40%;
+  }
+}

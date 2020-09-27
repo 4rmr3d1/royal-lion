@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from '@app/store'
 import { userActions } from '@app/store/actions/userActions'
 import { ProfileTab } from '../profile-tab'
 import { ConfigurationTab } from '../configuration-tab'
+import { BetHistoryTab } from '../bet-history-tab'
+import { WithdrawTab } from '../withdraw-tab'
+import { SupportTab } from '../support-tab'
 
 import classes from './style.module.scss'
 
@@ -31,7 +34,7 @@ export const Profile = () => {
   React.useEffect(() => {
     setActiveTab(location.pathname)
     dispatch(userActions.getUser())
-  }, [dispatch, location])
+  }, [])
 
   if (!isLoggedIn) {
     return <Redirect to='/' />
@@ -110,12 +113,16 @@ export const Profile = () => {
                 </Tabs.Pane>
 
                 <Tabs.Pane key={tabs.history}>
-                  <div>history</div>
+                  <BetHistoryTab />
                 </Tabs.Pane>
 
-                <Tabs.Pane key={tabs.withdraw}></Tabs.Pane>
+                <Tabs.Pane key={tabs.withdraw}>
+                  <WithdrawTab/>
+                </Tabs.Pane>
 
-                <Tabs.Pane key={tabs.support}></Tabs.Pane>
+                <Tabs.Pane key={tabs.support}>
+                  <SupportTab/>
+                </Tabs.Pane>
 
                 <Tabs.Pane key={tabs.coupon}></Tabs.Pane>
 

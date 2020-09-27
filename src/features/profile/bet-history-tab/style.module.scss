@@ -1,0 +1,47 @@
+.title {
+  padding: 20px;
+}
+
+.historyItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+
+  &Date {
+    display: flex;
+    flex: 0 0 12%;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 14px;
+    line-height: 17px;
+    color: #939A9E;
+  }
+  
+  &Result {
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    &>div {
+      display: flex;
+    }
+    
+    &>h5 {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19px;
+      color: #343949;
+    }
+    
+    & > div > h6 {
+      font-size: 14px;
+      line-height: 17px;
+      color: #939A9E;
+      &>span {
+        color: #4286F4;
+      }
+    }
+  }
+}

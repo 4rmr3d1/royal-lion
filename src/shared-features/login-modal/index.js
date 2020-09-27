@@ -2,12 +2,7 @@ import React from 'react'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
 import { Redirect } from 'react-router-dom'
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField
-} from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from '@app/store'
 import { Button, ErrorText } from '@app/ui'
 import { userActions } from '@app/store/actions/userActions'
@@ -90,6 +85,7 @@ export const LoginModal = ({ visible, onClose }) => {
               fullWidth
               name='password'
               placeholder='Пароль'
+              type='password'
               value={formik.values.password}
               variant='outlined'
               onChange={formik.handleChange}

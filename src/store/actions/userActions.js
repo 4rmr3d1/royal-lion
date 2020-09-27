@@ -36,19 +36,18 @@ const login = ({ username, password }) => (dispatch) => {
 }
 
 const register = (user, { resetForm }) => (dispatch) => {
-  return axios
-    .post(`${API_URL}/user/create/`, {
-      first_name: user.firstName,
-      second_name: user.secondName,
-      date_birth: user.dateBirth,
-      phone_number: user.phoneNumber,
-      gender: user.gender,
-      email: user.email,
-      city: user.city,
-      username: user.username,
-      password1: user.password1,
-      password2: user.password2
-    })
+  return axios.post(`${API_URL}/user/create/`, {
+    first_name: user.firstName,
+    second_name: user.secondName,
+    date_birth: user.dateBirth,
+    phone_number: user.phoneNumber,
+    gender: user.gender,
+    email: user.email,
+    city: user.city,
+    username: user.username,
+    password1: user.password1,
+    password2: user.password2
+  })
     .then((response) => {
       dispatch({ type: '@USER/register-request' })
 
@@ -63,10 +62,9 @@ const register = (user, { resetForm }) => (dispatch) => {
 }
 
 const getUser = () => (dispatch) => {
-  return axios
-    .get(`${API_URL}/user/my`, {
-      headers: authHeader()
-    })
+  return axios.get(`${API_URL}/user/my`, {
+    headers: authHeader()
+  })
     .then((response) => {
       dispatch({ type: '@USER/get-info-request' })
 
@@ -86,7 +84,7 @@ const logout = () => (dispatch) => {
   window.localStorage.removeItem('user')
 }
 
-const changePassword = (data) => (dispatch) => {
+const changePassword = (data, { resetForm }) => (dispatch) => {
   return axios.post(`${API_URL}/user/password/change/`, {
     old_password: data.oldPassword,
     password1: data.newPassword,
@@ -98,11 +96,12 @@ const changePassword = (data) => (dispatch) => {
       dispatch({ type: '@USER/change-password' })
 
       if (response.data) {
-        dispatch({ type: '@USER/change-password-success', user: response.data })
+        dispatch({ type: '@USER/change-password-success', user: response.data.success })
+        resetForm()
       }
     })
     .catch(error => {
-      dispatch({ type: '@USER/change-password-error', error: error?.response })
+      dispatch({ type: '@USER/change-password-error', error: error?.response.data, changed: error?.response.success })
     })
 }
 
@@ -135,7 +134,7 @@ export const userActions = {
 }
 
 const loadLineTournaments = ({ sportId, countryId = '0', count = '0' }) => dispatch => {
-  return axios.get(`${API_URL}/sport_events/line/tournaments/list/${sportId}`)
+  return axios.get(`${API_URL}/sport_events/line/tournaments/list/${sportId}`, { headers: authHeader() })
     .then(response => {
       dispatch({ type: '@EVENTS/load-line-tournaments-request', isLoading: true })
 

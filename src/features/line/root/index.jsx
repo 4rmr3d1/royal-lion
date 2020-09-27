@@ -28,7 +28,7 @@ export const Line = () => {
   const currentCategory = useSelector(state => state.selectedCategory.category)
 
   React.useEffect(() => {
-    dispatch(line.loadLineTournaments({ sportId: 1 }))
+    dispatch(line.loadLineTournaments({ sportId: '0' }))
   }, [])
 
   return (
