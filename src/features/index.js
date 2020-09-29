@@ -1,5 +1,6 @@
 export { Contact } from './contact'
 export { Line } from './line'
 export { Live } from './live'
+export { Result } from './result'
 export { Registration } from './registration'
 export { Profile } from './profile'
