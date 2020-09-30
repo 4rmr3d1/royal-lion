@@ -4,7 +4,7 @@ import { authReducer } from './reducers/auth'
 import { lineMatches } from './reducers/sportEvents'
 
 const initialState = {
-  category: null
+  category: '1'
 }
 
 const selectedCategory = (state = initialState, action) => {

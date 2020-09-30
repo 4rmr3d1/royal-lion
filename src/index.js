@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider as ReduxProvider } from 'react-redux'
+import { IntlProvider } from 'react-intl'
 import { createStore } from '@app/store'
 import { App } from '@app/components'
 import * as serviceWorker from './serviceWorker'
@@ -9,7 +10,9 @@ const { store } = createStore()
 
 ReactDOM.render(
   <ReduxProvider store={store}>
-    <App />
+    <IntlProvider locale>
+      <App />
+    </IntlProvider>
   </ReduxProvider>,
   document.getElementById('root')
 )

@@ -1,6 +1,7 @@
 const initialState = {
-  isLoading: false,
-  tournaments: {}
+  isLoaded: false,
+  tournaments: [],
+  error: ''
 }
 
 export const lineMatches = (state = initialState, action) => {
@@ -8,21 +9,22 @@ export const lineMatches = (state = initialState, action) => {
   case '@EVENTS/load-line-tournaments-request':
     return {
       ...state,
-      isLoading: false
+      isLoaded: false
     }
 
   case '@EVENTS/load-line-tournaments-success':
     return {
-      isLoading: true,
-      tournaments: {
+      isLoaded: true,
+      tournaments: [
         ...action.payload
-      }
+      ]
     }
 
   case '@EVENTS/load-line-tournaments-error':
     return {
       ...state,
-      isLoading: false
+      isLoaded: true,
+      error: action.errror
     }
 
   default:

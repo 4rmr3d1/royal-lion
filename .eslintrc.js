@@ -8,6 +8,7 @@ module.exports = {
     "browser": true
   },
   rules: {
+    "quote-props": 1,
     "react/prop-types": 0,
     "react/jsx-first-prop-new-line": [1, "multiline"],
     "react/jsx-max-props-per-line": [

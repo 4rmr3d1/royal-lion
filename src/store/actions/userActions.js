@@ -134,12 +134,12 @@ export const userActions = {
 }
 
 const loadLineTournaments = ({ sportId, countryId = '0', count = '0' }) => dispatch => {
+  dispatch({ type: '@EVENTS/load-line-tournaments-request' })
+
   return axios.get(`${API_URL}/sport_events/line/tournaments/list/${sportId}`, { headers: authHeader() })
     .then(response => {
-      dispatch({ type: '@EVENTS/load-line-tournaments-request', isLoading: true })
-
       if (response.data) {
-        dispatch({ type: '@EVENTS/load-line-tournaments-success', tournaments: response.data })
+        dispatch({ type: '@EVENTS/load-line-tournaments-success', payload: response.data.data })
       }
     })
     .catch(error => {

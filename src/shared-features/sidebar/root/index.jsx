@@ -6,26 +6,26 @@ import { useDispatch } from '@app/store'
 import classes from './style.module.scss'
 
 const categories = {
-  football: 'Football',
-  tennis: 'Tennis',
-  hockey: 'Hockey',
-  basketball: 'Basketball',
-  volleyball: 'Volleyball',
-  baseball: 'Baseball',
-  pingPong: 'PingPong',
-  gandbol: 'Gandbol',
-  americanFootball: 'AmericanFootball',
-  badminton: 'Badminton'
+  Football: '1',
+  Tennis: '2',
+  Hockey: '3',
+  Basketball: '4',
+  Volleyball: '5',
+  Baseball: '6',
+  PingPong: '7',
+  Gandbol: '8',
+  AmericanFootball: '9',
+  Badminton: '10'
 }
 
 export const Sidebar = () => {
-  const matches = useMediaQuery('(min-widtH: 1280px)')
-  const [activeCategory, setActveCategory] = React.useState(categories.football)
+  const matches = useMediaQuery('(min-width: 1280px)')
+  const [activeCategory, setActveCategory] = React.useState(categories.Football)
 
   return (
     <>
-      {matches
-        ? <Drawer
+      {matches ? (
+        <Drawer
           style={{ flexShrink: 0 }}
           variant='permanent'
         >
@@ -35,7 +35,7 @@ export const Sidebar = () => {
               activeCategory={activeCategory}
               onCategoryChange={setActveCategory}
             >
-              {Object.values(categories).map((category, index) => (
+              {Object.entries(categories).map(([key, category], index) => (
                 <div
                   key={category.id | index}
                 >
@@ -43,13 +43,13 @@ export const Sidebar = () => {
                     categoryKey={category}
                     key={index}
                   >
-                    <i className={`icon${category}`}></i>
+                    <i className={`icon${key}`}></i>
                   </Categories.Link>
                 </div>
               ))}
             </Categories.Provider>
           </div>
-        </Drawer>
+        </Drawer>)
         : <aside className={classes.aside}>
 
           <div className='container'>
@@ -59,7 +59,7 @@ export const Sidebar = () => {
                   activeCategory={activeCategory}
                   onCategoryChange={setActveCategory}
                 >
-                  {Object.values(categories).map((category, index) => (
+                  {Object.entries(categories).map(([key, category], index) => (
                     <div
                       className='col-lg-auto'
                       key={category.id | index}
@@ -68,7 +68,7 @@ export const Sidebar = () => {
                         categoryKey={category}
                         key={index}
                       >
-                        <i className={`icon${category}`}></i>
+                        <i className={`icon${key}`}></i>
                       </Categories.Link>
                     </div>
                   ))}

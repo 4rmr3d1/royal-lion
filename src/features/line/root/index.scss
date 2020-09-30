@@ -1,5 +1,15 @@
 .line {
-	margin-top: 40px;
+  margin-top: 40px;
+  display: flex;
+  flex: 1 0 100%;
+
+  &>.loader {
+    flex: 1 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 	.MuiAccordion-root {
 		margin-bottom: 15px;
 		&:before {
