@@ -10,7 +10,7 @@ import classes from './style.module.scss'
 export const Header = () => {
   const { dispatch } = useDispatch()
 
-  const isLoggedIn = useSelector(state => state.authReducer.isLoggedIn)
+  const isLoggedIn = useSelector(state => state.authReducer.login.isLoggedIn)
   const firstName = useSelector(state => state.authReducer.user?.data?.first_name)
   const secondName = useSelector(state => state.authReducer.user?.data?.second_name)
   const authModalVisible = useSelector(state => state.authReducer.properties.authModalVisible)
@@ -77,13 +77,13 @@ export const Header = () => {
                     href='#'
                     onClick={onAuthModalOpen}
                   >
-                    Вход
+                      Вход
                   </a>
                   <NavLink
                     className='btn btn-mini'
                     to='/registration'
                   >
-                    Регистрация
+                      Регистрация
                   </NavLink>
                 </div>
               )}

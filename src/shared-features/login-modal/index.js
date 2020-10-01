@@ -1,7 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
-import { Redirect } from 'react-router-dom'
 import { Dialog, DialogTitle, DialogContent, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from '@app/store'
 import { Button, ErrorText } from '@app/ui'
@@ -17,7 +16,6 @@ const validationSchema = yup.object({
 export const LoginModal = ({ visible, onClose }) => {
   const { dispatch } = useDispatch()
 
-  const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn)
   const serverErrors = useSelector(state => state.authReducer.user?.error)
 
   const initialValues = {
@@ -28,7 +26,9 @@ export const LoginModal = ({ visible, onClose }) => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: values => dispatch(userActions.login(values)),
+    onSubmit: (values) => {
+      dispatch(userActions.login(values))
+    },
     validateOnChange: false
   })
 
@@ -41,10 +41,6 @@ export const LoginModal = ({ visible, onClose }) => {
       return Object.values(serverErrors)
     }
   })
-
-  if (isLoggedIn) {
-    return <Redirect to='/profile' />
-  }
 
   return (
     <Dialog

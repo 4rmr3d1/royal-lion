@@ -3,6 +3,14 @@ const user = JSON.parse(localStorage.getItem('user'))
 const initialState = {
   isLoggedIn: false,
   isRegistred: false,
+  login: {
+    isLoggedIn: false,
+    loggining: null
+  },
+  activation: {
+    success: null,
+    error: null
+  },
   properties: {
     authModalVisible: false
   },
@@ -66,25 +74,38 @@ export const authReducer = (state = initialState, action) => {
   case '@USER/logout':
     return {
       ...state,
-      isLoggedIn: false,
+      login: {
+        ...state.login,
+        isLoggedIn: false
+      },
       user: null
     }
 
   case '@USER/get-info-request':
     return {
-      ...state
+      ...state,
+      login: {
+        isLoggedIn: false,
+        loggining: true
+      }
     }
 
   case '@USER/get-info-success':
     return {
       ...state,
-      isLoggedIn: true,
+      login: {
+        isLoggedIn: true,
+        logginig: false
+      },
       user: action.user
     }
 
   case '@USER/get-info-error':
     return {
       ...state,
+      login: {
+        ...state.login
+      },
       error: action.error
     }
 
@@ -127,6 +148,25 @@ export const authReducer = (state = initialState, action) => {
         }
       }
     }
+
+  case '@USER/account-activation-success': {
+    return {
+      ...state,
+      activation: {
+        success: action.activation
+      }
+    }
+  }
+
+  case '@USER/account-activation-error': {
+    return {
+      ...state,
+      activation: {
+        success: action.activation,
+        error: action.error
+      }
+    }
+  }
 
   case '@USER/reset':
     return {

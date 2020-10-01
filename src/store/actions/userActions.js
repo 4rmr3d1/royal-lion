@@ -1,4 +1,6 @@
 import axios from 'axios'
+import history from '@app/lib/history'
+
 const API_URL = 'http://45.67.58.94'
 
 export function authHeader () {
@@ -26,6 +28,7 @@ const login = ({ username, password }) => (dispatch) => {
             authModalVisible: false
           }
         })
+        history.push('/profile')
       }
 
       return response.data.key
@@ -68,11 +71,13 @@ const getUser = () => (dispatch) => {
     .then((response) => {
       dispatch({ type: '@USER/get-info-request' })
 
-      if (response.data) {
-        dispatch({ type: '@USER/get-info-success', isLoggedIn: true, user: response.data })
-      }
+      setTimeout(() => {
+        if (response.data) {
+          dispatch({ type: '@USER/get-info-success', isLoggedIn: true, user: response.data })
+        }
 
-      return response.data
+        return response.data
+      }, 5000)
     })
     .catch((error) => {
       dispatch({ type: '@USER/get-info-error', error: error?.response })
@@ -124,7 +129,20 @@ const changeContacts = data => dispatch => {
     })
 }
 
+const activateAccount = ({ code }) => dispatch => {
+  return axios.post(`${API_URL}/user/my/activate/${code}`)
+    .then(response => {
+      if (response.data) {
+        dispatch({ type: '@USER/account-activation-success', activation: response.data?.success })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@USER/account-activation-error', activation: error.response?.data.success, error: error?.response.data.errors })
+    })
+}
+
 export const userActions = {
+  activateAccount,
   login,
   logout,
   register,

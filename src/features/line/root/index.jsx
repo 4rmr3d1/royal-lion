@@ -24,7 +24,7 @@ export const Line = () => {
     <section className='line'>
       {isLoaded ? (
         <div className='container'>
-          {filteredLineMatches.map((tournament, index) => (
+          {filteredLineMatches?.map((tournament, index) => (
             <Accordion key={tournament.api_id || index}>
               <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>
                 {tournament.name}
@@ -39,6 +39,9 @@ export const Line = () => {
               </AccordionDetails>
             </Accordion>
           ))}
+          {filteredLineMatches.length === 0 && (
+            'Список матчей пуст!'
+          )}
         </div>
       ) : (
         <div className='loader'>

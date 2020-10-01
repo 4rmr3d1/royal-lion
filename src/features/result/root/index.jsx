@@ -32,15 +32,14 @@ const results = [
 
 export const Result = () => {
   const { dispatch } = useDispatch()
-  const currentCategory = useSelector(state => state.selectedCategory.category)
+  const sportId = useSelector(state => state.selectedCategory.category)
 
   React.useEffect(() => {
-    dispatch(line.loadLineTournaments({ sportId: '0' }))
-  }, [])
+    dispatch(line.loadLineTournaments({ sportId }))
+  }, [dispatch])
 
   return (
     <section className='result'>
-      <h2>{currentCategory}</h2>
       <div className='container'>
         <Accordion>
           <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>

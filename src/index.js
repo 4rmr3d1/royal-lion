@@ -10,7 +10,7 @@ const { store } = createStore()
 
 ReactDOM.render(
   <ReduxProvider store={store}>
-    <IntlProvider locale>
+    <IntlProvider locale='ru'>
       <App />
     </IntlProvider>
   </ReduxProvider>,

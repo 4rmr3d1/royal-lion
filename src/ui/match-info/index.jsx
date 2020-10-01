@@ -15,13 +15,13 @@ export const MatchInfo = ({ data }) => {
     <div className={`row ${classes.match}`}>
       <div style={{ width: '8%' }}>
         <div className={classes.time}>
-          <FormattedTime value={data.game_num} />
+          <FormattedTime value={data?.game_num} />
         </div>
         <div className={classes.date}>
           <FormattedDate
             day='2-digit'
             month='short'
-            value={data.game_num}
+            value={data?.game_num}
           />
         </div>
       </div>
@@ -34,7 +34,7 @@ export const MatchInfo = ({ data }) => {
           <div
             className={classes.label}
           >
-            {data.opp_1_name}
+            {data?.opp_1_name}
           </div>
           <div
             className={classes.logo}
@@ -42,14 +42,14 @@ export const MatchInfo = ({ data }) => {
           >
             <img
               alt=''
-              src={data.opp_1_icon}
+              src={data?.opp_1_icon}
             />
           </div>
         </div>
       </div>
       <div style={{ width: '2%' }}>
         <div className={classes.score}>
-          {data.score_full}
+          {data?.score_full}
         </div>
       </div>
       <div style={{ width: '15%' }}>
@@ -63,13 +63,13 @@ export const MatchInfo = ({ data }) => {
           >
             <img
               alt=''
-              src={data.opp_2_icon}
+              src={data?.opp_2_icon}
             />
           </div>
           <div
             className={classes.label}
           >
-            {data.opp_2_name}
+            {data?.opp_2_name}
           </div>
         </div>
       </div>

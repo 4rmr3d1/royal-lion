@@ -1,16 +1,12 @@
 import React from 'react'
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails
-} from '@material-ui/core/'
+import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core/'
 import { MatchInfo } from '@app/ui'
 
 import './index.scss'
 
 export const Live = () => {
   return (
-    <section className='line live'>
+    <section className='container line live'>
       <div className='container'>
         <div className='row'>
           <div className='col-12'>
@@ -26,7 +22,7 @@ export const Live = () => {
         </div>
       </div>
       <div className='container'>
-        <Accordion expanded>
+        <Accordion>
           <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
           <AccordionDetails>
             <MatchInfo />
