@@ -71,13 +71,9 @@ const getUser = () => (dispatch) => {
     .then((response) => {
       dispatch({ type: '@USER/get-info-request' })
 
-      setTimeout(() => {
-        if (response.data) {
-          dispatch({ type: '@USER/get-info-success', isLoggedIn: true, user: response.data })
-        }
-
-        return response.data
-      }, 5000)
+      if (response.data) {
+        dispatch({ type: '@USER/get-info-success', isLoggedIn: true, user: response.data })
+      }
     })
     .catch((error) => {
       dispatch({ type: '@USER/get-info-error', error: error?.response })
