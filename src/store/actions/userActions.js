@@ -35,6 +35,7 @@ const login = ({ username, password }) => (dispatch) => {
     })
     .catch((error) => {
       dispatch({ type: '@USER/login-error', error: error.response.data })
+      history.push('/')
     })
 }
 
@@ -77,12 +78,14 @@ const getUser = () => (dispatch) => {
     })
     .catch((error) => {
       dispatch({ type: '@USER/get-info-error', error: error?.response })
+      history.push('/')
     })
 }
 
 const logout = () => (dispatch) => {
   dispatch({ type: '@USER/logout' })
   window.localStorage.removeItem('user')
+  history.push('/')
 }
 
 const changePassword = (data, { resetForm }) => (dispatch) => {
