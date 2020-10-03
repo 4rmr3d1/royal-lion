@@ -6,11 +6,12 @@ import cn from 'classnames'
 import classes from './style.module.scss'
 
 export const MatchInfo = ({ data }) => {
-  console.log(data)
   const [show, setShow] = useState(false)
+
   const onShowCoefClick = useCallback(() => {
     setShow(!show)
   }, [show])
+
   return (
     <div className={`row ${classes.match}`}>
       <div style={{ width: '8%' }}>

@@ -137,6 +137,27 @@ const activateAccount = ({ code }) => dispatch => {
     })
 }
 
+const createRequest = (data, { resetForm }) => (dispatch) => {
+  dispatch({ type: '@USER/create-request' })
+
+  return axios.post(`${API_URL}/support/request/create/`, {
+    department: data.department,
+    request: data.request,
+    email_to_answer: data.email
+  }, {
+    headers: authHeader()
+  })
+    .then(response => {
+      if (response.data) {
+        dispatch({ type: '@USER/create-request-success', success: response.data.success })
+        resetForm()
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@USER/create-request-error', error: error })
+    })
+}
+
 export const userActions = {
   activateAccount,
   login,
@@ -144,7 +165,8 @@ export const userActions = {
   register,
   getUser,
   changePassword,
-  changeContacts
+  changeContacts,
+  createRequest
 }
 
 const loadLineTournaments = ({ sportId, countryId = '0', count = '0' }) => dispatch => {

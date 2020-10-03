@@ -1,15 +1,56 @@
 import React from 'react'
+import { useFormik } from 'formik'
 import { TextField, FormControl, Select, MenuItem } from '@material-ui/core'
-import { Button } from '@app/ui'
+import { useFetch } from '@app/lib'
+import { royalApi } from '@app/services'
+import { Button, ErrorText } from '@app/ui'
+import { useDispatch, userActions } from '@app/store'
+import yup from '@app/lib/yup'
 
 import classes from './style.module.scss'
 
+const validationSchema = yup.object().shape({
+  department: yup.number().required(),
+  request: yup.string().required(),
+  email: yup.string().email().required()
+})
+
 export const SupportTab = () => {
+  const { dispatch } = useDispatch()
+  const { fetch, data: response } = useFetch({ fetchFn: royalApi.getDepartments, initialValue: null })
+
+  const initialValues = {
+    department: 0,
+    request: '',
+    email: ''
+  }
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      dispatch(userActions.createRequest(values, { resetForm }))
+    },
+    validateOnChange: false
+  })
+
+  React.useEffect(() => {
+    fetch({})
+  }, [fetch])
+
+  const departments = React.useMemo(() => {
+    return response?.data?.data
+  }, [response])
+
+  const hasErrors = React.useMemo(() => {
+    return formik.errors || null
+  }, [formik])
+
   return (
     <>
       <h3>Техническая поддержка</h3>
 
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <div className='form-row row'>
           <div className='col-lg-4'>
             <span className={classes.inputLabel}>Отдел</span>
@@ -17,17 +58,36 @@ export const SupportTab = () => {
               fullWidth
               variant='outlined'
             >
-              <Select >
-                <MenuItem></MenuItem>
-                <MenuItem></MenuItem>
+              <Select
+                error={!!hasErrors.department}
+                name='department'
+                value={formik.values.department}
+                onChange={formik.handleChange}
+              >
+                {departments?.map((department, index) =>
+                  <MenuItem
+                    key={index}
+                    value={department.id}
+                  >
+                    {department.name}
+                  </MenuItem>
+                )}
               </Select>
+              <ErrorText message={hasErrors.department}/>
             </FormControl>
           </div>
 
           <div className='col-lg-4'>
             <span className={classes.inputLabel}>Почта для ответа</span>
             <FormControl >
-              <TextField variant='outlined' />
+              <TextField
+                error={!!hasErrors.email}
+                name='email'
+                value={formik.values.email}
+                variant='outlined'
+                onChange={formik.handleChange}
+              />
+              <ErrorText message={hasErrors.email}/>
             </FormControl>
           </div>
         </div>
@@ -39,15 +99,25 @@ export const SupportTab = () => {
               fullWidth
             >
               <TextField
+                error={!!hasErrors.request}
                 multiline
+                name='request'
                 rows={5}
+                value={formik.values.request}
                 variant='outlined'
+                onChange={formik.handleChange}
               />
+              <ErrorText message={hasErrors.request}/>
             </FormControl>
           </div>
         </div>
 
-        <Button variant='big'> задать вопрос </Button>
+        <Button
+          type='submit'
+          variant='big'
+        >
+        задать вопрос
+        </Button>
       </form>
     </>
   )

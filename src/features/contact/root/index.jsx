@@ -1,6 +1,7 @@
 import React from 'react'
-import classes from './style.module.scss'
 import { Button } from '@app/ui'
+
+import classes from './style.module.scss'
 
 export const Contact = () => {
   return (

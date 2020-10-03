@@ -9,16 +9,16 @@ import { Button, ErrorText, PhoneTextMask, DateBirthTextMask } from '@app/ui'
 import classes from './style.module.scss'
 
 const validationSchema = yup.object({
-  firstName: yup.string().required('Поле необходимо заполнить'),
-  secondName: yup.string().required('Поле необходимо заполнить'),
-  email: yup.string().email('Данные введены не корректно').required('Поле необходимо заполнить'),
-  dateBirth: yup.date().required('Поле необходимо заполнить').typeError('Введите корректное значение'),
-  phoneNumber: yup.string().matches(/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){11}(\s*)?$/, 'Введите номер полностью').required('Поле необходимо заполнить'),
-  gender: yup.number().min(1, 'Выберите пол').max(2, 'Выберите пол').required('Поле необходимо заполнить'),
-  city: yup.string().required('Поле необходимо заполнить'),
-  username: yup.string().required('Поле необходимо заполнить'),
-  password1: yup.string().required('Поле необходимо заполнить'),
-  password2: yup.string().oneOf([yup.ref('password1'), null], 'Пароли должны совпадать').required('Поле необходимо заполнить')
+  firstName: yup.string().required(),
+  secondName: yup.string().required(),
+  email: yup.string().email().required(),
+  dateBirth: yup.date().required().typeError('Введите корректное значение'),
+  phoneNumber: yup.string().matches(/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){11}(\s*)?$/, 'Введите номер полностью').required(),
+  gender: yup.number().min(1, 'Выберите пол').max(2, 'Выберите пол').required(),
+  city: yup.string().required(),
+  username: yup.string().required(),
+  password1: yup.string().required(),
+  password2: yup.string().oneOf([yup.ref('password1'), null], 'Пароли должны совпадать').required()
 })
 
 export const Registration = () => {
