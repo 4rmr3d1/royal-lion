@@ -1,10 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { AppBar, Toolbar } from '@material-ui/core'
+import { AppBar, Toolbar, useMediaQuery } from '@material-ui/core'
 import { useSelector, useDispatch } from '@app/store'
 import { HeaderProfileCard } from '@app/ui'
 import { LoginModal } from '../login-modal'
-
+import BurgerMenu from './burgerMenu'
 import classes from './style.module.scss'
 
 export const Header = () => {
@@ -14,7 +14,7 @@ export const Header = () => {
   const firstName = useSelector(state => state.authReducer.user?.data?.first_name)
   const secondName = useSelector(state => state.authReducer.user?.data?.second_name)
   const authModalVisible = useSelector(state => state.authReducer.properties.authModalVisible)
-
+  const mdBreakPoint = useMediaQuery('(min-width: 991px)')
   const onAuthModalOpen = React.useCallback(() => {
     dispatch({
       type: '@USER/change-property',
@@ -39,8 +39,7 @@ export const Header = () => {
         visible={authModalVisible}
         onClose={onAuthModalClose}
       />
-
-      <AppBar
+      {mdBreakPoint ? <AppBar
         position='sticky'
       >
         <div className={classes.header}>
@@ -60,25 +59,25 @@ export const Header = () => {
                   exact
                   to='/'
                 >
-                  Линия
+                    Линия
                 </NavLink>
                 <NavLink
                   activeClassName={classes.activeLink}
                   to='/live'
                 >
-                  Лайв
+                    Лайв
                 </NavLink>
                 <NavLink
                   activeClassName={classes.activeLink}
                   to='/result'
                 >
-                  Результаты
+                    Результаты
                 </NavLink>
                 <NavLink
                   activeClassName={classes.activeLink}
                   to='/contact'
                 >
-                  Контакты
+                    Контакты
                 </NavLink>
               </nav>
               {isLoggedIn ? (
@@ -93,13 +92,13 @@ export const Header = () => {
                     href='#'
                     onClick={onAuthModalOpen}
                   >
-                      Вход
+                        Вход
                   </a>
                   <NavLink
                     className='btn btn-mini'
                     to='/registration'
                   >
-                      Регистрация
+                        Регистрация
                   </NavLink>
                 </div>
               )}
@@ -107,6 +106,34 @@ export const Header = () => {
           </Toolbar>
         </div>
       </AppBar>
+        : <AppBar
+          className={classes.appbar}
+          position='relative'
+        >
+          <div className={classes.header}>
+            <Toolbar
+              className='justify-content-center'
+              disableGutters
+            >
+              <div className="container">
+                <div className='row align-items-center justify-content-between'>
+                  <div className={`col-auto ${classes.brand}`}>
+                    <NavLink to='/'>
+                      <img
+                        alt=''
+                        src='img/logo.svg'
+                      />
+                    </NavLink>
+                  </div>
+                  <div className="col-auto">
+                    <BurgerMenu />
+                  </div>
+                </div>
+              </div>
+            </Toolbar>
+          </div>
+        </AppBar>
+      }
     </>
   )
 }
