@@ -1,6 +1,7 @@
 import React from 'react'
 import cn from 'classnames'
 import { useMediaQuery, Drawer, Toolbar } from '@material-ui/core'
+import { ArrowBack, ArrowForward } from '@material-ui/icons'
 import { useDispatch } from '@app/store'
 
 import classes from './style.module.scss'
@@ -19,12 +20,20 @@ const categories = {
 }
 
 export const Sidebar = () => {
-  const matches = useMediaQuery('(min-width: 1280px)')
+  const xlBreakPoint = useMediaQuery('(min-width: 1280px)')
+  const lgBreakPoint = useMediaQuery('(max-width: 1279px)')
+  const smBreakPoint = useMediaQuery('(max-width: 599px)')
+
   const [activeCategory, setActveCategory] = React.useState(categories.Football)
+  const container = React.useRef()
+
+  const onArrowClick = React.useCallback((scrollOffset) => {
+    container.current.scrollLeft += scrollOffset
+  }, [])
 
   return (
     <>
-      {matches ? (
+      {xlBreakPoint && (
         <Drawer
           style={{ flexShrink: 0 }}
           variant='permanent'
@@ -49,35 +58,47 @@ export const Sidebar = () => {
               ))}
             </Categories.Provider>
           </div>
-        </Drawer>)
-        : <aside className={classes.aside}>
+        </Drawer>
+      )}
 
-          <div className='container'>
-            <nav className={classes.categoryRow}>
-              <div className='row justify-content-around'>
-                <Categories.Provider
-                  activeCategory={activeCategory}
-                  onCategoryChange={setActveCategory}
-                >
-                  {Object.entries(categories).map(([key, category], index) => (
-                    <div
-                      className='col-lg-auto'
-                      key={category.id | index}
-                    >
-                      <Categories.Link
-                        categoryKey={category}
-                        key={index}
-                      >
-                        <i className={`icon${key}`}></i>
-                      </Categories.Link>
-                    </div>
-                  ))}
-                </Categories.Provider>
+      {lgBreakPoint && (
+        <aside className={classes.aside}>
+          <div
+            className={classes.categories}
+          >
+            {smBreakPoint && (
+              <div className={classes.arrows}>
+                <button onClick={() => onArrowClick(-69)}>
+                  <ArrowBack/>
+                </button>
+                <button onClick={() => onArrowClick(69)}>
+                  <ArrowForward/>
+                </button>
               </div>
+            )}
+            <nav ref={container}>
+              <Categories.Provider
+                activeCategory={activeCategory}
+                onCategoryChange={setActveCategory}
+              >
+                {Object.entries(categories).map(([key, category], index) => (
+                  <div
+                    key={category.id | index}
+                  >
+                    <Categories.Link
+                      categoryKey={category}
+                      key={index}
+                    >
+                      <i className={`icon${key}`}></i>
+                    </Categories.Link>
+                  </div>
+                ))}
+              </Categories.Provider>
             </nav>
           </div>
         </aside>
-      }
+      )}
+
     </>
 
   )
