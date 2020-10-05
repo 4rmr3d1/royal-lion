@@ -8,7 +8,7 @@ export const Footer = () => {
 
   return (
     <>
-      {smBreakPoint ? (
+      {!smBreakPoint ? (
         <footer className={classes.footer}>
           <div className='container'>
             <div className='row align-items-center'>
@@ -31,7 +31,28 @@ export const Footer = () => {
           </div>
         </footer>
       ) : (
-        <footer></footer>
+        <footer className={classes.footer}>
+          <div className={classes.footerBlock}>
+            <div className={classes.brand}>
+              <img
+                alt=''
+                src='img/logo-footer.svg'
+              />
+            </div>
+
+            <div className={classes.credits}>
+              @ 1994-2020 All rights reserved
+            </div>
+          </div>
+          <nav>
+            <a href="#">
+              Правила сайта
+            </a>
+            <a href="#">
+              Пользовательское соглашение.
+            </a>
+          </nav>
+        </footer>
       )}
     </>
   )

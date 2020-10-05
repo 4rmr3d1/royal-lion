@@ -1,9 +1,9 @@
 import React from 'react'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
-import { Dialog, DialogTitle, DialogContent, TextField } from '@material-ui/core'
+import { DialogTitle, DialogContent, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from '@app/store'
-import { Button, ErrorText } from '@app/ui'
+import { Button, ErrorText, Dialog } from '@app/ui'
 import { userActions } from '@app/store/actions/userActions'
 
 import classes from './style.module.scss'

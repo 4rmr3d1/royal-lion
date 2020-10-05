@@ -1,0 +1,34 @@
+.closeButton {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+  @media (max-width: 576px) {
+    left: 50%;
+    top: -31px;
+    transform: translateX(-50%);
+    width: 61px;
+    height: 61px;
+    background-color: transparent;
+  }
+  
+  @media (max-width: 577px) {
+    top: -31px;
+    right: -31px;
+  }
+  & > button {
+    color: white;
+    background: linear-gradient(151.68deg, #526BFF 0%, #4286F4 100%);
+    box-shadow: 0px 10px 25px rgba(21, 119, 225, 0.18), 0px 8px 30px rgba(112, 171, 235, 0.13);
+    border-radius: 8px;
+    padding: 8px;
+  }
+}
+
+
+
+
+
+

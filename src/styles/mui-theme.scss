@@ -7,3 +7,12 @@
 .MuiOutlinedInput-root.Mui-focused {
   input { background: #F4F6FB; }
 }
+
+
+.MuiDialog-paper {
+  @media (max-width: 576px) {
+    .MuiDialogTitle-root {
+      padding: 51px 16px 24px 16px;
+    }
+  }
+}

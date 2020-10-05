@@ -27,6 +27,12 @@ export const theme = createMuiTheme({
       paperAnchorDockedLeft: {
         borderRight: 'none'
       }
+    },
+    MuiDialog: {
+      paper: {
+        borderRadius: 15,
+        overflowY: 'unset'
+      }
     }
   }
 })
