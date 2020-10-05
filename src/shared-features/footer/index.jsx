@@ -4,7 +4,7 @@ import { useMediaQuery } from '@material-ui/core'
 import classes from './style.module.scss'
 
 export const Footer = () => {
-  const smBreakPoint = useMediaQuery('(max-width: 500px)')
+  const smBreakPoint = useMediaQuery('(max-width: 576px)')
 
   return (
     <>

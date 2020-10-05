@@ -23,7 +23,7 @@ export const Line = () => {
   return (
     <section className='line'>
       {isLoaded ? (
-        <div className='container'>
+        <>
           {filteredLineMatches?.map((tournament, index) => (
             <Accordion key={tournament.api_id || index}>
               <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>
@@ -42,7 +42,7 @@ export const Line = () => {
           {filteredLineMatches.length === 0 && (
             'Список матчей пуст!'
           )}
-        </div>
+        </>
       ) : (
         <div className='loader'>
           <CircularProgress />

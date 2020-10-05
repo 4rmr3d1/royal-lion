@@ -14,10 +14,11 @@
     background-color: transparent;
   }
   
-  @media (max-width: 577px) {
+  @media (min-width: 577px) {
     top: -31px;
     right: -31px;
   }
+  
   & > button {
     color: white;
     background: linear-gradient(151.68deg, #526BFF 0%, #4286F4 100%);

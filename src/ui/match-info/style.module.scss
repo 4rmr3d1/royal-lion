@@ -1,20 +1,39 @@
 .match{
+  display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #ECF2FC;
-  padding: 11px 20px;
   &:last-child{
     border-bottom: none;
   }
   img{
     display: block;
   }
+  @media (max-width: 575px) {
+    padding: 15px;
+    & > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+  @media (min-width: 576px) {
+    padding: 11px 20px;
+  }
 }
 
 .logo {
-  img {
-    max-width: 30px;
-    height: auto;
+  @media (max-width: 575px) {
+    img {
+      max-width: 18px;
+      height: auto;
+    }
+  }
+  @media (min-width: 576px) {
+    img {
+      max-width: 30px;
+      height: auto;
+    }
   }
 }
 
@@ -23,14 +42,34 @@
   margin-top: 30px;
   display: flex;
   margin-bottom: 30px;
+  
+  @media (max-width: 575px) {
+
+  }
+  @media (min-width: 576px) {
+
+  }
 }
 .matchMoreButtons{
   display: flex;
   a{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     margin-right: 7px;
     &:last-child{
       margin-right: 0;
     }
+  }
+  
+  .number {
+
+  }
+  @media (max-width: 575px) {
+
+  }
+  @media (min-width: 576px) {
+
   }
 }
 .item{
@@ -49,38 +88,79 @@
     font-size: 13px;
     line-height: 1.15;
   }
+  @media (max-width: 575px) {
+
+  }
+  @media (min-width: 576px) {
+
+  }
 
 }
 .time{
   color: #343949;
   font-weight: 500;
-  font-size: 16px;
-  line-height: 1.1875;
-  margin-left: 20px;
+
+  @media (max-width: 575px) {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    padding-bottom: 9px;
+  }
+  @media (min-width: 576px) {
+    font-size: 16px;
+    line-height: 1.1875;
+    margin-left: 20px;
+  }
 }
 .date{
-  font-size: 14px;
   color: #939A9E;
-  line-height: 1.21;
-  margin-left: 20px;
+
+  @media (max-width: 575px) {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  @media (min-width: 576px) {
+    font-size: 14px;
+    line-height: 1.21;
+    margin-left: 20px;
+  }
 }
 .score{
-  text-align: center;
-  font-size: 14px;
   color: #939A9E;
+  @media (max-width: 575px) {
+    font-size: 12px;
+    line-height: 14px;
+    text-align: right;
+  }
+  @media (min-width: 576px) {
+    text-align: center;
+    font-size: 14px;
+  }
 }
 .label{
   color: #343949;
-  font-weight: 500;
-  font-size: 16px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  @media (max-width: 575px) {
+    font-size: 12px;
+    line-height: 140%;
+  }
+  @media (min-width: 576px) {
+    font-weight: 500;
+    font-size: 16px;
+  }
 }
 .command{
   display: flex;
-  align-items: center;
-  flex: 0 0 40%;
+  
+  @media (max-width: 575px) {
+    padding-bottom: 7px;
+  }
+  @media (min-width: 576px) {
+    align-items: center;
+    flex: 0 0 40%;
+  }
 }
 .coefficient{
   display: flex;
@@ -116,5 +196,12 @@
       background: #4286F4;
       color: #FFF;
     }
+  }
+  
+  @media (max-width: 575px) {
+
+  }
+  @media (min-width: 576px) {
+
   }
 }
