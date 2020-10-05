@@ -30,15 +30,17 @@ const BurgerMenu = () => {
   }, [dispatch])
   return (
     <div>
-      {open ? <button
-        className="btn-burger-close"
-        type="button"
-        onClick={handleClose}
-      >
-        <span></span>
-        <span></span>
-      </button>
-        : <button
+      {open ? (
+        <button
+          className="btn-burger-close"
+          type="button"
+          onClick={handleClose}
+        >
+          <span></span>
+          <span></span>
+        </button>
+      ) : (
+        <button
           className="btn-burger"
           type="button"
           onClick={handleOpen}
@@ -48,7 +50,7 @@ const BurgerMenu = () => {
           <span></span>
         </button>
 
-      }
+      )}
 
       <Modal
         BackdropComponent={Backdrop}
@@ -56,8 +58,6 @@ const BurgerMenu = () => {
           timeout: 1000,
           style: { backgroundColor: 'transparent' }
         }}
-        aria-describedby="transition-modal-description"
-        aria-labelledby="transition-modal-title"
         closeAfterTransition
         open={open}
         onClose={handleClose}

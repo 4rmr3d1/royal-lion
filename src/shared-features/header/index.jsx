@@ -39,74 +39,76 @@ export const Header = () => {
         visible={authModalVisible}
         onClose={onAuthModalClose}
       />
-      {mdBreakPoint ? <AppBar
-        position='sticky'
-      >
-        <div className={classes.header}>
-          <Toolbar className='justify-content-center'>
-            <div className='container row align-items-center'>
-              <div className={`col-lg-2 col-auto ${classes.brand}`}>
-                <NavLink to='/'>
-                  <img
-                    alt=''
-                    src='img/logo.svg'
-                  />
-                </NavLink>
-              </div>
-              <nav className={`col-auto ml-auto mr-auto ${classes.menu}`}>
-                <NavLink
-                  activeClassName={classes.activeLink}
-                  exact
-                  to='/'
-                >
-                    Линия
-                </NavLink>
-                <NavLink
-                  activeClassName={classes.activeLink}
-                  to='/live'
-                >
-                    Лайв
-                </NavLink>
-                <NavLink
-                  activeClassName={classes.activeLink}
-                  to='/result'
-                >
-                    Результаты
-                </NavLink>
-                <NavLink
-                  activeClassName={classes.activeLink}
-                  to='/contact'
-                >
-                    Контакты
-                </NavLink>
-              </nav>
-              {isLoggedIn ? (
-                <HeaderProfileCard
-                  firstName={firstName}
-                  secondName={secondName}
-                />
-              ) : (
-                <div className={`col-lg-3 col-auto ${classes.userNav}`}>
-                  <a
-                    className={classes.enter}
-                    href='#'
-                    onClick={onAuthModalOpen}
-                  >
-                        Вход
-                  </a>
-                  <NavLink
-                    className='btn btn-mini'
-                    to='/registration'
-                  >
-                        Регистрация
+      {mdBreakPoint ? (
+        <AppBar
+          position='sticky'
+        >
+          <div className={classes.header}>
+            <Toolbar className='justify-content-center'>
+              <div className='container row align-items-center'>
+                <div className={`col-lg-2 col-auto ${classes.brand}`}>
+                  <NavLink to='/'>
+                    <img
+                      alt=''
+                      src='img/logo.svg'
+                    />
                   </NavLink>
                 </div>
-              )}
-            </div>
-          </Toolbar>
-        </div>
-      </AppBar>
-        : <AppBar
+                <nav className={`col-auto ml-auto mr-auto ${classes.menu}`}>
+                  <NavLink
+                    activeClassName={classes.activeLink}
+                    exact
+                    to='/'
+                  >
+                    Линия
+                  </NavLink>
+                  <NavLink
+                    activeClassName={classes.activeLink}
+                    to='/live'
+                  >
+                    Лайв
+                  </NavLink>
+                  <NavLink
+                    activeClassName={classes.activeLink}
+                    to='/result'
+                  >
+                    Результаты
+                  </NavLink>
+                  <NavLink
+                    activeClassName={classes.activeLink}
+                    to='/contact'
+                  >
+                    Контакты
+                  </NavLink>
+                </nav>
+                {isLoggedIn ? (
+                  <HeaderProfileCard
+                    firstName={firstName}
+                    secondName={secondName}
+                  />
+                ) : (
+                  <div className={`col-lg-3 col-auto ${classes.userNav}`}>
+                    <a
+                      className={classes.enter}
+                      href='#'
+                      onClick={onAuthModalOpen}
+                    >
+                        Вход
+                    </a>
+                    <NavLink
+                      className='btn btn-mini'
+                      to='/registration'
+                    >
+                        Регистрация
+                    </NavLink>
+                  </div>
+                )}
+              </div>
+            </Toolbar>
+          </div>
+        </AppBar>
+      ) : (
+        <AppBar
           className={classes.appbar}
           position='relative'
         >
@@ -133,7 +135,7 @@ export const Header = () => {
             </Toolbar>
           </div>
         </AppBar>
-      }
+      )}
     </>
   )
 }

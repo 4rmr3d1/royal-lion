@@ -1,14 +1,69 @@
 .profile{
   margin-top: 36px;
   margin-bottom: 250px;
+  display: flex;
+  flex-direction: column;
 }
 
-.tabPanel {
+.profilePage {
+  max-width: 1170px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.profileContent {
+  max-width: 1170px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.tabPanel {  
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  padding: 8px 27px;
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid #ECF2FC;
-  border-radius: 10px;
-  margin-bottom: 38px;
+
+  @media (min-width: 850px) {
+    justify-content: space-between;
+
+    padding: 8px 27px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ECF2FC;
+    border-radius: 10px;
+    margin: 30px 0
+  }
+  
+  @media (max-width: 849px) {
+    overflow-x: scroll;
+    padding-bottom: 10px;
+  }
+  
+    
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tabContainer {
+  position: relative;
+  max-width: 1170px;
+  width: 100%;
+  
+  padding-left: 15px;
+  margin: 30px 0;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: -15px;
+    height: 2px;
+    width: calc(100% + 30px);
+    
+    background: #D1D1D1;
+    opacity: 0.35;
+    z-index: 1;
+  }
+  
+  overflow: hidden;
+
 }

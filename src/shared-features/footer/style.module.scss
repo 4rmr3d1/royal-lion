@@ -4,7 +4,7 @@
   bottom: 0;
   left: 0;
   background: #FCFEFF;
-  padding: 16.14px 0;
+  padding: 15px 0;
   nav{
     display: flex;
     justify-content: center;
@@ -15,3 +15,14 @@
     }
   }
 }
+
+@media (max-width: 500px) {
+  .brand {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+
