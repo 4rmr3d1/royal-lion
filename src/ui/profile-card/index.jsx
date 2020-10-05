@@ -98,3 +98,19 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
     </div>
   )
 }
+
+export const ProfileCardSmall = ({ firstName, lastName, email, balance }) => {
+  return (
+    <div className={classes.profileCardSmall}>
+      <div>
+        <img src="img/defaultAvatar.png'"/>
+      </div>
+
+      <div>
+        <h4>{firstName} {lastName}</h4>
+        <span>{email}</span>
+        <h3>37 829 ₽</h3>
+      </div>
+    </div>
+  )
+}

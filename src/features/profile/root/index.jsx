@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { useMediaQuery } from '@material-ui/core'
-import { ProfileCard, Tabs } from '@app/ui'
+import { ProfileCard, ProfileCardSmall, Tabs } from '@app/ui'
 import { useSelector, userActions, useDispatch } from '@app/store'
 import { ProfileTab } from '../profile-tab'
 import { ConfigurationTab } from '../configuration-tab'
@@ -29,8 +29,7 @@ export const Profile = () => {
   const secondName = useSelector(state => state.authReducer?.user?.data?.second_name)
   const email = useSelector(state => state.authReducer.user?.data?.email)
 
-  const breakPoint = useMediaQuery('(max-width: 849px)')
-  console.log(breakPoint)
+  const breakPoint = useMediaQuery('(max-width: 576px)')
 
   const [activeTab, setActiveTab] = React.useState(location.pathname)
 
@@ -48,6 +47,14 @@ export const Profile = () => {
       onTabChange={setActiveTab}
     >
       <div className={classes.profilePage}>
+        {breakPoint && (
+          <ProfileCardSmall
+            email={email}
+            firstName={firstName}
+            secondName={secondName}
+          />
+        )}
+
         <div className={classes.tabContainer}>
           <div className={classes.tabPanel}>
             <Tabs.Link
@@ -97,13 +104,15 @@ export const Profile = () => {
         <div className={classes.profileContent}>
           <section className={classes.profile}>
             <div className='row'>
-              <div className='col-lg-3'>
-                <ProfileCard
-                  email={email}
-                  firstName={firstName}
-                  secondName={secondName}
-                />
-              </div>
+              {!breakPoint && (
+                <div className='col-lg-3'>
+                  <ProfileCard
+                    email={email}
+                    firstName={firstName}
+                    secondName={secondName}
+                  />
+                </div>
+              )}
 
               <div className='col-lg-9'>
                 <Tabs.PaneContainer>
