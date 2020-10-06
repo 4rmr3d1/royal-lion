@@ -50,7 +50,10 @@ export const SupportTab = () => {
     <>
       <h3>Техническая поддержка</h3>
 
-      <form onSubmit={formik.handleSubmit}>
+      <form
+        className={classes.form}
+        onSubmit={formik.handleSubmit}
+      >
         <div className='form-row row'>
           <div className='col-lg-4'>
             <span className={classes.inputLabel}>Отдел</span>
@@ -79,7 +82,7 @@ export const SupportTab = () => {
 
           <div className='col-lg-4'>
             <span className={classes.inputLabel}>Почта для ответа</span>
-            <FormControl >
+            <FormControl fullWidth>
               <TextField
                 error={!!hasErrors.email}
                 name='email'
@@ -112,12 +115,15 @@ export const SupportTab = () => {
           </div>
         </div>
 
-        <Button
-          type='submit'
-          variant='big'
-        >
-        задать вопрос
-        </Button>
+        <div className={classes.button}>
+          <Button
+            fullWidth
+            type='submit'
+            variant='big'
+          >
+            задать вопрос
+          </Button>
+        </div>
       </form>
     </>
   )

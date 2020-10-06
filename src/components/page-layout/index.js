@@ -6,12 +6,21 @@ import { Content } from '../content'
 
 import classes from './style.module.scss'
 
+const hiddenSideBarUrls = [
+  '/profile',
+  '/profile/configurations',
+  '/profile/history',
+  '/profile/withdraw',
+  '/profile/support',
+  '/profile/coupon'
+]
+
 export const PageLayout = () => {
   const location = useLocation()
   const breakPoint = useMediaQuery('(max-width: 576px)')
 
   const isSidebarVisible = React.useMemo(() => {
-    return location.pathname === '/profile' && breakPoint
+    return hiddenSideBarUrls.some(url => url === location.pathname) && breakPoint
   }, [location.pathname, breakPoint])
 
   return (

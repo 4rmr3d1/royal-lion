@@ -19,7 +19,7 @@ export const MatchInfo = ({ data }) => {
   )
 }
 
-const MatchInfoWide = ({ data }) => {
+export const MatchInfoWide = ({ data }) => {
   const [show, setShow] = useState(false)
 
   const onShowCoefClick = useCallback(() => {
@@ -147,7 +147,7 @@ const MatchInfoWide = ({ data }) => {
   )
 }
 
-const MatchInfoSmall = ({ data }) => {
+export const MatchInfoSmall = ({ data }) => {
   return (
     <div className={classes.match}>
       <div style={{ width: '20%' }}>

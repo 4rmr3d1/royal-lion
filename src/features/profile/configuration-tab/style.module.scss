@@ -1,0 +1,9 @@
+.form {
+  @media (max-width: 575px) {
+    :global {
+      .MuiFormControl-fullWidth {
+        margin-bottom: 25px;
+      }
+    }
+  }
+}

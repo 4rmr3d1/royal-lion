@@ -6,6 +6,8 @@ import { TextField, FormControl, OutlinedInput } from '@material-ui/core'
 import { useDispatch, useSelector, userActions } from '@app/store'
 import { Block, BlockItem, Button, ErrorText, PhoneTextMask } from '@app/ui'
 
+import classes from './style.module.scss'
+
 export const ConfigurationTab = () => {
   return (
     <>
@@ -61,7 +63,7 @@ const PasswordChange = () => {
 
   return (
     <form
-      className='form'
+      className={classes.form}
       onSubmit={formik.handleSubmit}
     >
       <BlockItem>
@@ -86,8 +88,8 @@ const PasswordChange = () => {
 
       <BlockItem>
         <div className='row'>
-          <div className='col-lg-4'>
-            <FormControl>
+          <div className='col-lg-4 col-12'>
+            <FormControl fullWidth>
               <TextField
                 error={!!hasErrors?.oldPassword || serverErrors}
                 name='oldPassword'
@@ -102,8 +104,8 @@ const PasswordChange = () => {
             </FormControl>
           </div>
 
-          <div className='col-lg-4'>
-            <FormControl>
+          <div className='col-lg-4 col-12'>
+            <FormControl fullWidth>
               <TextField
                 error={!!hasErrors?.newPassword || serverErrors}
                 name='newPassword'
@@ -118,8 +120,8 @@ const PasswordChange = () => {
             </FormControl>
           </div>
 
-          <div className='col-lg-4'>
-            <FormControl>
+          <div className='col-lg-4 col-12'>
+            <FormControl fullWidth>
               <TextField
                 error={!!hasErrors?.newPasswordConfirm || serverErrors}
                 name='newPasswordConfirm'
@@ -136,13 +138,18 @@ const PasswordChange = () => {
         </div>
       </BlockItem>
 
-      <Button
-        disabled={isPasswordChanging}
-        type='submit'
-        variant='big'
-      >
-        Изменить пароль
-      </Button>
+      <div className='row'>
+        <div className='col-lg-5 col-12'>
+          <Button
+            disabled={isPasswordChanging}
+            fullWidth
+            type='submit'
+            variant='big'
+          >
+            Изменить пароль
+          </Button>
+        </div>
+      </div>
     </form>
   )
 }
@@ -178,7 +185,7 @@ const ContactsChange = () => {
 
   return (
     <form
-      className='form'
+      className={classes.form}
       onSubmit={formik.handleSubmit}
     >
       <BlockItem>
@@ -187,8 +194,8 @@ const ContactsChange = () => {
 
       <BlockItem>
         <div className='row'>
-          <div className='col-lg-4'>
-            <FormControl>
+          <div className='col-lg-4 col-12'>
+            <FormControl fullWidth>
               <TextField
                 error={!!hasErrors.email}
                 name='email'
@@ -202,8 +209,8 @@ const ContactsChange = () => {
             </FormControl>
           </div>
 
-          <div className='col-lg-4'>
-            <FormControl>
+          <div className='col-lg-4 col-12'>
+            <FormControl fullWidth>
               <OutlinedInput
                 error={!!hasErrors.phoneNumber}
                 inputComponent={PhoneTextMask}
@@ -220,12 +227,17 @@ const ContactsChange = () => {
         </div>
       </BlockItem>
 
-      <Button
-        type='submit'
-        variant='big'
-      >
-        Сохранить
-      </Button>
+      <div className='row'>
+        <div className='col-lg-4 col-12'>
+          <Button
+            fullWidth
+            type='submit'
+            variant='big'
+          >
+            Сохранить
+          </Button>
+        </div>
+      </div>
     </form>
   )
 }

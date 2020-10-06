@@ -2,11 +2,47 @@
   margin-top: 40px;
 }
 
-.card{
-  height: 100%;
-  text-align: center;
-  padding: 25px 24px 18px 25px;
-  img{
-    margin-bottom: 22px;
+@media (max-width: 575px) {
+  .form {
+    :global {
+      .MuiFormControl-fullWidth {
+        margin-bottom: 25px;
+      }
+    }
+    .paymentMethods {
+      display: flex;
+      flex-direction: column;
+      .paymentMethod + .paymentMethod {
+        margin-top: 25px;
+      }
+      .card {
+        padding: 25px 20px;
+        text-align: center;
+        img {
+          max-width: 80%;
+          height: auto;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .card{
+    height: 100%;
+    text-align: center;
+    padding: 25px 24px 18px 25px;
+    img{
+      margin-bottom: 22px;
+    }
+  }
+  .paymentMethods {
+    display: flex;
+    .paymentMethod {
+      max-width: 370px;
+    }
+    .paymentMethod + .paymentMethod {
+      margin-left: 30px;
+    }
   }
 }

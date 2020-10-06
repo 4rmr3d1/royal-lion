@@ -57,6 +57,7 @@
   max-width: 576px;
   width: 100%;
   padding: 0 15px;
+  overflow: hidden;
   
   display: flex;
   &>div {
@@ -77,6 +78,8 @@
       line-height: 14px;
       color: #939A9E;
       padding-bottom: 15px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
     &>h3 {
       font-weight: bold;

@@ -19,15 +19,15 @@ export const CouponTab = () => {
 const CheckCoupon = () => {
   return (
     <>
-      <form>
+      <form className={classes.form}>
         <div className="form-row row">
-          <div className="col-lg-4">
-            <FormControl>
+          <div className="col-lg-4 col-12">
+            <FormControl fullWidth>
               <TextField variant='outlined'/>
             </FormControl>
           </div>
-          <div className="col-lg-4">
-            <Button variant='big'>
+          <div className="col-lg-4 col-12">
+            <Button fullWidth variant='big'>
               проверить купон
             </Button>
           </div>

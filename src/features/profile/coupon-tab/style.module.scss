@@ -22,3 +22,18 @@
     }
   }
 }
+
+@media (max-width: 575px) {
+  .form {
+    :global {
+      .MuiFormControl-fullWidth {margin-bottom: 25px;}
+      button {margin-bottom: 25px;}
+    }
+  }
+  
+  .couponStatus {
+    flex-direction: column;
+    &>span {margin-bottom: 25px;}
+    &>div>span {font-size: 12px; }
+  }
+}

@@ -2,7 +2,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 17px;
   border-radius: 8px;
   border-width: 1px;
   border-style: solid;
@@ -10,6 +9,14 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 14px;
+  }
+  
+  @media (max-width: 575px) {
+    padding: 10px 16px;
+  }
+  
+  @media (min-width: 576px) {
+    padding: 12px 17px;
   }
 }
 

@@ -1,9 +1,12 @@
 import React from 'react'
-import { Block, Chip } from '@app/ui'
+import { useMediaQuery } from '@material-ui/core'
+import { Block, Chip, MatchInfoSmall } from '@app/ui'
 
 import classes from './style.module.scss'
 
 export const BetHistoryTab = () => {
+  const breakPoint = useMediaQuery('(max-width: 575px)')
+
   return (
     <>
       <h3>История ставок</h3>
@@ -13,10 +16,7 @@ export const BetHistoryTab = () => {
       </Block>
 
       <Block>
-        <HistoryItem/>
-        <HistoryItem/>
-        <HistoryItem/>
-        <HistoryItem/>
+        {breakPoint ? <MatchInfoSmall/> : <HistoryItem/> }
       </Block>
     </>
   )
@@ -24,7 +24,7 @@ export const BetHistoryTab = () => {
 
 // #TODO: endpoint
 
-const HistoryItem = () => {
+const HistoryItem = ({ data }) => {
   return (
     <div className={classes.historyItem}>
 
