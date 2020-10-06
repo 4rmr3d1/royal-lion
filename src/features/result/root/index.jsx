@@ -40,25 +40,23 @@ export const Result = () => {
 
   return (
     <section className='result'>
-      <div className='container'>
-        <Accordion>
-          <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
-          <AccordionDetails>
-            {results.map((result, index) => (
-              <ResultInfo
-                date={result.date}
-                key={result.index}
-                scoreFirst={result.scoreFirst}
-                scoreLast={result.scoreLast}
-                scoreTotal={result.scoreTotal}
-                team1={result.team1}
-                team2={result.team2}
-                time={result.time}
-              />
-            ))}
-          </AccordionDetails>
-        </Accordion>
-      </div>
+      <Accordion>
+        <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
+        <AccordionDetails>
+          {results.map((result, index) => (
+            <ResultInfo
+              date={result.date}
+              key={result.index}
+              scoreFirst={result.scoreFirst}
+              scoreLast={result.scoreLast}
+              scoreTotal={result.scoreTotal}
+              team1={result.team1}
+              team2={result.team2}
+              time={result.time}
+            />
+          ))}
+        </AccordionDetails>
+      </Accordion>
     </section>
   )
 }

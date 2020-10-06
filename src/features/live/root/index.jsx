@@ -6,74 +6,70 @@ import './index.scss'
 
 export const Live = () => {
   return (
-    <section className='container line live'>
-      <div className='container'>
-        <div className='row'>
-          <div className='col-12'>
-            <div className='live-label'>
-              <div className='live-icon'>
-                <img
-                  alt=''
-                  src='img/live.svg'
-                />
-              </div>В прямом эфире
-            </div>
+    <section className='line live'>
+      <div className='row'>
+        <div className='col-12'>
+          <div className='live-label'>
+            <div className='live-icon'>
+              <img
+                alt=''
+                src='img/live.svg'
+              />
+            </div>В прямом эфире
           </div>
         </div>
       </div>
-      <div className='container'>
-        <Accordion>
-          <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
-          <AccordionDetails>
-            <MatchInfo />
-            <MatchInfo />
-            <MatchInfo />
-            <MatchInfo />
-            <MatchInfo />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
-          <AccordionDetails>
-            <MatchInfo />
-            <MatchInfo />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
-          <AccordionDetails>
-            <MatchInfo />
-            <MatchInfo />
-            <MatchInfo />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
-          <AccordionDetails>
-            <MatchInfo />
-            <MatchInfo />
-            <MatchInfo />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League
-          </AccordionSummary>
-          <AccordionDetails>
-            <MatchInfo />
-            <MatchInfo />
-            <MatchInfo />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion>
-          <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League
-          </AccordionSummary>
-          <AccordionDetails>
-            <MatchInfo />
-            <MatchInfo />
-            <MatchInfo />
-          </AccordionDetails>
-        </Accordion>
-      </div>
+      <Accordion>
+        <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
+        <AccordionDetails>
+          <MatchInfo />
+          <MatchInfo />
+          <MatchInfo />
+          <MatchInfo />
+          <MatchInfo />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
+        <AccordionDetails>
+          <MatchInfo />
+          <MatchInfo />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
+        <AccordionDetails>
+          <MatchInfo />
+          <MatchInfo />
+          <MatchInfo />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
+        <AccordionDetails>
+          <MatchInfo />
+          <MatchInfo />
+          <MatchInfo />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League
+        </AccordionSummary>
+        <AccordionDetails>
+          <MatchInfo />
+          <MatchInfo />
+          <MatchInfo />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League
+        </AccordionSummary>
+        <AccordionDetails>
+          <MatchInfo />
+          <MatchInfo />
+          <MatchInfo />
+        </AccordionDetails>
+      </Accordion>
     </section>
   )
 }

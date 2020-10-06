@@ -27,15 +27,15 @@ const MatchInfoWide = ({ data }) => {
   }, [show])
 
   const firstEvents = React.useMemo(() => {
-    return data.events.slice(0, 6)
+    return data?.events.slice(0, 6)
   }, [data])
 
   const hiddenEvents = React.useMemo(() => {
-    return data.events.slice(6)
+    return data?.events.slice(6)
   }, [data])
 
   const hiddenEventsCount = React.useMemo(() => {
-    return data.events.length - 6
+    return data?.events.length - 6
   }, [data])
 
   return (
@@ -102,7 +102,7 @@ const MatchInfoWide = ({ data }) => {
         </div>
         <div style={{ width: '48%' }}>
           <div className={classes.coefficient}>
-            {firstEvents.map((event, index) =>
+            {firstEvents?.map((event, index) =>
               <Link
                 className="btn-coefficient"
                 key={index}

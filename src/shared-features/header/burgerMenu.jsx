@@ -84,6 +84,7 @@ const BurgerMenu = () => {
                 <NavLink
                   className='btn btn-mini'
                   to='/registration'
+                  onClick={handleClose}
                 >
                       Регистрация
                 </NavLink>
@@ -94,24 +95,28 @@ const BurgerMenu = () => {
                 activeClassName={classes.activeLink}
                 exact
                 to='/'
+                onClick={handleClose}
               >
                   Линия
               </NavLink>
               <NavLink
                 activeClassName={classes.activeLink}
                 to='/live'
+                onClick={handleClose}
               >
                   Лайв
               </NavLink>
               <NavLink
                 activeClassName={classes.activeLink}
                 to='/result'
+                onClick={handleClose}
               >
                   Результаты
               </NavLink>
               <NavLink
                 activeClassName={classes.activeLink}
                 to='/contact'
+                onClick={handleClose}
               >
                   Контакты
               </NavLink>
