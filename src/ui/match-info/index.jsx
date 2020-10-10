@@ -1,30 +1,69 @@
 import React, { useState, useCallback } from 'react'
 import { FormattedDate, FormattedTime } from 'react-intl'
-import { Link } from 'react-router-dom'
-import { useMediaQuery } from '@material-ui/core'
+import { useMediaQuery, Tooltip, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
+import { useDispatch } from '@app/store'
 import cn from 'classnames'
 
 import classes from './style.module.scss'
 
-export const MatchInfo = ({ data }) => {
+export const MatchInfoPane = ({ data }) => {
   const xsBreakPoint = useMediaQuery('(min-width: 576px)')
 
   return (
     <>
-      {xsBreakPoint
-        ? <MatchInfoWide data={data}/>
-        : <MatchInfoSmall data={data}/>
-      }
+      <Accordion key={data.api_id}>
+        <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>
+          {data.name}
+        </AccordionSummary>
+        <AccordionDetails>
+          {data?.matches.map((match, index) => (
+            <>
+              {xsBreakPoint
+                ? (
+                  <MatchInfoWide
+                    data={match}
+                    key={index}
+                    tournament={data.name}
+                  />
+                ) : (
+                  <MatchInfoSmall
+                    data={match}
+                    key={index}
+                    tournament={data.name}
+                  />
+                )
+              }
+            </>
+          ))}
+        </AccordionDetails>
+      </Accordion>
+
     </>
   )
 }
 
-export const MatchInfoWide = ({ data }) => {
+export const MatchInfoWide = ({ data, tournament }) => {
+  const { dispatch } = useDispatch()
   const [show, setShow] = useState(false)
 
   const onShowCoefClick = useCallback(() => {
     setShow(!show)
   }, [show])
+
+  const onOpen = React.useCallback((eventData) => {
+    dispatch({
+      type: '@USER/change-property',
+      payload: { betModalVisible: true }
+    })
+
+    dispatch({
+      type: '@BET/on-coefficient-click',
+      payload: { data: eventData },
+      tournament,
+      firstTeam: data.opp_1_name,
+      secondTeam: data.opp_2_name
+    })
+  }, [dispatch])
 
   const firstEvents = React.useMemo(() => {
     return data?.events.slice(0, 6)
@@ -40,8 +79,10 @@ export const MatchInfoWide = ({ data }) => {
 
   return (
     <>
-      <div className={classes.match}>
-        <div style={{ width: '8%' }}>
+      <div
+        className={classes.match}
+      >
+        <div style={{ maxWidth: 48 }}>
           <div className={classes.time}>
             <FormattedTime value={data?.game_start} />
           </div>
@@ -53,92 +94,94 @@ export const MatchInfoWide = ({ data }) => {
             />
           </div>
         </div>
-        <div style={{ width: '15%' }}>
-          <div
-            className={classes.command}
-            style={{ justifyContent: 'flex-end', marginLeft: 'auto' }}
-          >
+        <div className={classes.container}>
+          <div style={{ maxWidth: 164 }}>
             <div
-              className={classes.label}
+              className={classes.command}
+              style={{ justifyContent: 'flex-end', marginLeft: 'auto' }}
             >
-              {data?.opp_1_name}
+              <Tooltip title={data?.opp_1_name}>
+                <div className={classes.label}>
+                  {data?.opp_1_name}
+                </div>
+              </Tooltip>
+
+              <div
+                className={classes.logo}
+                style={{ marginLeft: 24 }}
+              >
+                <img
+                  alt=''
+                  src={data?.opp_1_icon}
+                />
+              </div>
             </div>
+          </div>
+
+          <div>
+            <div className={classes.score}>
+              {data?.score_full}
+            </div>
+          </div>
+
+          <div style={{ maxWidth: 164 }}>
             <div
-              className={classes.logo}
-              style={{ marginLeft: 20 }}
+              className={classes.command}
+              style={{ justifyContent: 'flex-start', marginRight: 'auto' }}
             >
-              <img
-                alt=''
-                src={data?.opp_1_icon}
-              />
+              <div
+                className={classes.logo}
+                style={{ marginRight: 24 }}
+              >
+                <img
+                  alt=''
+                  src={data?.opp_2_icon}
+                />
+              </div>
+
+              <Tooltip title={data?.opp_2_name}>
+                <div className={classes.label}>
+                  {data?.opp_2_name}
+                </div>
+              </Tooltip>
             </div>
           </div>
         </div>
-        <div style={{ width: '2%' }}>
-          <div className={classes.score}>
-            {data?.score_full}
-          </div>
-        </div>
-        <div style={{ width: '15%' }}>
-          <div
-            className={classes.command}
-            style={{ justifyContent: 'flex-start', marginRight: 'auto' }}
-          >
-            <div
-              className={classes.logo}
-              style={{ marginRight: 20 }}
-            >
-              <img
-                alt=''
-                src={data?.opp_2_icon}
-              />
-            </div>
-            <div
-              className={classes.label}
-            >
-              {data?.opp_2_name}
-            </div>
-          </div>
-        </div>
-        <div style={{ width: '48%' }}>
+        <div style={{ maxWidth: 403, width: '100%' }}>
           <div className={classes.coefficient}>
             {firstEvents?.map((event, index) =>
-              <Link
+              <button
                 className="btn-coefficient"
                 key={index}
+                onClick={() => onOpen(event)}
               >
                 <span className="number">
                   {event.oc_rate}
                 </span>
-              </Link>
+              </button>
             )}
-            <span
-              className={cn(classes.more, { [classes.active]: show })}
-              onClick={onShowCoefClick}
-            >
-              {show ? 'Скрыть' : `+${hiddenEventsCount} событий`}
-            </span>
           </div>
         </div>
+        <span
+          className={cn(classes.more, { [classes.active]: show })}
+          onClick={onShowCoefClick}
+        >
+          {show ? 'Скрыть' : `+${hiddenEventsCount} событий`}
+        </span>
       </div>
       {show &&
-        <div>
-          <div className={classes.matchMore}>
+        <div className={classes.matchMore}>
+          <div className={classes.matchMoreButtons}>
             {hiddenEvents.map((event, index) =>
-              <div
-                className={classes.item}
+              <button
+                className="btn-coefficient"
                 key={index}
+                onClick={() => onOpen(event)}
               >
-                <div
-                  className={classes.matchMoreButtons}
-                >
-                  <Link className="btn-coefficient">
-                    <span className={classes.number}>
-                      {event.oc_rate}
-                    </span>
-                  </Link>
-                </div>
-              </div>
+                <span className={classes.number}>
+                  {event.oc_rate}
+                </span>
+              </button>
             )}
           </div>
         </div>

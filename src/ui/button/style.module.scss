@@ -1,16 +1,7 @@
 .btn {
   justify-content: center;
 	border-radius: 8px;
-	background: linear-gradient(151.68deg, #526bff 0%, #4286f4 100%);
-	box-shadow: 0px 10px 15px rgba(130, 179, 233, 0.2),
-		0px 5px 10px rgba(118, 170, 225, 0.15);
-	color: #fff;
-	&:hover {
-		color: #ffffffd9;
-		background: linear-gradient(151.68deg, #445ffb 0%, #2c76ed 100%);
-		box-shadow: 0px 10px 30px rgba(130, 179, 233, 0.4),
-			0px 5px 25px rgba(118, 170, 225, 0.3);
-	}
+
 	&:active {
 		color: #fff;
 		background: linear-gradient(151.68deg, #1833d3 0%, #1958be 100%);
@@ -33,7 +24,26 @@
 		line-height: 1.4;
 		padding: 11px 33px;
   }
+
   &FullWidth {
     width: 100%
   }
+}
+
+.primary {
+  background: linear-gradient(151.68deg, #526bff 0%, #4286f4 100%);
+  box-shadow: 0px 10px 15px rgba(130, 179, 233, 0.2),
+    0px 5px 10px rgba(118, 170, 225, 0.15);
+  color: #fff;
+  &:hover {
+		color: #ffffffd9;
+		background: linear-gradient(151.68deg, #445ffb 0%, #2c76ed 100%);
+		box-shadow: 0px 10px 30px rgba(130, 179, 233, 0.4),
+			0px 5px 25px rgba(118, 170, 225, 0.3);
+	}
+}
+.secondary {
+  background: transparent;
+  color: #4286F4;
+  border: 2px solid #4286F4;
 }

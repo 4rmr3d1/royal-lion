@@ -266,6 +266,7 @@ export const Registration = () => {
         <div className='form-row row align-items-center'>
           <div className='col-md-4'>
             <Button
+              color='primary'
               fullWidth
               type="submit"
               variant='big'

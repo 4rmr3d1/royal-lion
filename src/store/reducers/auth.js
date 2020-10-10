@@ -11,7 +11,8 @@ const initialState = {
     error: null
   },
   properties: {
-    authModalVisible: false
+    authModalVisible: false,
+    betModalVisible: false
   },
   user: {
     key: user?.key,
@@ -118,6 +119,7 @@ export const authReducer = (state = initialState, action) => {
     return {
       ...state,
       properties: {
+        ...state.properties,
         ...action.payload
       }
     }

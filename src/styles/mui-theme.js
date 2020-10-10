@@ -31,7 +31,18 @@ export const theme = createMuiTheme({
     MuiDialog: {
       paper: {
         borderRadius: 15,
-        overflowY: 'unset'
+        overflowY: 'unset',
+        padding: 30
+      }
+    },
+    MuiTooltip: {
+      tooltip: {
+        fontSize: 16,
+        color: '#343949',
+        backgroundColor: '#fff',
+        border: '1px solid #EDEFF5',
+        borderRadius: 10,
+        padding: 30
       }
     }
   }

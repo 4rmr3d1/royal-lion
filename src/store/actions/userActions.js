@@ -1,7 +1,7 @@
 import axios from 'axios'
 import history from '@app/lib/history'
 
-const API_URL = 'http://45.67.58.94'
+export const API_URL = 'https://api.royal-lion.bet'
 
 export function authHeader () {
   const user = JSON.parse(window.localStorage.getItem('user'))
@@ -186,32 +186,17 @@ const loadLineTournaments = ({ sportId, countryId = '0', count = '0' }) => dispa
     })
 }
 
-const loadLineTournametMatches = ({ tournamentId, count = '0' }) => dispatch => {
-  return axios.get(`${API_URL}/sport_events/line/tournaments/${tournamentId}/${count}`)
-    .then(response => {
-      dispatch({ type: '@EVENTS/load-line-tournament-matches-request', isLoading: true })
-
-      if (response.data) {
-        dispatch({ type: '@EVENTS/load-line-tournament-matches-success', matches: response.data })
-      }
-    })
-    .catch(error => {
-      dispatch({ type: '@USER/load-line-tournament-matches-error', error: error.response })
-    })
-}
-
 export const line = {
-  loadLineTournaments,
-  loadLineTournametMatches
+  loadLineTournaments
 }
 
 const loadLiveTournaments = ({ sportId, countryId = '0', count = '0' }) => dispatch => {
+  dispatch({ type: '@EVENTS/load-live-tournaments-request' })
+
   return axios.get(`${API_URL}/sport_events/live/tournaments/list/${sportId}`)
     .then(response => {
-      dispatch({ type: '@EVENTS/load-live-tournaments-request', isLoading: true })
-
       if (response.data) {
-        dispatch({ type: '@EVENTS/load-live-tournaments-success', tournaments: response.data })
+        dispatch({ type: '@EVENTS/load-live-tournaments-success', payload: response.data.data })
       }
     })
     .catch(error => {
@@ -219,21 +204,63 @@ const loadLiveTournaments = ({ sportId, countryId = '0', count = '0' }) => dispa
     })
 }
 
-const loadLiveTournametMatches = ({ tournamentId, count = '0' }) => dispatch => {
-  return axios.get(`${API_URL}/sport_events/live/tournaments/${tournamentId}/${count}`)
-    .then(response => {
-      dispatch({ type: '@EVENTS/load-live-tournament-matches-request', isLoading: true })
+export const live = {
+  loadLiveTournaments
+}
 
+const makeBet = ({ betType, amount }) => dispatch => {
+  dispatch({ type: '@BET/make-bet-request' })
+
+  return axios.post(`${API_URL}/bet/make/${betType}`,
+    { amount },
+    { headers: authHeader() })
+    .then((response) => {
+      console.log(response)
       if (response.data) {
-        dispatch({ type: '@EVENTS/load-live-tournament-matches-success', matches: response.data })
+        dispatch({ type: '@BET/make-bet-success' })
       }
     })
-    .catch(error => {
-      dispatch({ type: '@USER/load-live-tournament-matches-error', error: error.response })
+    .catch((error) => {
+      dispatch({ type: '@BET/make-bet-error' })
+      console.log(error)
     })
 }
 
-export const live = {
-  loadLiveTournaments,
-  loadLiveTournametMatches
+const getBets = () => dispatch => {
+  dispatch({ type: '@BET/get-bets-request' })
+
+  return axios.get(`${API_URL}/bet/userbets`,
+    { headers: authHeader() })
+    .then((response) => {
+      console.log(response)
+      if (response.data) {
+        dispatch({ type: '@BET/get-bets-success' })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@BET/get-bets-error' })
+      console.log(error)
+    })
+}
+
+const checkBetCoupon = ({ ticket }) => dispatch => {
+  dispatch({ type: '@BET/check-coupon-request' })
+
+  return axios.get(`${API_URL}/bet/ticket/${ticket}`,
+    { headers: authHeader() })
+    .then(response => {
+      if (response.data) {
+        dispatch({ type: '@BET/check-coupon-success' })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@BET/check-coupon-error' })
+      console.log(error)
+    })
+}
+
+export const bet = {
+  makeBet,
+  getBets,
+  checkBetCoupon
 }

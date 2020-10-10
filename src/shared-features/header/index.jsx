@@ -35,6 +35,7 @@ export const Header = () => {
 
   return (
     <>
+
       <LoginModal
         visible={authModalVisible}
         onClose={onAuthModalClose}

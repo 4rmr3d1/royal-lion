@@ -5,7 +5,7 @@ import classes from './style.module.scss'
 
 export const Block = ({ children, blockPadding, className }) => {
   return (
-    <div className={cn(classes.block, { [classes.blockPadding]: blockPadding })}>
+    <div className={cn(classes.block, className, { [classes.blockPadding]: blockPadding })}>
       {children}
     </div>
   )

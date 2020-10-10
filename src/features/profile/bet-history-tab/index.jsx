@@ -1,11 +1,17 @@
 import React from 'react'
 import { useMediaQuery } from '@material-ui/core'
 import { Block, Chip, MatchInfoSmall } from '@app/ui'
+import { bet, useDispatch } from '@app/store'
 
 import classes from './style.module.scss'
 
 export const BetHistoryTab = () => {
+  const { dispatch } = useDispatch()
   const breakPoint = useMediaQuery('(max-width: 575px)')
+
+  React.useEffect(() => {
+    dispatch(bet.getBets())
+  }, [])
 
   return (
     <>
@@ -22,7 +28,7 @@ export const BetHistoryTab = () => {
   )
 }
 
-// #TODO: endpoint
+// Bets api doesn't work at this moment
 
 const HistoryItem = ({ data }) => {
   return (

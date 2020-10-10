@@ -1,5 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
+import { useHistory } from 'react-router-dom'
 import { useFormik } from 'formik'
 import { DialogTitle, DialogContent, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from '@app/store'
@@ -15,6 +16,7 @@ const validationSchema = yup.object({
 
 export const LoginModal = ({ visible, onClose }) => {
   const { dispatch } = useDispatch()
+  const history = useHistory()
 
   const serverErrors = useSelector(state => state.authReducer.user?.error)
 
@@ -22,6 +24,17 @@ export const LoginModal = ({ visible, onClose }) => {
     username: '',
     password: ''
   }
+
+  const onRegistrationClick = React.useCallback(() => {
+    dispatch({
+      type: '@USER/change-property',
+      payload: {
+        authModalVisible: false
+      }
+    })
+
+    history.push('/registration')
+  }, [dispatch])
 
   const formik = useFormik({
     initialValues,
@@ -90,6 +103,7 @@ export const LoginModal = ({ visible, onClose }) => {
           </div>
 
           <Button
+            color='primary'
             fullWidth
             type='submit'
             variant='big'
@@ -97,6 +111,15 @@ export const LoginModal = ({ visible, onClose }) => {
             Войти
           </Button>
         </form>
+
+        <Button
+          color='secondary'
+          fullWidth
+          variant='big'
+          onClick={() => onRegistrationClick()}
+        >
+          регистрация
+        </Button>
       </DialogContent>
     </Dialog>
   )

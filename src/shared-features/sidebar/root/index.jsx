@@ -8,11 +8,11 @@ import classes from './style.module.scss'
 
 const categories = {
   Football: '1',
-  Tennis: '2',
-  Hockey: '3',
-  Basketball: '4',
-  Volleyball: '5',
-  Baseball: '6',
+  Hockey: '2',
+  Basketball: '3',
+  Tennis: '4',
+  Baseball: '5',
+  Volleyball: '6',
   PingPong: '7',
   Gandbol: '8',
   AmericanFootball: '9',

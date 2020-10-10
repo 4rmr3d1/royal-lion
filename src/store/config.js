@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 
 import { authReducer } from './reducers/auth'
-import { lineMatches } from './reducers/sportEvents'
+import { lineMatches, liveMatches, bet } from './reducers/sportEvents'
 
 const initialState = {
   category: '1'
@@ -23,5 +23,7 @@ const selectedCategory = (state = initialState, action) => {
 export const rootReducer = combineReducers({
   selectedCategory,
   authReducer,
-  lineMatches
+  lineMatches,
+  liveMatches,
+  bet
 })

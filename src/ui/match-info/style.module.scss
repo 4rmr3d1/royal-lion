@@ -106,7 +106,6 @@
   @media (min-width: 576px) {
     font-size: 16px;
     line-height: 1.1875;
-    margin-left: 20px;
   }
 }
 .date{
@@ -119,7 +118,6 @@
   @media (min-width: 576px) {
     font-size: 14px;
     line-height: 1.21;
-    margin-left: 20px;
   }
 }
 .score{
@@ -134,6 +132,18 @@
     font-size: 14px;
   }
 }
+
+.container {
+  max-width: 430px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  > div {
+    flex-grow: 1;
+  }
+}
+
 .label{
   color: #343949;
   text-overflow: ellipsis;
@@ -162,38 +172,6 @@
 .coefficient{
   display: flex;
   justify-content: space-between;
-
-  .more{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    background: #EDF1FF;
-    border: 1px solid #D6DDF8;
-    border-radius: 8px;
-    width: 105px;
-    height: 38px;
-    color: #A9B8F2;
-    margin-right: 20px;
-    text-align: center;
-    font-size: 12px;
-    cursor: pointer;
-    &.active{
-      background: #4286F4;
-      color: #FFF;
-      border-color: #D5DEFD;
-    }
-    &:hover{
-      background: #D5DEFD;
-      border: 1px solid #B6C2EF;
-      color: #8095E4;
-    }
-    &:active{
-      border: 1px solid #4286F4;
-      background: #4286F4;
-      color: #FFF;
-    }
-  }
   
   @media (max-width: 575px) {
 
@@ -201,4 +179,42 @@
   @media (min-width: 576px) {
 
   }
+}
+
+.more{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  background: #EDF1FF;
+  border: 1px solid #D6DDF8;
+  border-radius: 8px;
+  width: 105px;
+  height: 38px;
+  color: #A9B8F2;
+  text-align: center;
+  font-size: 12px;
+  cursor: pointer;
+  &.active{
+    background: #4286F4;
+    color: #FFF;
+    border-color: #D5DEFD;
+  }
+  &:hover{
+    background: #D5DEFD;
+    border: 1px solid #B6C2EF;
+    color: #8095E4;
+  }
+  &:active{
+    border: 1px solid #4286F4;
+    background: #4286F4;
+    color: #FFF;
+  }
+}
+
+.matchMoreButtons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
