@@ -26,8 +26,8 @@ export const WithdrawForm = () => {
     <form className={classes.form}>
       <h4>Для вывода средств необходимо пополнить баланс не менее 5 раз</h4>
 
-      <div className="row">
-        <div className="col-lg-4">
+      <div className="row justify-content-sm-center">
+        <div className="col-lg-4 col-sm-5">
           <FormControl fullWidth>
             <TextField
               placeholder='Введите сумму'
@@ -36,7 +36,7 @@ export const WithdrawForm = () => {
           </FormControl>
         </div>
 
-        <div className="col-lg-4">
+        <div className="col-lg-4 col-sm-5">
           <FormControl fullWidth>
             <TextField
               placeholder='Номер кошелька/счета'

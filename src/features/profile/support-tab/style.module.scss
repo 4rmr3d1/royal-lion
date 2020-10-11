@@ -5,7 +5,7 @@
 }
 
 .form {
-  @media (max-width: 575px) {
+  @media (max-width: 991px) {
     :global {
       .MuiFormControl-fullWidth {
         margin-top: 10px;
@@ -16,7 +16,7 @@
       width: 100%;
     }
   }
-  
+
   @media (min-width: 576px) {
     .button {
       max-width: 270px;

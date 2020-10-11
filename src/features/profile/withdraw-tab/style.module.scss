@@ -14,26 +14,26 @@
   @media (min-width: 576px) {
 
     padding: 11px 17px;
-  
+
     &>div {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    
+
     &>div:first-child {
       flex: 0 0 35%;
     }
-    
+
     &>div:last-child {
       flex: 0 0 40%;
     }
   }
-  
+
   @media (max-width: 575px) {
     flex-direction: column;
     padding: 15px;
-    
+
     &>div {
       display: flex;
       justify-content: space-between;
@@ -53,28 +53,56 @@
         }
       }
     }
-    
+
     &>div:last-child {
       margin-top: 10px;
       width: 100%;
     }
   }
-  
+
 }
 
 @media (max-width: 575px) {
   .form {
     margin: 0 auto
-    
+
     :global {
       .MuiFormControl-fullWidth {
         margin-bottom: 25px;
       }
     }
   }
-  
+
   .button {
     padding: 0 15px;
     width: 100%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 1086px){
+  .button {
+    margin-top: 30px;
+  }
+
+}
+@media (min-width: 576px) and (max-width: 991px){
+  .withdrawHistoryItem {
+    padding: 11px 17px;
+    flex-wrap: wrap;
+    &>div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+    }
+
+    &>div:first-child {
+      flex: 0 0 100%;
+      margin-bottom: 30px;
+    }
+
+    &>div:last-child {
+      flex: 0 0 100%;
+    }
   }
 }

@@ -1,7 +1,7 @@
 .registration {
 	margin-top: 20px;
   margin-bottom: 100px;
-  
+
   max-width: 1170px;
   width: 100%;
   padding: 0 15px;
@@ -24,7 +24,7 @@
   margin-bottom: 40px;
 }
 
-@media (max-width: 575px) {
+@media (max-width: 991px) {
   .title {
     :global {
       h3 {
@@ -32,12 +32,12 @@
       }
     }
   }
-  
+
   .agree {
     padding-top: 25px;
     text-align: center;
   }
-  
+
   .form {
     :global {
       .MuiFormControl-fullWidth {
