@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedTime } from 'react-intl'
 import { ArrowBack, ArrowForward } from '@material-ui/icons'
-import { IconButton } from '@material-ui/core/'
+import { IconButton, AccordionDetails } from '@material-ui/core/'
 import { useSelector, useDispatch, results } from '@app/store'
 
 import './index.scss'
@@ -16,7 +16,7 @@ export const Result = () => {
 
   React.useEffect(() => {
     dispatch(results.loadResults({ sportId, page }))
-  }, [dispatch, page])
+  }, [dispatch, page, sportId])
 
   React.useEffect(() => { document.title = 'Royal Lion | Результаты' }, [])
 
@@ -40,10 +40,11 @@ export const Result = () => {
       </div>
 
       {matchesResults?.map((result, index) => (
-        <ResultInfo
-          data={result}
-          key={index}
-        />
+        <AccordionDetails key={index}>
+          <ResultInfo
+            data={result}
+          />
+        </AccordionDetails>
       ))}
     </section>
   )

@@ -57,6 +57,8 @@ export const Registration = () => {
     return formik.errors || null
   }, [formik])
 
+  React.useEffect(() => { document.title = 'Royal Lion | Линия' }, [])
+
   return (
     <section className={classes.registration}>
       <div className={`row justify-content-between ${classes.title}`}>
