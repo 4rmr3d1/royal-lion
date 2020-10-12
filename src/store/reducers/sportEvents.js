@@ -66,21 +66,57 @@ export const liveMatches = (state = liveMatchesInitialState, action) => {
   }
 }
 
+const matchesResultInitialState = {
+  matches: [],
+  loading: false
+}
+
+export const results = (state = matchesResultInitialState, action) => {
+  switch (action.type) {
+  case '@EVENTS/load-results-request':
+    return {
+      loading: true
+    }
+
+  case '@EVENTS/load-results-success':
+    return {
+      matches: action.payload,
+      loading: false
+    }
+
+  case '@EVENTS/load-results-error':
+    return {
+      loading: false
+    }
+
+  default:
+    return state
+  }
+}
+
 const betInitialState = {
   tournament: '',
   firstTeam: '',
   secondTeam: '',
-  data: {}
+  data: {},
+  betError: ''
 }
 
 export const bet = (state = betInitialState, action) => {
   switch (action.type) {
   case '@BET/on-coefficient-click':
     return {
+      ...state,
       firstTeam: action.firstTeam,
       secondTeam: action.secondTeam,
       tournament: action.tournament,
       data: { ...action.payload }
+    }
+
+  case '@BET/make-bet-error':
+    return {
+      ...state,
+      betError: action.error
     }
 
   default:

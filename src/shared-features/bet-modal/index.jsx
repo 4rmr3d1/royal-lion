@@ -1,7 +1,7 @@
 import React from 'react'
 import cn from 'classnames'
 import { DialogTitle, DialogContent, TextField } from '@material-ui/core'
-import { Dialog, Button } from '@app/ui'
+import { Dialog, Button, ErrorText } from '@app/ui'
 import { useSelector, useDispatch, bet } from '@app/store'
 
 import classes from './style.module.scss'
@@ -15,6 +15,7 @@ export const BetModal = ({ open, onClose }) => {
   const event = useSelector(state => state.bet.data.data?.oc_group_name)
   const coef = useSelector(state => state.bet.data.data?.oc_rate)
   const betId = useSelector(state => state.bet.data.data?.id)
+  const error = useSelector(state => state.bet.betError)
 
   const [amount, setAmount] = React.useState(50)
 
@@ -72,11 +73,13 @@ export const BetModal = ({ open, onClose }) => {
               </div>
               <div>
                 <TextField
+                  error={!!error}
                   fullWidth
                   value={amount}
                   variant='outlined'
                   onChange={onAmountChange}
                 />
+                <ErrorText message={error}/>
               </div>
             </div>
             <div className={classes.formRow}>

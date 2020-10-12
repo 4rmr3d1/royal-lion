@@ -1,101 +1,86 @@
 import React from 'react'
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails
-} from '@material-ui/core/'
+import { FormattedTime } from 'react-intl'
+import { ArrowBack, ArrowForward } from '@material-ui/icons'
+import { IconButton } from '@material-ui/core/'
+import { useSelector, useDispatch, results } from '@app/store'
 
 import './index.scss'
 
-import { useSelector, useDispatch, bet } from '@app/store'
-
-const results = [
-  {
-    date: '15.08.2020',
-    time: '08:34',
-    team1: 'Барселона',
-    team2: 'Манчестер Юнайтед',
-    scoreTotal: '1:2',
-    scoreFirst: '1:0',
-    scoreLast: '0:2'
-  },
-  {
-    date: '29.01.2020',
-    time: '03:34',
-    team1: 'Манчестер Юнайтед',
-    team2: 'Барселона',
-    scoreTotal: '4:4',
-    scoreFirst: '1:2',
-    scoreLast: '3:2'
-  }
-]
-
 export const Result = () => {
   const { dispatch } = useDispatch()
+
   const sportId = useSelector(state => state.selectedCategory.category)
-  console.log(sportId)
+  const matchesResults = useSelector(state => state.results?.matches)
+
+  const [page, setPage] = React.useState(0)
 
   React.useEffect(() => {
-    dispatch(bet.getBets({ }))
-  }, [dispatch])
+    dispatch(results.loadResults({ sportId, page }))
+  }, [dispatch, page])
 
   React.useEffect(() => { document.title = 'Royal Lion | Результаты' }, [])
 
   return (
     <section className='result'>
-      <Accordion>
-        <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>Table Soccer League</AccordionSummary>
-        <AccordionDetails>
-          {results.map((result, index) => (
-            <ResultInfo
-              date={result.date}
-              key={result.index}
-              scoreFirst={result.scoreFirst}
-              scoreLast={result.scoreLast}
-              scoreTotal={result.scoreTotal}
-              team1={result.team1}
-              team2={result.team2}
-              time={result.time}
-            />
-          ))}
-        </AccordionDetails>
-      </Accordion>
+      <div style={{ marginBottom: 30, display: 'flex', justifyContent: 'space-between' }}>
+        <IconButton
+          color='primary'
+          disabled={page === 0}
+          onClick={() => setPage(page - 1)}
+        >
+          <ArrowBack/>
+        </IconButton>
+
+        <IconButton
+          color='primary'
+          onClick={() => setPage(page + 1)}
+        >
+          <ArrowForward/>
+        </IconButton>
+      </div>
+
+      {matchesResults?.map((result, index) => (
+        <ResultInfo
+          data={result}
+          key={index}
+        />
+      ))}
     </section>
   )
 }
-const ResultInfo = ({
-  date,
-  time,
-  team1,
-  team2,
-  scoreTotal,
-  scoreFirst,
-  scoreLast
-}) => {
+const ResultInfo = ({ data }) => {
   return (
     <div className="resultInfo">
       <div className="date">
-        {date} — {time}
+        <FormattedTime
+          day='2-digit'
+          month='short'
+          value={data?.game_start}
+        />
+        —
+        <FormattedTime value={data?.game_start}/>
       </div>
       <div className="name">
         <div className="command">
-          <div className="label">{team1}</div>
+          <div className="label">{data.opp_1_name}</div>
           <div className="logo">
             <img
               alt=''
-              src='img/barselona.png'
+              src={data.opp_1_icon}
+              style={{ maxWidth: 30, height: 'auto' }}
             />
           </div>
         </div>
-        <div className="score">{scoreTotal} ({scoreFirst}-{scoreLast})</div>
+        <div className="score">{data.score_full}</div>
         <div className="command">
           <div className="logo">
             <img
               alt=''
-              src='img/barselona.png'
+              src={data.opp_2_icon}
+              style={{ maxWidth: 30, height: 'auto' }}
             />
           </div>
-          <div className="label">{team2}</div>
+          <div className="label">{data.opp_2_name}</div>
         </div>
       </div>
     </div>

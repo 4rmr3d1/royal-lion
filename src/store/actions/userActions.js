@@ -208,6 +208,24 @@ export const live = {
   loadLiveTournaments
 }
 
+const loadResults = ({ sportId, page }) => dispatch => {
+  dispatch({ type: '@EVENTS/load-results-request' })
+
+  return axios.get(`${API_URL}/sport_events/results/${sportId}/${page}`)
+    .then(response => {
+      if (response.data) {
+        dispatch({ type: '@EVENTS/load-results-success', payload: response.data.data })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@EVENTS/load-results-error', error: error.response })
+    })
+}
+
+export const results = {
+  loadResults
+}
+
 const makeBet = ({ betType, amount, betId }) => dispatch => {
   dispatch({ type: '@BET/make-bet-request' })
 
@@ -221,7 +239,7 @@ const makeBet = ({ betType, amount, betId }) => dispatch => {
       }
     })
     .catch((error) => {
-      dispatch({ type: '@BET/make-bet-error' })
+      dispatch({ type: '@BET/make-bet-error', error: error.response.data.errors })
       console.log(error)
     })
 }
@@ -229,7 +247,7 @@ const makeBet = ({ betType, amount, betId }) => dispatch => {
 const getBets = () => dispatch => {
   dispatch({ type: '@BET/get-bets-request' })
 
-  return axios.get(`${API_URL}/bet/userbets`,
+  return axios.get(`${API_URL}/bet/userbets/`,
     { headers: authHeader() })
     .then((response) => {
       console.log(response)
@@ -238,8 +256,8 @@ const getBets = () => dispatch => {
       }
     })
     .catch(error => {
-      dispatch({ type: '@BET/get-bets-error' })
-      console.log(error)
+      dispatch({ type: '@BET/get-bets-error', error: error.response.data.errors })
+      console.log(error.response)
     })
 }
 
