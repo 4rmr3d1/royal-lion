@@ -1,7 +1,9 @@
 import React from 'react'
 import { FormattedDate } from 'react-intl'
+import { Alert } from '@material-ui/lab'
 import { TextField, FormControl, useMediaQuery } from '@material-ui/core'
 import { Button, Block, BlockItem, Chip } from '@app/ui'
+import { useDispatch, useSelector, payment } from '@app/store'
 
 import classes from './style.module.scss'
 
@@ -22,16 +24,36 @@ export const WithdrawTab = () => {
 }
 
 export const WithdrawForm = () => {
+  const { dispatch } = useDispatch()
+  const error = useSelector(state => state.payments.outputError)
+  const [amount, setAmount] = React.useState(100)
+
+  const onAmountChange = React.useCallback((e) => {
+    setAmount(e.target.value)
+  }, [setAmount])
+
+  const onSubmit = React.useCallback((e) => {
+    e.preventDefault(e)
+
+    dispatch(payment.paymentOutput({ amount }))
+  })
+
   return (
-    <form className={classes.form}>
+    <form
+      className={classes.form}
+      onSubmit={onSubmit}
+    >
       <h4>Для вывода средств необходимо пополнить баланс не менее 5 раз</h4>
 
       <div className="row justify-content-sm-center">
         <div className="col-lg-4 col-sm-5">
           <FormControl fullWidth>
             <TextField
+              error={!!error}
               placeholder='Введите сумму'
+              value={amount}
               variant='outlined'
+              onChange={onAmountChange}
             />
           </FormControl>
         </div>
@@ -47,6 +69,7 @@ export const WithdrawForm = () => {
 
         <div className={classes.button}>
           <Button
+            color='primary'
             fullWidth
             type='submit'
             variant='big'
@@ -55,6 +78,15 @@ export const WithdrawForm = () => {
           </Button>
         </div>
       </div>
+
+      {!!error && (
+        <Alert
+          severity='error'
+          style={{ marginTop: 25 }}
+        >
+          {error}
+        </Alert>
+      )}
     </form>
   )
 }

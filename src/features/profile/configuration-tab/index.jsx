@@ -26,13 +26,13 @@ export const ConfigurationTab = () => {
 
 const passwordChangeValidationSchema = yup.object({
   oldPassword: yup.string()
-    .test('stringLength', 'Пароль должен содержать минимум 4 символа', string => string.length >= 4)
+    .test('stringLength', 'Пароль должен содержать минимум 4 символа', string => string?.length >= 4)
     .required('Поле необходимо заполнить'),
   newPassword: yup.string()
-    .test('stringLength', 'Пароль должен содержать минимум 4 символа', string => string.length >= 4)
+    .test('stringLength', 'Пароль должен содержать минимум 4 символа', string => string?.length >= 4)
     .required('Поле необходимо заполнить'),
   newPasswordConfirm: yup.string()
-    .test('stringLength', 'Пароль должен содержать минимум 4 символа', string => string.length >= 4)
+    .test('stringLength', 'Пароль должен содержать минимум 4 символа', string => string?.length >= 4)
     .oneOf([yup.ref('newPassword'), null], 'Пароли должны совпадать').required('Поле необходимо заполнить')
 })
 
@@ -141,6 +141,7 @@ const PasswordChange = () => {
       <div className='row'>
         <div className='col-lg-5 col-12'>
           <Button
+            color='primary'
             disabled={isPasswordChanging}
             fullWidth
             type='submit'
@@ -200,7 +201,7 @@ const ContactsChange = () => {
                 error={!!hasErrors.email}
                 name='email'
                 placeholder='Электронная почта'
-                value={formik.values.email}
+                value={formik.values?.email}
                 variant='outlined'
                 onChange={formik.handleChange}
               />
@@ -216,7 +217,7 @@ const ContactsChange = () => {
                 inputComponent={PhoneTextMask}
                 name='phoneNumber'
                 placeholder='Номер телефона'
-                value={formik.values.phoneNumber}
+                value={formik.values?.phoneNumber}
                 variant='outlined'
                 onChange={formik.handleChange}
               />
@@ -230,6 +231,7 @@ const ContactsChange = () => {
       <div className='row'>
         <div className='col-lg-4 col-12'>
           <Button
+            color='primary'
             fullWidth
             type='submit'
             variant='big'

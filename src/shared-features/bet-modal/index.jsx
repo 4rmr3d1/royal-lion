@@ -14,10 +14,10 @@ export const BetModal = ({ open, onClose }) => {
   const secondTeam = useSelector(state => state.bet.secondTeam)
   const event = useSelector(state => state.bet.data.data?.oc_group_name)
   const coef = useSelector(state => state.bet.data.data?.oc_rate)
+  const betId = useSelector(state => state.bet.data.data?.id)
 
   const [amount, setAmount] = React.useState(50)
 
-  // Bets api doesn't work at this moment
   const onAmountChange = React.useCallback((e) => {
     setAmount(e.target.value)
   }, [setAmount])
@@ -25,7 +25,7 @@ export const BetModal = ({ open, onClose }) => {
   const onSubmit = React.useCallback((e) => {
     e.preventDefault()
 
-    dispatch(bet.makeBet({ betType: 'live', amount }))
+    dispatch(bet.makeBet({ betType: 'live', amount, betId }))
   })
 
   const possibleAward = React.useMemo(() => {

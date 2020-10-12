@@ -2,7 +2,7 @@ import axios from 'axios'
 import { authHeader } from '@app/store'
 
 const api = axios.create({
-  baseURL: 'http://45.67.58.94'
+  baseURL: 'https://api.royal-lion.bet'
 })
 
 export const royalApi = {

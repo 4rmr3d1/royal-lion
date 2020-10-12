@@ -87,3 +87,27 @@ export const bet = (state = betInitialState, action) => {
     return state
   }
 }
+
+const paymentsInitialState = {
+  outputError: '',
+  inputError: ''
+}
+
+export const payments = (state = paymentsInitialState, action) => {
+  switch (action.type) {
+  case '@PAYMENT/payment-input-error':
+    return {
+      ...state,
+      inputError: action.error
+    }
+
+  case '@PAYMENT/payment-output-error':
+    return {
+      ...state,
+      outputError: action.error
+    }
+
+  default:
+    return state
+  }
+}

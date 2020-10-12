@@ -75,12 +75,12 @@ export const Header = () => {
                   >
                     Результаты
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     activeClassName={classes.activeLink}
                     to='/contact'
                   >
                     Контакты
-                  </NavLink>
+                  </NavLink> */}
                 </nav>
                 {isLoggedIn ? (
                   <HeaderProfileCard

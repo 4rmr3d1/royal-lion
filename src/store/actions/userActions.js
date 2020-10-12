@@ -172,10 +172,10 @@ export const userActions = {
   createRequest
 }
 
-const loadLineTournaments = ({ sportId, countryId = '0', count = '0' }) => dispatch => {
+const loadLineTournaments = ({ sportId, page }) => dispatch => {
   dispatch({ type: '@EVENTS/load-line-tournaments-request' })
 
-  return axios.get(`${API_URL}/sport_events/line/tournaments/list/${sportId}`, { headers: authHeader() })
+  return axios.get(`${API_URL}/sport_events/line/tournaments/list/${sportId}/${page}`, { headers: authHeader() })
     .then(response => {
       if (response.data) {
         dispatch({ type: '@EVENTS/load-line-tournaments-success', payload: response.data.data })
@@ -190,10 +190,10 @@ export const line = {
   loadLineTournaments
 }
 
-const loadLiveTournaments = ({ sportId, countryId = '0', count = '0' }) => dispatch => {
+const loadLiveTournaments = ({ sportId, page }) => dispatch => {
   dispatch({ type: '@EVENTS/load-live-tournaments-request' })
 
-  return axios.get(`${API_URL}/sport_events/live/tournaments/list/${sportId}`)
+  return axios.get(`${API_URL}/sport_events/live/tournaments/list/${sportId}/${page}`)
     .then(response => {
       if (response.data) {
         dispatch({ type: '@EVENTS/load-live-tournaments-success', payload: response.data.data })
@@ -208,11 +208,11 @@ export const live = {
   loadLiveTournaments
 }
 
-const makeBet = ({ betType, amount }) => dispatch => {
+const makeBet = ({ betType, amount, betId }) => dispatch => {
   dispatch({ type: '@BET/make-bet-request' })
 
   return axios.post(`${API_URL}/bet/make/${betType}`,
-    { amount },
+    { amount, bets_ids: [betId] },
     { headers: authHeader() })
     .then((response) => {
       console.log(response)
@@ -263,4 +263,35 @@ export const bet = {
   makeBet,
   getBets,
   checkBetCoupon
+}
+
+const paymentsInput = ({ amount }) => dispatch => {
+  return axios.post(`${API_URL}/payments/input/`,
+    { amount },
+    { headers: authHeader() })
+    .then(response => {
+      if (response.data) {
+        window.open(`${response.data.data.url}`)
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@PAYMENT/payment-input-error', error: error.response.data.errors })
+    })
+}
+
+const paymentOutput = ({ amount }) => dispatch => {
+  return axios.post(`${API_URL}/payments/output/`,
+    { amount },
+    { headers: authHeader() })
+    .then(response => {
+      console.log(response)
+    })
+    .catch(error => {
+      dispatch({ type: '@PAYMENT/payment-output-error', error: error.response.data.errors })
+    })
+}
+
+export const payment = {
+  paymentsInput,
+  paymentOutput
 }

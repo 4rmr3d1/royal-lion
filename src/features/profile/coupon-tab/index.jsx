@@ -50,7 +50,9 @@ const CheckCoupon = () => {
           </div>
           <div className="col-lg-4 col-12">
             <Button
+              color='primary'
               fullWidth
+              type='submit'
               variant='big'
             >
               проверить купон

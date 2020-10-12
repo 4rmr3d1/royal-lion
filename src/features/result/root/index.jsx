@@ -7,7 +7,7 @@ import {
 
 import './index.scss'
 
-import { useSelector, useDispatch, line } from '@app/store'
+import { useSelector, useDispatch, bet } from '@app/store'
 
 const results = [
   {
@@ -33,10 +33,13 @@ const results = [
 export const Result = () => {
   const { dispatch } = useDispatch()
   const sportId = useSelector(state => state.selectedCategory.category)
+  console.log(sportId)
 
   React.useEffect(() => {
-    dispatch(line.loadLineTournaments({ sportId }))
+    dispatch(bet.getBets({ }))
   }, [dispatch])
+
+  React.useEffect(() => { document.title = 'Royal Lion | Результаты' }, [])
 
   return (
     <section className='result'>

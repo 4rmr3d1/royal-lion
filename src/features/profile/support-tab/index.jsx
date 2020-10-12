@@ -117,6 +117,7 @@ export const SupportTab = () => {
 
         <div className={classes.button}>
           <Button
+            color='primary'
             fullWidth
             type='submit'
             variant='big'

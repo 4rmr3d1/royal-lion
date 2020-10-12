@@ -61,7 +61,8 @@ export const authReducer = (state = initialState, action) => {
         ...state.login,
         isLoggedIn: action.isLoggedIn
       },
-      user: action.user
+      user: action.user,
+      error: state.error
     }
 
   case '@USER/login-error':

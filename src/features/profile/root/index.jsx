@@ -41,6 +41,8 @@ export const Profile = () => {
     dispatch(userActions.getUser())
   }, [dispatch])
 
+  React.useEffect(() => { document.title = 'Royal Lion | Профиль' }, [])
+
   return (
     <Tabs.Provider
       activeTab={activeTab}
