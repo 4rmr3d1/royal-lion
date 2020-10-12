@@ -11,7 +11,10 @@ export const MatchInfoPane = ({ data }) => {
 
   return (
     <>
-      <Accordion key={data.api_id}>
+      <Accordion
+        expanded
+        key={data.api_id}
+      >
         <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>
           {data.name}
         </AccordionSummary>

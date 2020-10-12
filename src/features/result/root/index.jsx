@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedTime } from 'react-intl'
 import { ArrowBack, ArrowForward } from '@material-ui/icons'
-import { IconButton, AccordionDetails } from '@material-ui/core/'
+import { IconButton, AccordionDetails, Accordion, AccordionSummary } from '@material-ui/core/'
 import { useSelector, useDispatch, results } from '@app/store'
 
 import './index.scss'
@@ -38,14 +38,20 @@ export const Result = () => {
           <ArrowForward/>
         </IconButton>
       </div>
-
-      {matchesResults?.map((result, index) => (
-        <AccordionDetails key={index}>
-          <ResultInfo
-            data={result}
-          />
+      <Accordion expanded>
+        <AccordionSummary>
+          Результаты
+        </AccordionSummary>
+        <AccordionDetails>
+          {matchesResults?.map((result, index) => (
+            <AccordionDetails key={index}>
+              <ResultInfo
+                data={result}
+              />
+            </AccordionDetails>
+          ))}
         </AccordionDetails>
-      ))}
+      </Accordion>
     </section>
   )
 }
