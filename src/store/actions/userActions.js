@@ -229,7 +229,8 @@ const makeBet = ({ betType, amount, betId }) => dispatch => {
 const getBets = () => dispatch => {
   dispatch({ type: '@BET/get-bets-request' })
 
-  return axios.get(`${API_URL}/bet/userbets`)
+  return axios.get(`${API_URL}/bet/userbets`,
+    { headers: authHeader() })
     .then((response) => {
       console.log(response)
       if (response.data) {
