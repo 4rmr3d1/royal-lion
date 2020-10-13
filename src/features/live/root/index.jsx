@@ -32,6 +32,10 @@ export const Live = () => {
       type: '@USER/change-property',
       payload: { betModalVisible: false }
     })
+
+    dispatch({
+      type: '@BET/reset'
+    })
   }, [dispatch])
 
   React.useEffect(() => {

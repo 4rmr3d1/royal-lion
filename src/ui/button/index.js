@@ -2,7 +2,7 @@ import React from 'react'
 import cn from 'classnames'
 import classes from './style.module.scss'
 
-export const Button = ({ type, variant, children, fullWidth, color, ...props }) => {
+export const Button = ({ type, variant, children, disabled, fullWidth, color, ...props }) => {
   return (
     <>
       <button
@@ -14,6 +14,7 @@ export const Button = ({ type, variant, children, fullWidth, color, ...props }) 
           { [classes.secondary]: color === 'secondary' },
           { [classes.btnFullWidth]: fullWidth }
         )}
+        disabled={disabled}
         type={type}
         {...props}
       >

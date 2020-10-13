@@ -119,6 +119,12 @@ export const bet = (state = betInitialState, action) => {
       betError: action.error
     }
 
+  case '@BET/reset':
+    return {
+      ...state,
+      betError: ''
+    }
+
   default:
     return state
   }
