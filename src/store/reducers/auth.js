@@ -1,7 +1,11 @@
 const user = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {
-  isRegistred: false,
+  registration: {
+    isRegistered: false,
+    registrating: false,
+    error: null
+  },
   login: {
     isLoggedIn: false,
     loggining: null
@@ -25,15 +29,18 @@ export const authReducer = (state = initialState, action) => {
   case '@USER/register-request':
     return {
       ...state,
-      isRegistered: false
+      registration: {
+        ...state.registration,
+        registrating: true
+      }
     }
 
   case '@USER/register-success':
     return {
       ...state,
-      isRegistred: action.isRegistred,
-      user: {
-        ...action.user,
+      registration: {
+        isRegistred: action.isRegistred,
+        registrating: false,
         error: null
       }
     }
@@ -41,9 +48,9 @@ export const authReducer = (state = initialState, action) => {
   case '@USER/register-error':
     return {
       ...state,
-      isRegistred: false,
-      user: {
-        ...state.user,
+      registration: {
+        isRegistred: false,
+        registrating: false,
         error: action.error
       }
     }

@@ -23,14 +23,14 @@ const validationSchema = yup.object({
 
 export const Registration = () => {
   const { dispatch } = useDispatch()
-  const isRegistred = useSelector(state => state.authReducer.isRegistred)
-  const serverErrors = useSelector(state => state.authReducer.user?.error)
+  const isRegistred = useSelector(state => state.authReducer.registration.isRegistred)
+  const serverErrors = useSelector(state => state.authReducer.registration?.error)
 
   const initialValues = {
     firstName: '',
     secondName: '',
     email: '',
-    dateBirth: '    -  -  ',
+    dateBirth: '',
     phoneNumber: '',
     gender: 0,
     city: '',

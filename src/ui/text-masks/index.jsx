@@ -7,7 +7,7 @@ export const PhoneTextMask = ({ inputRef, ...other }) => {
     <MaskedInput
       {...other}
       mask={[
-        '+', '7', '(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/
+        '+', '7', '(', /[1-9]/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/
       ]}
       placeholderChar={'\u2000'}
       ref={ref => { inputRef(ref ? ref.inputElement : null) }}
@@ -24,7 +24,7 @@ export const DateBirthTextMask = ({ inputRef, ...other }) => {
     <MaskedInput
       {...other}
       mask={[
-        /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/
+        /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/
       ]}
       placeholderChar={'\u2000'}
       ref={ref => { inputRef(ref ? ref.inputElement : null) }}
