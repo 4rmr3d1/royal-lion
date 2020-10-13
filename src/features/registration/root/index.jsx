@@ -25,6 +25,7 @@ export const Registration = () => {
   const { dispatch } = useDispatch()
   const isRegistred = useSelector(state => state.authReducer.registration.isRegistred)
   const serverErrors = useSelector(state => state.authReducer.registration?.error)
+  const registrating = useSelector(state => state.authReducer.registration.registrating)
 
   const initialValues = {
     firstName: '',
@@ -100,23 +101,29 @@ export const Registration = () => {
             <h4>Персональные данные:</h4>
           </div>
         </div>
+
         <div className='form-row row'>
           <div className='col-md-4'>
             <FormControl fullWidth>
               <TextField
+                disabled={registrating}
                 error={!!hasErrors.firstName || serverErrors?.first_name}
                 name='firstName'
                 placeholder={'Ваше имя'}
                 value={formik.values.firstName || ''}
                 variant='outlined'
                 onChange={formik.handleChange}
+
               />
+
               <ErrorText message={hasErrors.firstName || serverErrors?.first_name}/>
             </FormControl>
           </div>
+
           <div className='col-md-4'>
             <FormControl fullWidth>
               <TextField
+                disabled={registrating}
                 error={!!hasErrors.email || serverErrors?.email}
                 name='email'
                 placeholder='Ваш e-mail'
@@ -125,12 +132,15 @@ export const Registration = () => {
                 variant='outlined'
                 onChange={formik.handleChange}
               />
+
               <ErrorText message={hasErrors.email || serverErrors?.email}/>
             </FormControl>
           </div>
+
           <div className='col-md-4'>
             <FormControl fullWidth>
               <OutlinedInput
+                disabled={registrating}
                 error={!!hasErrors.dateBirth || serverErrors?.date_birth}
                 inputComponent={DateBirthTextMask}
                 name='dateBirth'
@@ -139,14 +149,17 @@ export const Registration = () => {
                 variant='outlined'
                 onChange={formik.handleChange}
               />
+
               <ErrorText message={hasErrors.dateBirth || serverErrors?.date_birth}/>
             </FormControl>
           </div>
         </div>
+
         <div className='form-row row'>
           <div className='col-md-4'>
             <FormControl fullWidth>
               <TextField
+                disabled={registrating}
                 error={!!hasErrors.secondName || serverErrors?.second_name}
                 name='secondName'
                 placeholder='Ваша фамилия'
@@ -154,12 +167,15 @@ export const Registration = () => {
                 variant='outlined'
                 onChange={formik.handleChange}
               />
+
               <ErrorText message={hasErrors.secondName || serverErrors?.second_name}/>
             </FormControl>
           </div>
+
           <div className='col-md-4'>
             <FormControl fullWidth>
               <OutlinedInput
+                disabled={registrating}
                 error={!!hasErrors.phoneNumber || serverErrors?.phone_number}
                 inputComponent={PhoneTextMask}
                 name='phoneNumber'
@@ -168,9 +184,11 @@ export const Registration = () => {
                 variant='outlined'
                 onChange={formik.handleChange}
               />
+
               <ErrorText message={hasErrors.phoneNumber || serverErrors?.phone_number}/>
             </FormControl>
           </div>
+
           <div className='col-md-4'>
             <div className={classes.selectContainer}>
               <FormControl
@@ -197,15 +215,18 @@ export const Registration = () => {
                   <MenuItem value={'1'}>Мужской</MenuItem>
                   <MenuItem value={'2'}>Женский</MenuItem>
                 </Select>
+
                 <ErrorText message={hasErrors.gender || serverErrors?.gender}/>
               </FormControl>
             </div>
           </div>
         </div>
+
         <div className='form-row row'>
           <div className='col-md-4'>
             <FormControl fullWidth>
               <TextField
+                disabled={registrating}
                 error={!!hasErrors.city || serverErrors?.city}
                 name='city'
                 placeholder='Город проживания'
@@ -213,19 +234,23 @@ export const Registration = () => {
                 variant='outlined'
                 onChange={formik.handleChange}
               />
+
               <ErrorText message={hasErrors.city || serverErrors?.city}/>
             </FormControl>
           </div>
         </div>
+
         <div className='form-row row'>
           <div className='col-12'>
             <h4>Данные для входа:</h4>
           </div>
         </div>
+
         <div className='form-row row'>
           <div className='col-md-4'>
             <FormControl fullWidth>
               <TextField
+                disabled={registrating}
                 error={!!hasErrors.username || serverErrors?.username}
                 name='username'
                 placeholder='Логин для входа на сайт'
@@ -233,12 +258,15 @@ export const Registration = () => {
                 variant='outlined'
                 onChange={formik.handleChange}
               />
+
               <ErrorText message={hasErrors.username || serverErrors?.username}/>
             </FormControl>
           </div>
+
           <div className='col-md-4'>
             <FormControl fullWidth>
               <TextField
+                disabled={registrating}
                 error={!!hasErrors.password1 || serverErrors?.password1}
                 name='password1'
                 placeholder='Пароль'
@@ -247,12 +275,15 @@ export const Registration = () => {
                 variant='outlined'
                 onChange={formik.handleChange}
               />
+
               <ErrorText message={hasErrors.password1 || serverErrors?.password1}/>
             </FormControl>
           </div>
+
           <div className='col-md-4'>
             <FormControl fullWidth>
               <TextField
+                disabled={registrating}
                 error={!!hasErrors.password2 || serverErrors?.password2}
                 name='password2'
                 placeholder='Повторите пароль'
@@ -261,19 +292,23 @@ export const Registration = () => {
                 variant='outlined'
                 onChange={formik.handleChange}
               />
+
               <ErrorText message={hasErrors.password2 || serverErrors?.password2}/>
             </FormControl>
           </div>
         </div>
+
         <div className='form-row row align-items-center'>
           <div className='col-md-4'>
             <Button
               color='primary'
+              disabled={registrating}
               fullWidth
               type="submit"
               variant='big'
             > Зарегистрироваться </Button>
           </div>
+
           <div className='col-md-4'>
             <p className={classes.agree}>
                 Нажимая на кнопку вы соглашаетесь с правилами{' '}

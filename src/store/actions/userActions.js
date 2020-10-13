@@ -58,6 +58,10 @@ const register = (user, { resetForm }) => (dispatch) => {
       if (response.data?.success) {
         dispatch({ type: '@USER/register-success', isRegistred: response.data?.success })
         resetForm()
+
+        setTimeout(() => {
+          history.push('/')
+        }, 3000)
       }
     })
     .catch((error) => {
