@@ -311,7 +311,7 @@ export const Registration = () => {
 
           <div className='col-md-4'>
             <p className={classes.agree}>
-                Нажимая на кнопку вы соглашаетесь с правилами{' '}
+                Нажимая на кнопку вы <a href='/policy.pdf'>соглашаетесь</a> с <a href='/rules.pdf'>правилами</a>{' '}
               <span>обработки данных</span>{' '}
             </p>
           </div>
