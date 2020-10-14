@@ -21,8 +21,8 @@ export const Footer = () => {
                 </div>
               </div>
               <nav className='col-lg-6'>
-                <a href='#'>Правила сайта</a>
-                <a href='#'>Пользовательское соглашение.</a>
+                <a href='rules.pdf'>Правила сайта</a>
+                <a href='policy.pdf'>Пользовательское соглашение.</a>
               </nav>
               <div className='col-lg-3'>
                 <p className='copy'>@ 1994-2020 All rights reserved</p>
@@ -45,10 +45,10 @@ export const Footer = () => {
             </div>
           </div>
           <nav>
-            <a href="#">
+            <a href="rules.pdf">
               Правила сайта
             </a>
-            <a href="#">
+            <a href="policy.pdf">
               Пользовательское соглашение.
             </a>
           </nav>
