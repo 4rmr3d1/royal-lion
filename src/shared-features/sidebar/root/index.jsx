@@ -13,10 +13,10 @@ const categories = {
   Tennis: '4',
   Baseball: '5',
   Volleyball: '6',
-  PingPong: '7',
+  PingPong: '10',
   Gandbol: '8',
-  AmericanFootball: '9',
-  Badminton: '10'
+  AmericanFootball: '7',
+  Badminton: '16'
 }
 
 export const Sidebar = () => {

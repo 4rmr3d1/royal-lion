@@ -6,13 +6,11 @@ import cn from 'classnames'
 
 import classes from './style.module.scss'
 
-export const MatchInfoPane = ({ data }) => {
-  const xsBreakPoint = useMediaQuery('(min-width: 576px)')
-
+export const MatchInfoPane = ({ data, key }) => {
   return (
-    <>
+    <React.Fragment key={key}>
       <Accordion
-        expanded
+        defaultExpanded
         key={data.api_id}
       >
         <AccordionSummary expandIcon={<i className='icon-chevron-down'></i>}>
@@ -20,33 +18,22 @@ export const MatchInfoPane = ({ data }) => {
         </AccordionSummary>
         <AccordionDetails>
           {data?.matches.map((match, index) => (
-            <>
-              {xsBreakPoint
-                ? (
-                  <MatchInfoWide
-                    data={match}
-                    key={index}
-                    tournament={data.name}
-                  />
-                ) : (
-                  <MatchInfoSmall
-                    data={match}
-                    key={index}
-                    tournament={data.name}
-                  />
-                )
-              }
-            </>
+            <MatchInfo
+              data={match}
+              key={index}
+              tournament={data.name}
+            />
           ))}
         </AccordionDetails>
       </Accordion>
-
-    </>
+    </React.Fragment>
   )
 }
 
-export const MatchInfoWide = ({ data, tournament }) => {
+export const MatchInfo = ({ data, tournament }) => {
   const { dispatch } = useDispatch()
+  const xsBreakPoint = useMediaQuery('(min-width: 576px)')
+
   const [show, setShow] = useState(false)
 
   const onShowCoefClick = useCallback(() => {
@@ -68,182 +55,393 @@ export const MatchInfoWide = ({ data, tournament }) => {
     })
   }, [dispatch])
 
-  const firstEvents = React.useMemo(() => {
-    return data?.events.slice(0, 6)
-  }, [data])
+  const advantage = React.useMemo(() => {
+    return data.additional_events.filter(event => event.oc_group_name === 'Фора')
+  }, [data.additional_events])
 
-  const hiddenEvents = React.useMemo(() => {
-    return data?.events.slice(6)
-  }, [data])
+  const doubleChance = React.useMemo(() => {
+    return data.additional_events.filter(event => event.oc_group_name === 'Двойной шанс')
+  }, [data.additional_events])
 
-  const hiddenEventsCount = React.useMemo(() => {
-    return data?.events.length - 6
-  }, [data])
+  const individualTotal = React.useMemo(() => {
+    return data.additional_events.filter(
+      event => event.oc_group_name === 'Индивидуальный тотал 1-го' ||
+      event.oc_group_name === 'Индивидуальный тотал 2-го'
+    )
+  }, [data.additional_events])
+
+  const bothScore = React.useMemo(() => {
+    return data.additional_events.filter(event => event.oc_group_name === 'Обе забьют')
+  }, [data.additional_events])
 
   return (
     <>
-      <div
-        className={classes.match}
-      >
-        <div style={{ maxWidth: 48 }}>
-          <div className={classes.time}>
-            <FormattedTime value={data?.game_start} />
-          </div>
-          <div className={classes.date}>
-            <FormattedDate
-              day='2-digit'
-              month='short'
-              value={data?.game_start}
-            />
-          </div>
-        </div>
-        <div className={classes.container}>
-          <div style={{ maxWidth: 164 }}>
+      {xsBreakPoint
+        ? (
+          <>
             <div
-              className={classes.command}
-              style={{ justifyContent: 'flex-end', marginLeft: 'auto' }}
+              className={classes.match}
             >
-              <Tooltip title={data?.opp_1_name}>
-                <div className={classes.label}>
-                  {data?.opp_1_name}
+              <div style={{ maxWidth: 48 }}>
+                <div className={classes.time}>
+                  <FormattedTime value={data?.game_start} />
                 </div>
-              </Tooltip>
+                <div className={classes.date}>
+                  <FormattedDate
+                    day='2-digit'
+                    month='short'
+                    value={data?.game_start}
+                  />
+                </div>
+              </div>
+              <div className={classes.container}>
+                <div style={{ maxWidth: 164 }}>
+                  <div
+                    className={classes.command}
+                    style={{ justifyContent: 'flex-end', marginLeft: 'auto' }}
+                  >
+                    <Tooltip title={data?.opp_1_name}>
+                      <div className={classes.label}>
+                        {data?.opp_1_name}
+                      </div>
+                    </Tooltip>
 
-              <div
-                className={classes.logo}
-                style={{ marginLeft: 24 }}
+                    <div
+                      className={classes.logo}
+                      style={{ marginLeft: 24 }}
+                    >
+                      <img
+                        alt=''
+                        src={data?.opp_1_icon}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className={classes.score}>
+                    {data?.score_full}
+                  </div>
+                </div>
+
+                <div style={{ maxWidth: 164 }}>
+                  <div
+                    className={classes.command}
+                    style={{ justifyContent: 'flex-start', marginRight: 'auto' }}
+                  >
+                    <div
+                      className={classes.logo}
+                      style={{ marginRight: 24 }}
+                    >
+                      <img
+                        alt=''
+                        src={data?.opp_2_icon}
+                      />
+                    </div>
+
+                    <Tooltip title={data?.opp_2_name}>
+                      <div className={classes.label}>
+                        {data?.opp_2_name}
+                      </div>
+                    </Tooltip>
+                  </div>
+                </div>
+              </div>
+              <div style={{ maxWidth: 403, width: '100%' }}>
+                <div className={classes.coefficient}>
+                  {data.main_events?.map((event, index) =>
+                    <button
+                      className="btn-coefficient"
+                      key={index}
+                      onClick={() => onOpen(event)}
+                    >
+                      <span className="number">
+                        {event.short_name}&nbsp;{event.oc_rate}
+                      </span>
+                    </button>
+                  )}
+                </div>
+              </div>
+              <span
+                className={cn(classes.more, { [classes.active]: show })}
+                onClick={onShowCoefClick}
               >
-                <img
-                  alt=''
-                  src={data?.opp_1_icon}
-                />
+                {show ? 'Скрыть' : `+${data.additional_events.length} событий`}
+              </span>
+            </div>
+            {show &&
+          <div className={classes.matchMore}>
+            <div className={classes.matchMoreButtons}>
+
+              {advantage.length > 0 &&
+                <>
+                  <div className={classes.eventType}>
+                    <span>
+                      Фора
+                    </span>
+                    <div>
+                      {advantage.map((event, index) =>
+                        <button
+                          className="btn-coefficient"
+                          key={index}
+                          onClick={() => onOpen(event)}
+                        >
+                          <span className={classes.number}>
+                            {event.short_name}&nbsp;{event.oc_rate}
+                          </span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              }
+
+              {individualTotal.length > 0 &&
+                <>
+                  <div className={classes.eventType}>
+                    <span>
+                      Индивидуальный тотал
+                    </span>
+                    <div>
+                      {individualTotal.map((event, index) =>
+                        <button
+                          className="btn-coefficient"
+                          key={index}
+                          onClick={() => onOpen(event)}
+                        >
+                          <span className={classes.number}>
+                            {event.short_name}&nbsp;{event.oc_rate}
+                          </span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              }
+
+              {bothScore.length > 0 &&
+                <>
+                  <div className={classes.eventType}>
+                    <span>
+                      Обе забьют
+                    </span>
+                    <div>
+                      {bothScore.map((event, index) =>
+                        <button
+                          className="btn-coefficient"
+                          key={index}
+                          onClick={() => onOpen(event)}
+                        >
+                          <span className={classes.number}>
+                            {event.short_name}&nbsp;{event.oc_rate}
+                          </span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              }
+
+              {doubleChance.length > 0 &&
+                <>
+                  <div className={classes.eventType}>
+                    <span>
+                    Двойной шанс
+                    </span>
+                    <div>
+                      {doubleChance.map((event, index) =>
+                        <button
+                          className="btn-coefficient"
+                          key={index}
+                          onClick={() => onOpen(event)}
+                        >
+                          <span className={classes.number}>
+                            {event.short_name}&nbsp;{event.oc_rate}
+                          </span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              }
+
+            </div>
+          </div>
+            }
+          </>
+        ) : (
+          <>
+            <div className={classes.match}>
+              <div style={{ width: 40 }}>
+                <div className={classes.time}>
+                  <FormattedTime value={data?.game_start} />
+                </div>
+                <div className={classes.date}>
+                  <FormattedDate
+                    day='2-digit'
+                    month='short'
+                    value={data?.game_start}
+                  />
+                </div>
+              </div>
+              <div style={{ width: 145 }}>
+                <div className={classes.command}>
+                  <div
+                    className={classes.logo}
+                    style={{ marginRight: 7 }}
+                  >
+                    <img
+                      alt=''
+                      src={data?.opp_1_icon}
+                    />
+                  </div>
+                  <div className={classes.label}>
+                    {data?.opp_1_name}
+                  </div>
+                </div>
+
+                <div className={classes.command}>
+                  <div
+                    className={classes.logo}
+                    style={{ marginRight: 7 }}
+                  >
+                    <img
+                      alt=''
+                      src={data?.opp_2_icon}
+                    />
+                  </div>
+                  <div className={classes.label}>
+                    {data?.opp_2_name}
+                  </div>
+                </div>
+              </div>
+              <div style={{ width: 25 }}>
+                <div className={classes.score}>
+                  {data?.score_full}
+                </div>
               </div>
             </div>
-          </div>
-
-          <div>
-            <div className={classes.score}>
-              {data?.score_full}
-            </div>
-          </div>
-
-          <div style={{ maxWidth: 164 }}>
-            <div
-              className={classes.command}
-              style={{ justifyContent: 'flex-start', marginRight: 'auto' }}
-            >
-              <div
-                className={classes.logo}
-                style={{ marginRight: 24 }}
+            <div className={classes.coefficient}>
+              {data.main_events?.map((event, index) =>
+                <button
+                  className="btn-coefficient"
+                  key={index}
+                  onClick={() => onOpen(event)}
+                >
+                  <span className="number">
+                    {event.short_name}&nbsp;{event.oc_rate}
+                  </span>
+                </button>
+              )}
+              <span
+                className={cn(classes.more, { [classes.active]: show })}
+                onClick={onShowCoefClick}
               >
-                <img
-                  alt=''
-                  src={data?.opp_2_icon}
-                />
-              </div>
+                {show ? 'Скрыть' : `Ещё +${data.additional_events.length}`}
+              </span>
+            </div>
+            {show &&
+              <div className={classes.matchMore}>
+                <div className={classes.matchMoreButtons}>
 
-              <Tooltip title={data?.opp_2_name}>
-                <div className={classes.label}>
-                  {data?.opp_2_name}
+                  {advantage.length > 0 &&
+                    <>
+                      <div className={classes.eventType}>
+                        <span>
+                          Фора
+                        </span>
+                        <div>
+                          {advantage.map((event, index) =>
+                            <button
+                              className="btn-coefficient"
+                              key={index}
+                              onClick={() => onOpen(event)}
+                            >
+                              <span className={classes.number}>
+                                {event.short_name}&nbsp;{event.oc_rate}
+                              </span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  }
+
+                  {individualTotal.length > 0 &&
+                    <>
+                      <div className={classes.eventType}>
+                        <span>
+                          Индивидуальный тотал
+                        </span>
+                        <div>
+                          {individualTotal.map((event, index) =>
+                            <button
+                              className="btn-coefficient"
+                              key={index}
+                              onClick={() => onOpen(event)}
+                            >
+                              <span className={classes.number}>
+                                {event.short_name}&nbsp;{event.oc_rate}
+                              </span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  }
+
+                  {bothScore.length > 0 &&
+                    <>
+                      <div className={classes.eventType}>
+                        <span>
+                          Обе забьют
+                        </span>
+                        <div>
+                          {bothScore.map((event, index) =>
+                            <button
+                              className="btn-coefficient"
+                              key={index}
+                              onClick={() => onOpen(event)}
+                            >
+                              <span className={classes.number}>
+                                {event.short_name}&nbsp;{event.oc_rate}
+                              </span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  }
+
+                  {doubleChance.length > 0 &&
+                    <>
+                      <div className={classes.eventType}>
+                        <span>
+                        Двойной шанс
+                        </span>
+                        <div>
+                          {doubleChance.map((event, index) =>
+                            <button
+                              className="btn-coefficient"
+                              key={index}
+                              onClick={() => onOpen(event)}
+                            >
+                              <span className={classes.number}>
+                                {event.short_name}&nbsp;{event.oc_rate}
+                              </span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </>
+                  }
+
                 </div>
-              </Tooltip>
-            </div>
-          </div>
-        </div>
-        <div style={{ maxWidth: 403, width: '100%' }}>
-          <div className={classes.coefficient}>
-            {firstEvents?.map((event, index) =>
-              <button
-                className="btn-coefficient"
-                key={index}
-                onClick={() => onOpen(event)}
-              >
-                <span className="number">
-                  {event.oc_rate}
-                </span>
-              </button>
-            )}
-          </div>
-        </div>
-        <span
-          className={cn(classes.more, { [classes.active]: show })}
-          onClick={onShowCoefClick}
-        >
-          {show ? 'Скрыть' : `+${hiddenEventsCount} событий`}
-        </span>
-      </div>
-      {show &&
-        <div className={classes.matchMore}>
-          <div className={classes.matchMoreButtons}>
-            {hiddenEvents.map((event, index) =>
-              <button
-                className="btn-coefficient"
-                key={index}
-                onClick={() => onOpen(event)}
-              >
-                <span className={classes.number}>
-                  {event.oc_rate}
-                </span>
-              </button>
-            )}
-          </div>
-        </div>
-      }
+              </div>
+            }
+          </>
+        )}
+
     </>
-  )
-}
-
-export const MatchInfoSmall = ({ data }) => {
-  return (
-    <div className={classes.match}>
-      <div style={{ width: '20%' }}>
-        <div className={classes.time}>
-          <FormattedTime value={data?.game_start} />
-        </div>
-        <div className={classes.date}>
-          <FormattedDate
-            day='2-digit'
-            month='short'
-            value={data?.game_start}
-          />
-        </div>
-      </div>
-      <div style={{ width: '60%' }}>
-        <div className={classes.command}>
-          <div
-            className={classes.logo}
-            style={{ marginRight: 7 }}
-          >
-            <img
-              alt=''
-              src={data?.opp_1_icon}
-            />
-          </div>
-          <div className={classes.label}>
-            {data?.opp_1_name}
-          </div>
-        </div>
-
-        <div className={classes.command}>
-          <div
-            className={classes.logo}
-            style={{ marginRight: 7 }}
-          >
-            <img
-              alt=''
-              src={data?.opp_2_icon}
-            />
-          </div>
-          <div className={classes.label}>
-            {data?.opp_2_name}
-          </div>
-        </div>
-      </div>
-      <div style={{ width: '10%' }}>
-        <div className={classes.score}>
-          {data?.score_full}
-        </div>
-      </div>
-    </div>
   )
 }

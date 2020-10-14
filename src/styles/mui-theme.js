@@ -2,6 +2,11 @@ import { createMuiTheme } from '@material-ui/core/styles'
 
 export const theme = createMuiTheme({
   shadows: ['none'],
+  palette: {
+    primary: {
+      main: '#4286F4'
+    }
+  },
   overrides: {
     MuiInputBase: {
       root: {
@@ -32,7 +37,17 @@ export const theme = createMuiTheme({
       paper: {
         borderRadius: 15,
         overflowY: 'unset',
-        padding: 30
+        padding: 30,
+        '@media (max-width: 576px)': {
+          padding: 20
+        }
+      }
+    },
+    MuiDialogContent: {
+      root: {
+        '@media (max-width: 576px)': {
+          padding: 0
+        }
       }
     },
     MuiTooltip: {

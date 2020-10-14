@@ -17,8 +17,12 @@ export const ProfileCard = ({ firstName, lastName, email, balance }) => {
         <h3>
           {firstName} {lastName}
         </h3>
-        <h4> {email} </h4>
-        <div className={classes.balance}> {balance} </div>
+        <h4>
+          {email}
+        </h4>
+        <div className={classes.balance}>
+          {balance}
+        </div>
       </div>
     </Block>
   )
@@ -42,6 +46,13 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
     dispatch(userActions.logout())
   })
 
+  const handleBurger = React.useCallback(() => {
+    dispatch({
+      type: '@USER/change-property',
+      payload: { burgerVisible: false }
+    })
+  }, [dispatch])
+
   return (
     <div className={classes.headerProfileCard}>
       <img
@@ -49,12 +60,14 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
         src="img/defaultAvatar.png"
       />
       <div>
-        <button
-          onClick={onMenuOpen}
-        >
+        <button onClick={onMenuOpen}>
           {firstName} {lastName}
         </button>
-        <div className={classes.balance}>37 829 ₽</div>
+
+        <div className={classes.balance}>
+          {balance}
+        </div>
+
         <Menu
           anchorEl={anchorEl}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
@@ -64,27 +77,57 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           onClose={onMenuClose}
         >
-          <MenuItem onClick={() => history.push('/profile')}>
+          <MenuItem
+            onClick={() => {
+              handleBurger()
+              history.push('/profile')
+            }}
+          >
             Профиль
           </MenuItem>
 
-          <MenuItem onClick={() => history.push('/profile/configurations')}>
+          <MenuItem
+            onClick={() => {
+              handleBurger()
+              history.push('/profile/configurations')
+            }}
+          >
             Настройки профиля
           </MenuItem>
 
-          <MenuItem onClick={() => history.push('/profile/history')}>
+          <MenuItem
+            onClick={() => {
+              handleBurger()
+              history.push('/profile/history')
+            }}
+          >
             История ставок
           </MenuItem>
 
-          <MenuItem onClick={() => history.push('/profile/withdraw')}>
+          <MenuItem
+            onClick={() => {
+              handleBurger()
+              history.push('/profile/withdraw')
+            }}
+          >
             Вывод средств
           </MenuItem>
 
-          <MenuItem onClick={() => history.push('/profile/support')}>
+          <MenuItem
+            onClick={() => {
+              handleBurger()
+              history.push('/profile/support')
+            }}
+          >
             Поддержка
           </MenuItem>
 
-          <MenuItem onClick={() => history.push('/profile/coupon')}>
+          <MenuItem
+            onClick={() => {
+              handleBurger()
+              history.push('/profile/coupon')
+            }}
+          >
             Купон
           </MenuItem>
 
@@ -109,7 +152,7 @@ export const ProfileCardSmall = ({ firstName, lastName, email, balance }) => {
       <div>
         <h4>{firstName} {lastName}</h4>
         <span>{email}</span>
-        <h3>37 829 ₽</h3>
+        <h3>{balance}</h3>
       </div>
     </div>
   )

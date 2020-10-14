@@ -93,6 +93,8 @@ const logout = () => (dispatch) => {
 }
 
 const changePassword = (data, { resetForm }) => (dispatch) => {
+  dispatch({ type: '@USER/change-password' })
+
   return axios.post(`${API_URL}/user/password/change/`, {
     old_password: data.oldPassword,
     password1: data.newPassword,
@@ -101,8 +103,6 @@ const changePassword = (data, { resetForm }) => (dispatch) => {
     headers: authHeader()
   })
     .then(response => {
-      dispatch({ type: '@USER/change-password' })
-
       if (response.data) {
         dispatch({ type: '@USER/change-password-success', user: response.data.success })
         resetForm()
@@ -114,6 +114,8 @@ const changePassword = (data, { resetForm }) => (dispatch) => {
 }
 
 const changeContacts = data => dispatch => {
+  dispatch({ type: '@USER/change-contacts' })
+
   return axios.put(`${API_URL}/user/my/change/`, {
     phone_number: String(data.phoneNumber).trim(),
     email: data.email
@@ -121,8 +123,6 @@ const changeContacts = data => dispatch => {
     headers: authHeader()
   })
     .then(response => {
-      dispatch({ type: '@USER/change-contacts' })
-
       if (response.data) {
         dispatch({ type: '@USER/change-contacts-success', user: response.data })
       }
@@ -182,7 +182,11 @@ const loadLineTournaments = ({ sportId, page }) => dispatch => {
   return axios.get(`${API_URL}/sport_events/line/tournaments/list/${sportId}/${page}`, { headers: authHeader() })
     .then(response => {
       if (response.data) {
-        dispatch({ type: '@EVENTS/load-line-tournaments-success', payload: response.data.data })
+        dispatch({
+          type: '@EVENTS/load-line-tournaments-success',
+          payload: response.data.data,
+          length: response.data.length
+        })
       }
     })
     .catch(error => {
@@ -200,7 +204,11 @@ const loadLiveTournaments = ({ sportId, page }) => dispatch => {
   return axios.get(`${API_URL}/sport_events/live/tournaments/list/${sportId}/${page}`)
     .then(response => {
       if (response.data) {
-        dispatch({ type: '@EVENTS/load-live-tournaments-success', payload: response.data.data })
+        dispatch({
+          type: '@EVENTS/load-live-tournaments-success',
+          payload: response.data.data,
+          length: response.data.length
+        })
       }
     })
     .catch(error => {
@@ -230,21 +238,21 @@ export const results = {
   loadResults
 }
 
-const makeBet = ({ betType, amount, betId }) => dispatch => {
+const makeBet = ({ betType, amount, betId, onSuccess }) => dispatch => {
   dispatch({ type: '@BET/make-bet-request' })
 
   return axios.post(`${API_URL}/bet/make/${betType}`,
     { amount, bets_ids: [betId] },
     { headers: authHeader() })
     .then((response) => {
-      console.log(response)
       if (response.data) {
         dispatch({ type: '@BET/make-bet-success' })
+        dispatch({ type: '@USER/change-property', payload: { betModalVisible: false } })
       }
+      onSuccess()
     })
     .catch((error) => {
       dispatch({ type: '@BET/make-bet-error', error: error.response.data.errors })
-      console.log(error)
     })
 }
 
@@ -254,14 +262,12 @@ const getBets = () => dispatch => {
   return axios.get(`${API_URL}/bet/userbets/`,
     { headers: authHeader() })
     .then((response) => {
-      console.log(response)
       if (response.data) {
-        dispatch({ type: '@BET/get-bets-success' })
+        dispatch({ type: '@BET/get-bets-success', betHistory: response.data.data })
       }
     })
     .catch(error => {
-      dispatch({ type: '@BET/get-bets-error', error: error.response.data.errors })
-      console.log(error.response)
+      dispatch({ type: '@BET/get-bets-error', error: error.response?.data.errors })
     })
 }
 
@@ -272,12 +278,12 @@ const checkBetCoupon = ({ ticket }) => dispatch => {
     { headers: authHeader() })
     .then(response => {
       if (response.data) {
-        dispatch({ type: '@BET/check-coupon-success' })
+        dispatch({ type: '@BET/check-coupon-success', coupon: response.data.data })
       }
     })
     .catch(error => {
-      dispatch({ type: '@BET/check-coupon-error' })
-      console.log(error)
+      dispatch({ type: '@BET/check-coupon-error', couponError: error.response.data.errors })
+      console.log(error.response)
     })
 }
 

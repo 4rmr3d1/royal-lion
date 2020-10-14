@@ -1,13 +1,17 @@
 import React from 'react'
+import { FormattedTime, FormattedDate } from 'react-intl'
 import { useMediaQuery } from '@material-ui/core'
-import { Block, Chip, MatchInfoSmall } from '@app/ui'
-import { bet, useDispatch } from '@app/store'
+import { Block, Chip } from '@app/ui'
+import { bet, useDispatch, useSelector } from '@app/store'
 
 import classes from './style.module.scss'
 
 export const BetHistoryTab = () => {
   const { dispatch } = useDispatch()
   const breakPoint = useMediaQuery('(max-width: 575px)')
+  console.log(breakPoint)
+
+  const history = useSelector(state => state.bet.betHistory)
 
   React.useEffect(() => {
     dispatch(bet.getBets())
@@ -22,7 +26,12 @@ export const BetHistoryTab = () => {
       </Block>
 
       <Block>
-        {breakPoint ? <MatchInfoSmall/> : <HistoryItem/> }
+        {history?.map((match, index) =>
+          <HistoryItem
+            data={match}
+            key={index}
+          />
+        )}
       </Block>
     </>
   )
@@ -32,33 +41,39 @@ export const BetHistoryTab = () => {
 
 const HistoryItem = ({ data }) => {
   return (
-    <div className={classes.historyItem}>
+    <div
+      className={classes.historyItem}
+    >
 
       <Chip variant='muted'>
-        №0000001
+        {data.bet_code}
       </Chip>
 
       <div className={classes.historyItemDate}>
-        <div>15.08.2020</div>
-        <div>08:34</div>
+        <div>
+          <FormattedDate value={data.date_created}/>
+        </div>
+
+        <div>
+          <FormattedTime value={data.date_created}/>
+        </div>
       </div>
 
       <div className={classes.historyItemResult}>
-        <h5>Short Football 4x4 L2</h5>
+        <h5></h5>
 
         <div>
           <h6>
-            Барселона <span>(2)—(1)</span> Манчестер Юнайтед
           </h6>
         </div>
       </div>
 
       <Chip variant='outlined'>
-        37 829 ₽
+        {data.user_win} ₽
       </Chip>
 
       <Chip variant='contained'>
-        2x 2.37
+        {data.win_coefficient}
       </Chip>
 
     </div>

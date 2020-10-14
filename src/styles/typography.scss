@@ -57,9 +57,10 @@ h4 {
 		padding: 11px 33px 11px 34px;
 	}
 	&-coefficient{
-    min-width: 60px;
-    height: 38px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
     background: #F6F8FD;
     border: 1px solid #EDEFF5;
     border-radius: 8px;
@@ -68,7 +69,6 @@ h4 {
     line-height: 38px;
     color: #939A9E;
 		display: block;
-		padding: 0 8px;
     .number{
       color: #343949;
     }
@@ -83,6 +83,16 @@ h4 {
       span{
         color: #FFF;
       }
+    }
+    @media (max-width: 575px) {
+      min-width: 55px;
+      height: 34px;
+    }
+    
+    @media (min-width: 576px) {
+      min-width: 60px;
+      height: 38px;
+		  padding: 0 8px;
     }
 	}
 	&-burger{

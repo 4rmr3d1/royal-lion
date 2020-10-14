@@ -4,10 +4,12 @@ import { useLocation } from 'react-router-dom'
 import { DialogTitle, DialogContent, TextField } from '@material-ui/core'
 import { Dialog, Button, ErrorText } from '@app/ui'
 import { useSelector, useDispatch, bet } from '@app/store'
+import { useNotifications } from '@app/lib/use-notifications'
 
 import classes from './style.module.scss'
 
 export const BetModal = ({ open, onClose }) => {
+  const { showSuccessMessage } = useNotifications()
   const { dispatch } = useDispatch()
   const location = useLocation()
 
@@ -17,6 +19,7 @@ export const BetModal = ({ open, onClose }) => {
 
   const event = useSelector(state => state.bet.data.data?.oc_group_name)
   const coef = useSelector(state => state.bet.data.data?.oc_rate)
+  const ocName = useSelector(state => state.bet.data.data?.oc_name)
   const betId = useSelector(state => state.bet.data.data?.id)
   const error = useSelector(state => state.bet.betError)
 
@@ -31,7 +34,12 @@ export const BetModal = ({ open, onClose }) => {
   const onSubmit = React.useCallback((e) => {
     e.preventDefault()
 
-    dispatch(bet.makeBet({ betType, amount, betId }))
+    dispatch(bet.makeBet({
+      betType,
+      amount,
+      betId,
+      onSuccess: () => showSuccessMessage('Ставка успешно поставлена!')
+    }))
   })
 
   const betType = React.useMemo(() => {
@@ -64,7 +72,7 @@ export const BetModal = ({ open, onClose }) => {
       </DialogTitle>
 
       <DialogContent>
-        <div className={classes.gridItem}>
+        <div className={cn(classes.gridItem, classes.firstItem)}>
           {!isLoggedIn &&
             <ErrorText
               message='Войдите на сайт, либо пройдите процедуру регистрации'
@@ -79,8 +87,19 @@ export const BetModal = ({ open, onClose }) => {
           <div className={cn(classes.formRow, classes.container)}>
             {firstTeam} - {secondTeam}
 
-            <span className={classes.coef}>
-              {event}&nbsp;{coef}
+            <span
+              style={{
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
+              <span>
+                {ocName}
+              </span>
+
+              <span className={classes.coef}>
+                {event}&nbsp;{coef}
+              </span>
             </span>
           </div>
         </div>

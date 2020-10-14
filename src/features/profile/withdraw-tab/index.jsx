@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedDate } from 'react-intl'
 import { Alert } from '@material-ui/lab'
-import { TextField, FormControl, useMediaQuery } from '@material-ui/core'
+import { TextField, FormControl, useMediaQuery, Select, MenuItem } from '@material-ui/core'
 import { Button, Block, BlockItem, Chip } from '@app/ui'
 import { useDispatch, useSelector, payment } from '@app/store'
 
@@ -27,6 +27,7 @@ export const WithdrawForm = () => {
   const { dispatch } = useDispatch()
   const error = useSelector(state => state.payments.outputError)
   const [amount, setAmount] = React.useState(100)
+  const [paymentMethod, setPaymentMethod] = React.useState(0)
 
   const onAmountChange = React.useCallback((e) => {
     setAmount(e.target.value)
@@ -44,6 +45,15 @@ export const WithdrawForm = () => {
       onSubmit={onSubmit}
     >
       <h4>Для вывода средств необходимо пополнить баланс не менее 5 раз</h4>
+
+      {!!error && (
+        <Alert
+          severity='error'
+          style={{ marginTop: 25 }}
+        >
+          {error}
+        </Alert>
+      )}
 
       <div className="row justify-content-sm-center">
         <div className="col-lg-4 col-sm-5">
@@ -67,7 +77,40 @@ export const WithdrawForm = () => {
           </FormControl>
         </div>
 
-        <div className={classes.button}>
+        <div className="col-lg-4 col-sm-5">
+          <FormControl
+            fullWidth
+            variant='outlined'
+          >
+            <Select
+              name='gender'
+              value={paymentMethod}
+              onChange={e => setPaymentMethod(e.target.value)}
+            >
+              <MenuItem
+                style={{ display: 'none' }}
+                value={'0'}
+              >
+                Способ вывода
+              </MenuItem>
+              <MenuItem value={'Visa RUB'}>Visa RUB</MenuItem>
+              <MenuItem value={'QIWI WALLET'}>QIWI WALLET</MenuItem>
+              <MenuItem value={'VISA USA'}>VISA USA</MenuItem>
+              <MenuItem value={'VISA EUR'}>VISA EUR</MenuItem>
+              <MenuItem value={'TETHER USD'}>TETHER USD</MenuItem>
+              <MenuItem value={'EXMO USD'}>EXMO USD</MenuItem>
+              <MenuItem value={'LITECOIN'}>LITECOIN</MenuItem>
+              <MenuItem value={'BITCOIN CASH'}>BITCOIN CASH</MenuItem>
+              <MenuItem value={'MONERO'}>MONERO</MenuItem>
+              <MenuItem value={'BITCOIN'}>BITCOIN</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+
+        <div
+          className={classes.button}
+          style={{ marginTop: 20 }}
+        >
           <Button
             color='primary'
             fullWidth
@@ -78,15 +121,6 @@ export const WithdrawForm = () => {
           </Button>
         </div>
       </div>
-
-      {!!error && (
-        <Alert
-          severity='error'
-          style={{ marginTop: 25 }}
-        >
-          {error}
-        </Alert>
-      )}
     </form>
   )
 }
@@ -98,16 +132,16 @@ const WithdrawHistory = () => {
         <h4 className={classes.title}>История заявок</h4>
       </Block>
 
-      <div>
+      {/* <div>
         <Block>
           <WithdrawHistoryItem status={'pending'}/>
         </Block>
-      </div>
+      </div> */}
     </>
   )
 }
 
-const WithdrawHistoryItem = ({ status, date }) => {
+export const WithdrawHistoryItem = ({ status, date }) => {
   const breakPoint = useMediaQuery('(max-width: 575px)')
 
   return (

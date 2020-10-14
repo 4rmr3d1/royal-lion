@@ -28,6 +28,7 @@ export const Profile = () => {
   const firstName = useSelector(state => state.authReducer?.user?.data?.first_name)
   const secondName = useSelector(state => state.authReducer?.user?.data?.second_name)
   const email = useSelector(state => state.authReducer.user?.data?.email)
+  const balance = useSelector(state => state.authReducer.user?.data?.customer_account.current_balance)
 
   const breakPoint = useMediaQuery('(max-width: 576px)')
 
@@ -51,6 +52,7 @@ export const Profile = () => {
       <div className={classes.profilePage}>
         {breakPoint && (
           <ProfileCardSmall
+            balance={balance}
             email={email}
             firstName={firstName}
             secondName={secondName}
@@ -109,6 +111,7 @@ export const Profile = () => {
               {!breakPoint && (
                 <div className='col-lg-3'>
                   <ProfileCard
+                    balance={balance}
                     email={email}
                     firstName={firstName}
                     secondName={secondName}

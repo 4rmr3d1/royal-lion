@@ -1,6 +1,6 @@
 import React from 'react'
-import { CircularProgress, IconButton } from '@material-ui/core/'
-import { ArrowBack, ArrowForward } from '@material-ui/icons'
+import { CircularProgress } from '@material-ui/core/'
+import { Pagination } from '@material-ui/lab'
 import { MatchInfoPane as MatchInfo } from '@app/ui'
 import { useSelector, useDispatch, line } from '@app/store'
 import { BetModal } from '@app/shared-features'
@@ -10,9 +10,12 @@ import './index.scss'
 export const Line = () => {
   const { dispatch } = useDispatch()
 
-  const lineMatches = useSelector(state => state.lineMatches.tournaments)
   const sportId = useSelector(state => state.selectedCategory.category)
+
   const isLoaded = useSelector(state => state.lineMatches.isLoaded)
+  const lineMatches = useSelector(state => state.lineMatches.tournaments)
+  const length = useSelector(state => state.lineMatches.length)
+
   const open = useSelector(state => state.authReducer.properties.betModalVisible)
 
   const [page, setPage] = React.useState(0)
@@ -28,6 +31,14 @@ export const Line = () => {
     })
   }, [dispatch])
 
+  const onPaginationChange = React.useCallback((event, page) => {
+    setPage(page)
+  }, [setPage])
+
+  const totalPages = React.useMemo(() => {
+    return Math.ceil(length / 10)
+  }, [length])
+
   React.useEffect(() => {
     dispatch(line.loadLineTournaments({ sportId, page }))
   }, [sportId, page])
@@ -42,21 +53,14 @@ export const Line = () => {
       />
 
       <section className='line'>
-        <div style={{ marginBottom: 30, display: 'flex', justifyContent: 'space-between' }}>
-          <IconButton
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Pagination
             color='primary'
-            disabled={page === 0}
-            onClick={() => setPage(page - 1)}
-          >
-            <ArrowBack/>
-          </IconButton>
-
-          <IconButton
-            color='primary'
-            onClick={() => setPage(page + 1)}
-          >
-            <ArrowForward/>
-          </IconButton>
+            count={totalPages}
+            page={page + 1}
+            shape="rounded"
+            onChange={onPaginationChange}
+          />
         </div>
 
         {isLoaded ? (
@@ -76,6 +80,16 @@ export const Line = () => {
             <CircularProgress />
           </div>
         )}
+
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Pagination
+            color='primary'
+            count={totalPages}
+            page={page + 1}
+            shape="rounded"
+            onChange={onPaginationChange}
+          />
+        </div>
       </section>
     </>
   )

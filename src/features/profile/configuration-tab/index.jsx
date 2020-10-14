@@ -9,6 +9,12 @@ import { Block, BlockItem, Button, ErrorText, PhoneTextMask } from '@app/ui'
 import classes from './style.module.scss'
 
 export const ConfigurationTab = () => {
+  const { dispatch } = useDispatch()
+
+  React.useEffect(() => {
+    return () => dispatch({ type: '@USER/reset-configurations' })
+  }, [dispatch])
+
   return (
     <>
       <h3>Настройки профиля</h3>
@@ -38,9 +44,10 @@ const passwordChangeValidationSchema = yup.object({
 
 const PasswordChange = () => {
   const { dispatch } = useDispatch()
-  const serverErrors = useSelector(state => state.authReducer?.error)
-  const isChanged = useSelector(state => state.authReducer.user?.changePassword?.isChanged)
-  const isPasswordChanging = useSelector(state => state.authReducer?.isPasswordChanging)
+
+  const serverErrors = useSelector(state => state.authReducer?.configurations.passwordChangeError)
+  const isChanged = useSelector(state => state.authReducer?.configurations.isPasswordChanged)
+  const isPasswordChanging = useSelector(state => state.authReducer?.configurations.isPasswordChanging)
 
   const initialValues = {
     oldPassword: '',
@@ -91,6 +98,7 @@ const PasswordChange = () => {
           <div className='col-lg-4 col-12'>
             <FormControl fullWidth>
               <TextField
+                disabled={!!isPasswordChanging}
                 error={!!hasErrors?.oldPassword || serverErrors}
                 name='oldPassword'
                 placeholder='Старый пароль'
@@ -107,6 +115,7 @@ const PasswordChange = () => {
           <div className='col-lg-4 col-12'>
             <FormControl fullWidth>
               <TextField
+                disabled={!!isPasswordChanging}
                 error={!!hasErrors?.newPassword || serverErrors}
                 name='newPassword'
                 placeholder='Новый пароль'
@@ -123,6 +132,7 @@ const PasswordChange = () => {
           <div className='col-lg-4 col-12'>
             <FormControl fullWidth>
               <TextField
+                disabled={!!isPasswordChanging}
                 error={!!hasErrors?.newPasswordConfirm || serverErrors}
                 name='newPasswordConfirm'
                 placeholder='Новый пароль еще раз'
@@ -142,12 +152,12 @@ const PasswordChange = () => {
         <div className='col-lg-5 col-12'>
           <Button
             color='primary'
-            disabled={isPasswordChanging}
+            disabled={!!isPasswordChanging}
             fullWidth
             type='submit'
             variant='big'
           >
-            Изменить пароль
+            {isPasswordChanging ? 'Подождите..' : 'Изменить пароль' }
           </Button>
         </div>
       </div>
@@ -164,6 +174,10 @@ const ContactsChangeValidationSchema = yup.object({
 
 const ContactsChange = () => {
   const { dispatch } = useDispatch()
+
+  const serverErrors = useSelector(state => state.authReducer?.configurations.phoneOrEmailChangeError)
+  const isChanged = useSelector(state => state.authReducer?.configurations.isPhoneOrEmailChanged)
+  const isChanging = useSelector(state => state.authReducer?.configurations.phoneOrEmailChanging)
 
   const phoneNumber = useSelector(state => state.authReducer.user?.data?.phone_number)
   const email = useSelector(state => state.authReducer.user?.data?.email)
@@ -193,11 +207,28 @@ const ContactsChange = () => {
         <h4>Данные аккаунта:</h4>
       </BlockItem>
 
+      {serverErrors &&
+        <BlockItem>
+          <Alert severity='error'>
+            {serverErrors.errors}
+          </Alert>
+        </BlockItem>
+      }
+
+      {isChanged &&
+        <BlockItem>
+          <Alert severity='success'>
+            Данные успешно изменены !
+          </Alert>
+        </BlockItem>
+      }
+
       <BlockItem>
         <div className='row'>
           <div className='col-lg-4 col-12'>
             <FormControl fullWidth>
               <TextField
+                disabled={!!isChanging}
                 error={!!hasErrors.email}
                 name='email'
                 placeholder='Электронная почта'
@@ -213,6 +244,7 @@ const ContactsChange = () => {
           <div className='col-lg-4 col-12'>
             <FormControl fullWidth>
               <OutlinedInput
+                disabled={!!isChanging}
                 error={!!hasErrors.phoneNumber}
                 inputComponent={PhoneTextMask}
                 name='phoneNumber'
@@ -232,11 +264,12 @@ const ContactsChange = () => {
         <div className='col-lg-4 col-12'>
           <Button
             color='primary'
+            disabled={!!isChanging}
             fullWidth
             type='submit'
             variant='big'
           >
-            Сохранить
+            {isChanging ? 'Подождите..' : 'Изменить пароль' }
           </Button>
         </div>
       </div>

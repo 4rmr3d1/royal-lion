@@ -1,6 +1,7 @@
 const lineMatchesInitialState = {
   isLoaded: false,
   tournaments: [],
+  length: null,
   error: ''
 }
 
@@ -17,7 +18,8 @@ export const lineMatches = (state = lineMatchesInitialState, action) => {
       isLoaded: true,
       tournaments: [
         ...action.payload
-      ]
+      ],
+      length: action.length
     }
 
   case '@EVENTS/load-line-tournaments-error':
@@ -51,7 +53,8 @@ export const liveMatches = (state = liveMatchesInitialState, action) => {
       isLoaded: true,
       tournaments: [
         ...action.payload
-      ]
+      ],
+      length: action.length
     }
 
   case '@EVENTS/load-live-tournaments-error':
@@ -99,7 +102,11 @@ const betInitialState = {
   firstTeam: '',
   secondTeam: '',
   data: {},
-  betError: ''
+  betError: '',
+  coupon: null,
+  couponError: null,
+  betHistory: null,
+  betHistoryError: null
 }
 
 export const bet = (state = betInitialState, action) => {
@@ -123,6 +130,43 @@ export const bet = (state = betInitialState, action) => {
     return {
       ...state,
       betError: ''
+    }
+
+  case '@BET/check-coupon-request':
+    return {
+      ...state
+    }
+
+  case '@BET/check-coupon-success':
+    return {
+      ...state,
+      coupon: action.coupon,
+      couponError: null
+    }
+
+  case '@BET/check-coupon-error':
+    return {
+      ...state,
+      couponError: action.couponError,
+      coupon: null
+    }
+
+  case '@BET/get-bets-request':
+    return {
+      ...state
+    }
+
+  case '@BET/get-bets-success':
+    return {
+      ...state,
+      betHistory: action.betHistory,
+      betHistoryError: null
+    }
+
+  case '@BET/get-bets-error':
+    return {
+      ...state,
+      betHistoryError: action.error
     }
 
   default:

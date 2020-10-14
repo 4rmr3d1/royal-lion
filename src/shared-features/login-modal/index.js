@@ -80,7 +80,7 @@ export const LoginModal = ({ visible, onClose }) => {
               error={!!hasErrors.username || hasServerErrors}
               fullWidth
               name='username'
-              placeholder='Почта'
+              placeholder='Логин'
               value={formik.values.username}
               variant='outlined'
               onChange={formik.handleChange}

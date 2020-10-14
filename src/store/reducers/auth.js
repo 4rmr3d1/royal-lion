@@ -8,7 +8,8 @@ const initialState = {
   },
   login: {
     isLoggedIn: false,
-    loggining: null
+    loggining: null,
+    error: null
   },
   activation: {
     success: null,
@@ -16,11 +17,20 @@ const initialState = {
   },
   properties: {
     authModalVisible: false,
-    betModalVisible: false
+    betModalVisible: false,
+    burgerVisible: false
   },
   user: {
     key: user?.key,
     error: null
+  },
+  configurations: {
+    passwordChangeError: null,
+    isPasswordChanging: false,
+    isPasswordChanged: null,
+    phoneOrEmailChangeError: null,
+    phoneOrEmailChanging: false,
+    isPhoneOrEmailChanged: null
   }
 }
 
@@ -66,10 +76,11 @@ export const authReducer = (state = initialState, action) => {
       ...state,
       login: {
         ...state.login,
-        isLoggedIn: action.isLoggedIn
+        isLoggedIn: action.isLoggedIn,
+        error: null
       },
-      user: action.user,
-      error: state.error
+      error: null,
+      user: action.user
     }
 
   case '@USER/login-error':
@@ -77,7 +88,8 @@ export const authReducer = (state = initialState, action) => {
       ...state,
       login: {
         ...state.login,
-        isLoggedIn: false
+        isLoggedIn: false,
+        error: action.error
       },
       user: {
         ...state.user,
@@ -91,8 +103,7 @@ export const authReducer = (state = initialState, action) => {
       login: {
         ...state.login,
         isLoggedIn: false
-      },
-      user: null
+      }
     }
 
   case '@USER/get-info-request':
@@ -111,6 +122,7 @@ export const authReducer = (state = initialState, action) => {
         isLoggedIn: true,
         logginig: false
       },
+      error: null,
       user: action.user
     }
 
@@ -135,32 +147,74 @@ export const authReducer = (state = initialState, action) => {
   case '@USER/change-password':
     return {
       ...state,
-      isPasswordChanging: true
+      configurations: {
+        ...state.configurations,
+        isPasswordChanging: true
+      }
     }
 
   case '@USER/change-password-success':
     return {
       ...state,
-      error: null,
-      isPasswordChanging: false,
-      user: {
-        ...state.user,
-        changePassword: {
-          isChanged: action.user
-        }
+      configurations: {
+        ...state.configurations,
+        passwordChangeError: null,
+        isPasswordChanging: false,
+        isPasswordChanged: true
       }
     }
 
   case '@USER/change-password-error':
     return {
       ...state,
-      error: action.error,
-      isPasswordChanging: false,
+      configurations: {
+        ...state.configurations,
+        passwordChangeError: action.error,
+        isPasswordChanging: false,
+        isPasswordChanged: false
+      }
+    }
+
+  case '@USER/change-contacts':
+    return {
+      ...state,
+      configurations: {
+        ...state.configurations,
+        phoneOrEmailChanging: true
+      }
+    }
+
+  case '@USER/change-contacts-success':
+    return {
+      ...state,
       user: {
         ...state.user,
-        changePassword: {
-          isChanged: action.changed
-        }
+        ...action.user
+      },
+      configurations: {
+        ...state.configurations,
+        phoneOrEmailChangeError: null,
+        phoneOrEmailChanging: false,
+        isPhoneOrEmailChanged: true
+      }
+    }
+
+  case '@USER/change-contacts-error':
+    return {
+      ...state,
+      configurations: {
+        ...state.configurations,
+        phoneOrEmailChangeError: action.error,
+        phoneOrEmailChanging: false,
+        isPhoneOrEmailChanged: false
+      }
+    }
+
+  case '@USER/reset-configurations':
+    return {
+      ...state,
+      configurations: {
+        ...initialState.configurations
       }
     }
 

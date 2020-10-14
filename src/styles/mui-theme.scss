@@ -11,8 +11,14 @@
 
 .MuiDialog-paper {
   @media (max-width: 576px) {
+    padding: 20px;
     .MuiDialogTitle-root {
-      padding: 51px 16px 24px 16px;
+      padding: 31px 16px 24px 16px;
+      
+      & > h2 {
+        font-size: 21px;
+        line-height: 25px;
+      }
     }
   }
 }

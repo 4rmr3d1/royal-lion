@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider as ReduxProvider } from 'react-redux'
 import { IntlProvider } from 'react-intl'
+import { SnackbarProvider } from 'notistack'
 import { createStore } from '@app/store'
 import { App } from '@app/components'
 import * as serviceWorker from './serviceWorker'
@@ -11,7 +12,12 @@ const { store } = createStore()
 ReactDOM.render(
   <ReduxProvider store={store}>
     <IntlProvider locale='ru'>
-      <App />
+      <SnackbarProvider
+        hideIconVariant
+        maxSnack={3}
+      >
+        <App />
+      </SnackbarProvider>
     </IntlProvider>
   </ReduxProvider>,
   document.getElementById('root')

@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextField, FormControl } from '@material-ui/core'
-import { Button } from '@app/ui'
-import { useDispatch, bet } from '@app/store'
+import { Button, ErrorText } from '@app/ui'
+import { useDispatch, useSelector, bet } from '@app/store'
 
 import classes from './style.module.scss'
 
@@ -19,6 +19,8 @@ export const CouponTab = () => {
 
 const CheckCoupon = () => {
   const { dispatch } = useDispatch()
+  const serverError = useSelector(state => state.bet.couponError)
+  const couponData = useSelector(state => state.bet.coupon)
 
   const [ticket, setTicket] = React.useState('')
 
@@ -42,11 +44,13 @@ const CheckCoupon = () => {
           <div className="col-lg-4 col-12">
             <FormControl fullWidth>
               <TextField
+                error={!!serverError}
                 value={ticket}
                 variant='outlined'
                 onChange={onTicketChange}
               />
             </FormControl>
+            <ErrorText message={serverError}/>
           </div>
           <div className="col-lg-4 col-12">
             <Button
@@ -61,12 +65,19 @@ const CheckCoupon = () => {
         </div>
       </form>
 
-      <div className={classes.couponStatus}>
-        <span>Статус купона: <strong>В игре </strong> </span>
-        <div>
-          <span>37 829 ₽</span>
+      {couponData &&
+        <div className={classes.couponStatus}>
+          <span>Статус купона:
+            <strong>{couponData.bet_type === 'live' && 'В игре' }</strong>
+            <strong>{couponData.bet_type === 'line' && 'В линии' }</strong>
+          </span>
+          <div>
+            <span>
+              {couponData.user_bet} ₽
+            </span>
+          </div>
         </div>
-      </div>
+      }
     </>
   )
 }

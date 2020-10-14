@@ -2,7 +2,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ECF2FC;
   &:last-child{
     border-bottom: none;
   }
@@ -19,6 +18,7 @@
   }
   @media (min-width: 576px) {
     padding: 11px 20px;
+    border-bottom: 1px solid #ECF2FC;
   }
 }
 
@@ -38,20 +38,22 @@
 }
 
 .matchMore{
-  padding: 0 20px;
-  margin-top: 30px;
   display: flex;
-  margin-bottom: 30px;
   
   @media (max-width: 575px) {
-
+    padding: 0 15px;
+    margin: 15px 0;
   }
   @media (min-width: 576px) {
-
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 0 20px;
   }
 }
 .matchMoreButtons{
+  width: 100%;
   display: flex;
+  
   a{
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -63,10 +65,48 @@
   }
 
   @media (max-width: 575px) {
-
+    flex-direction: column;
   }
   @media (min-width: 576px) {
-
+    align-items: center;
+  }
+  
+  .eventType {
+    & > span {
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 15px;
+    }
+    
+    @media (max-width: 575px) {
+      flex-direction: column;
+      
+      &:not(:first-child) {
+        margin-top: 15px;
+      }
+      
+      & > div {
+        margin-top: 10px;
+        display: flex;
+        
+        button {
+          margin-right: 7px;
+        }
+      }
+    }
+    @media (min-width: 576px) {
+      margin-right: 30px;
+      
+      & > div {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        
+        button {
+          margin-right: 7px;
+        }
+      }
+    }
   }
 }
 .item{
@@ -171,13 +211,20 @@
 }
 .coefficient{
   display: flex;
-  justify-content: space-between;
-  
-  @media (max-width: 575px) {
 
+  @media (max-width: 575px) {
+    padding: 0 15px;
+    justify-content: space-between;
+    button {
+      margin-right: 7px;
+    }
   }
   @media (min-width: 576px) {
-
+    justify-content: flex-end;
+    
+    button:not(:first-child) {
+      margin-left: 7px;
+    }
   }
 }
 
@@ -189,8 +236,7 @@
   background: #EDF1FF;
   border: 1px solid #D6DDF8;
   border-radius: 8px;
-  width: 105px;
-  height: 38px;
+
   color: #A9B8F2;
   text-align: center;
   font-size: 12px;
@@ -210,11 +256,14 @@
     background: #4286F4;
     color: #FFF;
   }
-}
-
-.matchMoreButtons {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  
+  @media (max-width: 575px) {
+    width: 72px;
+    height: 34px;
+  }
+  
+  @media (min-width: 576px) {
+    width: 105px;
+    height: 38px;
+  }
 }

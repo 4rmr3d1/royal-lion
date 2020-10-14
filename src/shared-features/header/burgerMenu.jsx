@@ -7,19 +7,20 @@ import classes from './style.module.scss'
 
 const BurgerMenu = () => {
   const { dispatch } = useDispatch()
-  const [open, setOpen] = React.useState(false)
-
-  const handleOpen = () => {
-    setOpen(true)
-  }
-
-  const handleClose = () => {
-    setOpen(false)
-  }
 
   const isLoggedIn = useSelector(state => state.authReducer.login.isLoggedIn)
   const firstName = useSelector(state => state.authReducer.user?.data?.first_name)
   const secondName = useSelector(state => state.authReducer.user?.data?.second_name)
+
+  const visible = useSelector(state => state.authReducer.properties.burgerVisible)
+
+  const handleBurger = React.useCallback(() => {
+    dispatch({
+      type: '@USER/change-property',
+      payload: { burgerVisible: !visible }
+    })
+  }, [dispatch, visible])
+
   const onAuthModalOpen = React.useCallback(() => {
     dispatch({
       type: '@USER/change-property',
@@ -28,13 +29,14 @@ const BurgerMenu = () => {
       }
     })
   }, [dispatch])
+
   return (
     <div>
-      {open ? (
+      {visible ? (
         <button
           className="btn-burger-close"
           type="button"
-          onClick={handleClose}
+          onClick={handleBurger}
         >
           <span></span>
           <span></span>
@@ -43,7 +45,7 @@ const BurgerMenu = () => {
         <button
           className="btn-burger"
           type="button"
-          onClick={handleOpen}
+          onClick={handleBurger}
         >
           <span></span>
           <span></span>
@@ -59,12 +61,12 @@ const BurgerMenu = () => {
           style: { backgroundColor: 'transparent' }
         }}
         closeAfterTransition
-        open={open}
-        onClose={handleClose}
+        open={visible}
+        onClose={handleBurger}
       >
         <Slide
           direction="left"
-          in={open}
+          in={visible}
         >
           <div className={classes.paper}>
             {isLoggedIn ? (
@@ -84,7 +86,7 @@ const BurgerMenu = () => {
                 <NavLink
                   className='btn btn-mini'
                   to='/registration'
-                  onClick={handleClose}
+                  onClick={handleBurger}
                 >
                       Регистрация
                 </NavLink>
@@ -95,28 +97,28 @@ const BurgerMenu = () => {
                 activeClassName={classes.activeLink}
                 exact
                 to='/'
-                onClick={handleClose}
+                onClick={handleBurger}
               >
                   Линия
               </NavLink>
               <NavLink
                 activeClassName={classes.activeLink}
                 to='/live'
-                onClick={handleClose}
+                onClick={handleBurger}
               >
                   Лайв
               </NavLink>
               <NavLink
                 activeClassName={classes.activeLink}
                 to='/result'
-                onClick={handleClose}
+                onClick={handleBurger}
               >
                   Результаты
               </NavLink>
               <NavLink
                 activeClassName={classes.activeLink}
                 to='/contact'
-                onClick={handleClose}
+                onClick={handleBurger}
               >
                   Контакты
               </NavLink>
