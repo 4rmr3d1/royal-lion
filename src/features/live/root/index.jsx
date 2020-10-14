@@ -1,6 +1,6 @@
 import React from 'react'
-import { CircularProgress, IconButton } from '@material-ui/core'
-import { ArrowBack, ArrowForward } from '@material-ui/icons'
+import { CircularProgress } from '@material-ui/core'
+import { Pagination } from '@material-ui/lab'
 import { MatchInfoPane as MatchInfo } from '@app/ui'
 import { useSelector, useDispatch, live } from '@app/store'
 import { BetModal } from '@app/shared-features'
@@ -25,7 +25,7 @@ export const Live = () => {
   const isLoaded = useSelector(state => state.liveMatches.isLoaded)
   const open = useSelector(state => state.authReducer.properties.betModalVisible)
 
-  const [page, setPage] = React.useState(0)
+  const [page, setPage] = React.useState(1)
 
   const onClose = React.useCallback(() => {
     dispatch({
@@ -46,8 +46,16 @@ export const Live = () => {
     return () => clearInterval(timer)
   })
 
+  const onPaginationChange = React.useCallback((event, page) => {
+    setPage(page)
+  }, [setPage])
+
+  const totalPages = React.useMemo(() => {
+    return Math.ceil(length / 10)
+  }, [length])
+
   React.useEffect(() => {
-    dispatch(live.loadLiveTournaments({ sportId, page }))
+    dispatch(live.loadLiveTournaments({ sportId, page: page - 1 }))
   }, [sportId, page])
 
   React.useEffect(() => { document.title = 'Royal Lion | Лайв' }, [])
@@ -73,21 +81,14 @@ export const Live = () => {
           </div>
         </div>
 
-        <div style={{ marginBottom: 30, display: 'flex', justifyContent: 'space-between' }}>
-          <IconButton
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Pagination
             color='primary'
-            disabled={page === 0}
-            onClick={() => setPage(page - 1)}
-          >
-            <ArrowBack/>
-          </IconButton>
-
-          <IconButton
-            color='primary'
-            onClick={() => setPage(page + 1)}
-          >
-            <ArrowForward/>
-          </IconButton>
+            count={totalPages}
+            page={page}
+            shape="rounded"
+            onChange={onPaginationChange}
+          />
         </div>
 
         {isLoaded ? (
@@ -102,6 +103,16 @@ export const Live = () => {
         ) : (
           <CircularProgress />
         )}
+
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Pagination
+            color='primary'
+            count={totalPages}
+            page={page}
+            shape="rounded"
+            onChange={onPaginationChange}
+          />
+        </div>
       </section>
     </>
   )

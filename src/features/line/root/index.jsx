@@ -18,7 +18,7 @@ export const Line = () => {
 
   const open = useSelector(state => state.authReducer.properties.betModalVisible)
 
-  const [page, setPage] = React.useState(0)
+  const [page, setPage] = React.useState(1)
 
   const onClose = React.useCallback(() => {
     dispatch({
@@ -40,7 +40,7 @@ export const Line = () => {
   }, [length])
 
   React.useEffect(() => {
-    dispatch(line.loadLineTournaments({ sportId, page }))
+    dispatch(line.loadLineTournaments({ sportId, page: page - 1 }))
   }, [sportId, page])
 
   React.useEffect(() => { document.title = 'Royal Lion | Линия' }, [])
@@ -57,7 +57,7 @@ export const Line = () => {
           <Pagination
             color='primary'
             count={totalPages}
-            page={page + 1}
+            page={page}
             shape="rounded"
             onChange={onPaginationChange}
           />
@@ -85,7 +85,7 @@ export const Line = () => {
           <Pagination
             color='primary'
             count={totalPages}
-            page={page + 1}
+            page={page}
             shape="rounded"
             onChange={onPaginationChange}
           />

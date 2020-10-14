@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormattedTime, FormattedDate } from 'react-intl'
-import { ArrowBack, ArrowForward } from '@material-ui/icons'
-import { useMediaQuery, IconButton, AccordionDetails, Accordion, AccordionSummary } from '@material-ui/core/'
+import { Pagination } from '@material-ui/lab'
+import { useMediaQuery, AccordionDetails, Accordion, AccordionSummary } from '@material-ui/core/'
 import { useSelector, useDispatch, results } from '@app/store'
 
 import './index.scss'
@@ -12,31 +12,34 @@ export const Result = () => {
   const sportId = useSelector(state => state.selectedCategory.category)
   const matchesResults = useSelector(state => state.results?.matches)
 
-  const [page, setPage] = React.useState(0)
+  const [page, setPage] = React.useState(1)
+
+  const onPaginationChange = React.useCallback((event, page) => {
+    setPage(page)
+  }, [setPage])
+
+  const totalPages = React.useMemo(() => {
+    return Math.ceil(length / 10)
+  }, [length])
 
   React.useEffect(() => {
-    dispatch(results.loadResults({ sportId, page }))
-  }, [dispatch, page, sportId])
+    dispatch(results.loadResults({ sportId, page: page - 1 }))
+  }, [sportId, page])
 
   React.useEffect(() => { document.title = 'Royal Lion | Результаты' }, [])
+
   return (
     <section className='result'>
-      <div style={{ marginBottom: 30, display: 'flex', justifyContent: 'space-between' }}>
-        <IconButton
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Pagination
           color='primary'
-          disabled={page === 0}
-          onClick={() => setPage(page - 1)}
-        >
-          <ArrowBack/>
-        </IconButton>
-
-        <IconButton
-          color='primary'
-          onClick={() => setPage(page + 1)}
-        >
-          <ArrowForward/>
-        </IconButton>
+          count={totalPages}
+          page={page}
+          shape="rounded"
+          onChange={onPaginationChange}
+        />
       </div>
+
       <Accordion expanded>
         <AccordionSummary>
           Результаты
@@ -51,6 +54,16 @@ export const Result = () => {
           ))}
         </AccordionDetails>
       </Accordion>
+
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Pagination
+          color='primary'
+          count={totalPages}
+          page={page}
+          shape="rounded"
+          onChange={onPaginationChange}
+        />
+      </div>
     </section>
   )
 }

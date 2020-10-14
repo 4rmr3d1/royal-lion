@@ -49,7 +49,7 @@ export const WithdrawForm = () => {
       {!!error && (
         <Alert
           severity='error'
-          style={{ marginTop: 25 }}
+          style={{ marginBottom: 25 }}
         >
           {error}
         </Alert>
