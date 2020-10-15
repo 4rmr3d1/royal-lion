@@ -11,6 +11,7 @@ export const Result = () => {
 
   const sportId = useSelector(state => state.selectedCategory.category)
   const matchesResults = useSelector(state => state.results?.matches)
+  const length = useSelector(state => state.results?.length)
 
   const [page, setPage] = React.useState(1)
 
@@ -30,15 +31,17 @@ export const Result = () => {
 
   return (
     <section className='result'>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Pagination
-          color='primary'
-          count={totalPages}
-          page={page}
-          shape="rounded"
-          onChange={onPaginationChange}
-        />
-      </div>
+      {length > 20 &&
+          <div className='pagination'>
+            <Pagination
+              color='primary'
+              count={totalPages}
+              page={page}
+              shape="rounded"
+              onChange={onPaginationChange}
+            />
+          </div>
+      }
 
       <Accordion expanded>
         <AccordionSummary>
@@ -55,15 +58,17 @@ export const Result = () => {
         </AccordionDetails>
       </Accordion>
 
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Pagination
-          color='primary'
-          count={totalPages}
-          page={page}
-          shape="rounded"
-          onChange={onPaginationChange}
-        />
-      </div>
+      {length > 20 &&
+        <div className='pagination'>
+          <Pagination
+            color='primary'
+            count={totalPages}
+            page={page}
+            shape="rounded"
+            onChange={onPaginationChange}
+          />
+        </div>
+      }
     </section>
   )
 }

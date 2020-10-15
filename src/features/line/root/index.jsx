@@ -67,18 +67,21 @@ export const Line = () => {
 
         {isLoaded ? (
           <>
-            {lineMatches?.map((data, index) => (
-              <MatchInfo
-                data={data}
-                key={index}
-              />
-            ))}
-            {lineMatches.length > 0 && (
-              <div style={{ width: '100%', height: 'auto', textAlign: 'center' }}>
-                <img src='img/noData.png' />
-                <span style={{ fontSize: 48, lineHeight: 57 }}>НЕТ ДАННЫХ</span>
-              </div>
-            )}
+            {lineMatches.length > 0
+              ? <>
+                {lineMatches?.map((data, index) => (
+                  <MatchInfo
+                    data={data}
+                    key={index}
+                  />
+                ))}
+              </>
+              : (
+                <div className={classes.emptyData}>
+                  <img src='img/noData.png' />
+                  <div>НЕТ ДАННЫХ</div>
+                </div>
+              )}
           </>
         ) : (
           <div className={classes.loader}>

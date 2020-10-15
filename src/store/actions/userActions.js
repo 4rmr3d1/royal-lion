@@ -144,7 +144,7 @@ const activateAccount = ({ code }) => dispatch => {
     })
 }
 
-const createRequest = (data, { resetForm }) => (dispatch) => {
+const createRequest = ({ data, onSuccess, resetForm }) => (dispatch) => {
   dispatch({ type: '@USER/create-request' })
 
   return axios.post(`${API_URL}/support/request/create/`, {
@@ -157,6 +157,7 @@ const createRequest = (data, { resetForm }) => (dispatch) => {
     .then(response => {
       if (response.data) {
         dispatch({ type: '@USER/create-request-success', success: response.data.success })
+        onSuccess()
         resetForm()
       }
     })
@@ -226,7 +227,11 @@ const loadResults = ({ sportId, page }) => dispatch => {
   return axios.get(`${API_URL}/sport_events/results/${sportId}/${page}`)
     .then(response => {
       if (response.data) {
-        dispatch({ type: '@EVENTS/load-results-success', payload: response.data.data })
+        dispatch({
+          type: '@EVENTS/load-results-success',
+          payload: response.data.data,
+          length: response.data.length
+        })
       }
     })
     .catch(error => {
@@ -293,8 +298,8 @@ export const bet = {
   checkBetCoupon
 }
 
-const paymentsInput = ({ amount }) => dispatch => {
-  return axios.post(`${API_URL}/payments/input/`,
+const paymentsInput = ({ amount, onSuccess }) => dispatch => {
+  return axios.post(`${API_URL}/payments/input/create`,
     { amount },
     { headers: authHeader() })
     .then(response => {
@@ -307,19 +312,35 @@ const paymentsInput = ({ amount }) => dispatch => {
     })
 }
 
-const paymentOutput = ({ amount }) => dispatch => {
-  return axios.post(`${API_URL}/payments/output/`,
+const paymentOutput = ({ amount, onSuccess }) => dispatch => {
+  return axios.post(`${API_URL}/payments/output/create`,
     { amount },
     { headers: authHeader() })
     .then(response => {
-      console.log(response)
+      dispatch({ type: '@PAYMENT/payment-output-error' })
+      onSuccess()
+      dispatch(getPaymentsOutput())
     })
     .catch(error => {
       dispatch({ type: '@PAYMENT/payment-output-error', error: error.response.data.errors })
     })
 }
 
+const getPaymentsOutput = () => dispatch => {
+  dispatch({ type: '@PAYMENT/get-payment-output-request' })
+
+  return axios.get(`${API_URL}/payments/output/`,
+    { headers: authHeader() })
+    .then(response => {
+      dispatch({ type: '@PAYMENT/get-payment-output-success', payload: response.data.data })
+    })
+    .catch(error => {
+      dispatch({ type: '@PAYMENT/get-payment-output-error', error: error.response.data.errors })
+    })
+}
+
 export const payment = {
   paymentsInput,
-  paymentOutput
+  paymentOutput,
+  getPaymentsOutput
 }

@@ -1,11 +1,12 @@
 import React from 'react'
+import cn from 'classnames'
 import { CircularProgress } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 import { MatchInfoPane as MatchInfo } from '@app/ui'
 import { useSelector, useDispatch, live } from '@app/store'
 import { BetModal } from '@app/shared-features'
 
-import './index.scss'
+import classes from './style.module.scss'
 
 export const usePrevious = (previous) => {
   const reference = React.useRef()
@@ -20,9 +21,12 @@ export const usePrevious = (previous) => {
 export const Live = () => {
   const { dispatch } = useDispatch()
 
-  const liveMatches = useSelector(state => state.liveMatches?.tournaments)
   const sportId = useSelector(state => state.selectedCategory.category)
+
   const isLoaded = useSelector(state => state.liveMatches.isLoaded)
+  const liveMatches = useSelector(state => state.liveMatches?.tournaments)
+  const length = useSelector(state => state.liveMatches.length)
+
   const open = useSelector(state => state.authReducer.properties.betModalVisible)
 
   const [page, setPage] = React.useState(1)
@@ -67,11 +71,11 @@ export const Live = () => {
         onClose={onClose}
       />
 
-      <section className='line live'>
+      <section className={cn(classes.line, classes.live)}>
         <div className='row'>
           <div className='col-12'>
-            <div className='live-label'>
-              <div className='live-icon'>
+            <div className={classes.liveLabel}>
+              <div className={classes.liveIcon}>
                 <img
                   alt=''
                   src='img/live.svg'
@@ -81,22 +85,24 @@ export const Live = () => {
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Pagination
-            color='primary'
-            count={totalPages}
-            page={page}
-            shape="rounded"
-            onChange={onPaginationChange}
-          />
-        </div>
+        {length > 10 &&
+          <div className={classes.pagination}>
+            <Pagination
+              color='primary'
+              count={totalPages}
+              page={page}
+              shape="rounded"
+              onChange={onPaginationChange}
+            />
+          </div>
+        }
 
         {isLoaded ? (
           <>
             {liveMatches?.map((data, index) => (
               <MatchInfo
                 data={data}
-                key={index}
+                key={index | data.api_id}
               />
             ))}
           </>
@@ -104,15 +110,17 @@ export const Live = () => {
           <CircularProgress />
         )}
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Pagination
-            color='primary'
-            count={totalPages}
-            page={page}
-            shape="rounded"
-            onChange={onPaginationChange}
-          />
-        </div>
+        {length > 10 &&
+          <div className={classes.pagination}>
+            <Pagination
+              color='primary'
+              count={totalPages}
+              page={page}
+              shape="rounded"
+              onChange={onPaginationChange}
+            />
+          </div>
+        }
       </section>
     </>
   )

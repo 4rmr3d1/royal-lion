@@ -6,9 +6,9 @@ import cn from 'classnames'
 
 import classes from './style.module.scss'
 
-export const MatchInfoPane = ({ data, key }) => {
+export const MatchInfoPane = ({ data }) => {
   return (
-    <React.Fragment key={key}>
+    <React.Fragment>
       <Accordion
         defaultExpanded
         key={data.api_id}

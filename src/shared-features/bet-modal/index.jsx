@@ -138,7 +138,7 @@ export const BetModal = ({ open, onClose }) => {
                 <TextField
                   disabled
                   fullWidth
-                  value={'Ординар.'}
+                  value={'Ординар'}
                   variant='outlined'
                 />
               </div>

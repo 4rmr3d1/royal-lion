@@ -1,7 +1,8 @@
 import React from 'react'
-import { FormattedDate } from 'react-intl'
+import { FormattedDate, FormattedTime } from 'react-intl'
 import { Alert } from '@material-ui/lab'
 import { TextField, FormControl, useMediaQuery, Select, MenuItem } from '@material-ui/core'
+import { useNotifications } from '@app/lib'
 import { Button, Block, BlockItem, Chip } from '@app/ui'
 import { useDispatch, useSelector, payment } from '@app/store'
 
@@ -25,7 +26,10 @@ export const WithdrawTab = () => {
 
 export const WithdrawForm = () => {
   const { dispatch } = useDispatch()
+  const { showSuccessMessage } = useNotifications()
+
   const error = useSelector(state => state.payments.outputError)
+
   const [amount, setAmount] = React.useState(100)
   const [paymentMethod, setPaymentMethod] = React.useState(0)
 
@@ -36,7 +40,7 @@ export const WithdrawForm = () => {
   const onSubmit = React.useCallback((e) => {
     e.preventDefault(e)
 
-    dispatch(payment.paymentOutput({ amount }))
+    dispatch(payment.paymentOutput({ amount, onSuccess: () => showSuccessMessage('Заявка на вывод успешно создана') }))
   })
 
   return (
@@ -126,22 +130,35 @@ export const WithdrawForm = () => {
 }
 
 const WithdrawHistory = () => {
+  const { dispatch } = useDispatch()
+
+  const outputRequests = useSelector(state => state.payments?.outputRequests)
+
+  React.useEffect(() => {
+    dispatch(payment.getPaymentsOutput())
+  }, [dispatch])
+
   return (
     <>
       <Block>
         <h4 className={classes.title}>История заявок</h4>
       </Block>
 
-      {/* <div>
-        <Block>
-          <WithdrawHistoryItem status={'pending'}/>
-        </Block>
-      </div> */}
+      {outputRequests?.map((request, index) =>
+        <div key={index}>
+          <Block>
+            <WithdrawHistoryItem
+              data={request}
+              status={request.accepted}
+            />
+          </Block>
+        </div>
+      )}
     </>
   )
 }
 
-export const WithdrawHistoryItem = ({ status, date }) => {
+export const WithdrawHistoryItem = ({ status, data }) => {
   const breakPoint = useMediaQuery('(max-width: 575px)')
 
   return (
@@ -153,22 +170,26 @@ export const WithdrawHistoryItem = ({ status, date }) => {
               flexBasis={'35%'}
               status={status}
             >
-              {status === 'pending' && 'В работе'}
-              {status === 'success' && 'Успешно!'}
-              {status === 'error' && 'Ошибка'}
+              {status === null && 'В работе'}
+              {status === true && 'Успешно!'}
+              {status === false && 'Ошибка'}
             </Chip>
 
-            <h5> 15.08.2020 — 08:34 </h5>
+            <h5>
+              <FormattedDate value={data.date_created}/>
+              &nbsp;-&nbsp;
+              <FormattedTime value={data.date_created}/>
+            </h5>
           </div>
 
           <div>
             <Chip variant='contained'>
-            37 829 ₽
+              {data.amount}₽
             </Chip>
 
-            <Chip variant='outlined'>
+            {/* <Chip variant='outlined'>
             СберБанк 1234 **** **** 6789
-            </Chip>
+            </Chip> */}
           </div>
         </>
       ) : (

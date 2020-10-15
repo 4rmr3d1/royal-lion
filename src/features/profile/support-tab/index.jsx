@@ -1,7 +1,7 @@
 import React from 'react'
 import { useFormik } from 'formik'
 import { TextField, FormControl, Select, MenuItem } from '@material-ui/core'
-import { useFetch } from '@app/lib'
+import { useFetch, useNotifications } from '@app/lib'
 import { royalApi } from '@app/services'
 import { Button, ErrorText } from '@app/ui'
 import { useDispatch, userActions } from '@app/store'
@@ -17,10 +17,11 @@ const validationSchema = yup.object().shape({
 
 export const SupportTab = () => {
   const { dispatch } = useDispatch()
+  const { showSuccessMessage } = useNotifications()
   const { fetch, data: response } = useFetch({ fetchFn: royalApi.getDepartments, initialValue: null })
 
   const initialValues = {
-    department: 0,
+    department: '',
     request: '',
     email: ''
   }
@@ -28,8 +29,12 @@ export const SupportTab = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      dispatch(userActions.createRequest(values, { resetForm }))
+    onSubmit: (values) => {
+      dispatch(userActions.createRequest({
+        data: values,
+        onSuccess: () => showSuccessMessage('Заявка успешно отправлена'),
+        resetForm: formik.resetForm()
+      }))
     },
     validateOnChange: false
   })

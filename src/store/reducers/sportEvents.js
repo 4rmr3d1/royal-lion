@@ -71,6 +71,7 @@ export const liveMatches = (state = liveMatchesInitialState, action) => {
 
 const matchesResultInitialState = {
   matches: [],
+  length: null,
   loading: false
 }
 
@@ -78,17 +79,20 @@ export const results = (state = matchesResultInitialState, action) => {
   switch (action.type) {
   case '@EVENTS/load-results-request':
     return {
+      ...state,
       loading: true
     }
 
   case '@EVENTS/load-results-success':
     return {
       matches: action.payload,
-      loading: false
+      loading: false,
+      length: action.length
     }
 
   case '@EVENTS/load-results-error':
     return {
+      ...state,
       loading: false
     }
 
@@ -176,7 +180,8 @@ export const bet = (state = betInitialState, action) => {
 
 const paymentsInitialState = {
   outputError: '',
-  inputError: ''
+  inputError: '',
+  outputRequests: null
 }
 
 export const payments = (state = paymentsInitialState, action) => {
@@ -191,6 +196,22 @@ export const payments = (state = paymentsInitialState, action) => {
     return {
       ...state,
       outputError: action.error
+    }
+
+  case '@PAYMENT/get-payment-output-request':
+    return {
+      ...state
+    }
+
+  case '@PAYMENT/get-payment-output-success':
+    return {
+      ...state,
+      outputRequests: action.payload
+    }
+
+  case '@PAYMENT/get-payment-output-error':
+    return {
+      ...state
     }
 
   default:

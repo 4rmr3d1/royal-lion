@@ -47,7 +47,7 @@ export const ProfileTab = () => {
               <div className={classes.card}>
                 <img
                   alt=''
-                  src='img/qiwi.png'
+                  src='./img/qiwi.png'
                 />
                 <Button
                   color='primary'

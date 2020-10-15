@@ -261,7 +261,7 @@ const ContactsChange = () => {
       </BlockItem>
 
       <div className='row'>
-        <div className='col-lg-4 col-12'>
+        <div className='col-lg-5 col-12'>
           <Button
             color='primary'
             disabled={!!isChanging}

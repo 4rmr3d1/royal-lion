@@ -1,5 +1,6 @@
 .result {
-	margin-top: 40px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 
 	max-width: 1170px;
   width: 100%;
@@ -120,7 +121,20 @@
 			color: #FFF;
 			margin: 0 30px;
 		}
-	}
+  }
+  
+  .pagination {
+    display: flex;
+    margin: 20px 0;
+    @media (max-width: 575px) {
+      width: 100%;
+      justify-content: center;
+    } 
+
+    @media (min-width: 576px) {
+      justify-content: flex-end;
+    }
+  }
 }
 
 @media(max-width: 991px){

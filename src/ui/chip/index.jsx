@@ -11,9 +11,9 @@ export const Chip = ({ children, variant, status, flexBasis }) => {
         { [classes.contained]: variant === 'contained' },
         { [classes.outlined]: variant === 'outlined' },
         { [classes.muted]: variant === 'muted' },
-        { [classes.pending]: status === 'pending' },
-        { [classes.error]: status === 'error' },
-        { [classes.success]: status === 'success' }
+        { [classes.pending]: status === null },
+        { [classes.error]: status === false },
+        { [classes.success]: status === true }
       )}
       style={{ flexBasis: flexBasis }}
     >
