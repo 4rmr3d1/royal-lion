@@ -5,7 +5,7 @@ import { MatchInfoPane as MatchInfo } from '@app/ui'
 import { useSelector, useDispatch, line } from '@app/store'
 import { BetModal } from '@app/shared-features'
 
-import './index.scss'
+import classes from './style.module.scss'
 
 export const Line = () => {
   const { dispatch } = useDispatch()
@@ -52,16 +52,18 @@ export const Line = () => {
         onClose={onClose}
       />
 
-      <section className='line'>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Pagination
-            color='primary'
-            count={totalPages}
-            page={page}
-            shape="rounded"
-            onChange={onPaginationChange}
-          />
-        </div>
+      <section className={classes.line}>
+        {length > 10 &&
+          <div className={classes.pagination}>
+            <Pagination
+              color='primary'
+              count={totalPages}
+              page={page}
+              shape="rounded"
+              onChange={onPaginationChange}
+            />
+          </div>
+        }
 
         {isLoaded ? (
           <>
@@ -71,25 +73,30 @@ export const Line = () => {
                 key={index}
               />
             ))}
-            {lineMatches.length === 0 && (
-              'Список матчей пуст!'
+            {lineMatches.length > 0 && (
+              <div style={{ width: '100%', height: 'auto', textAlign: 'center' }}>
+                <img src='img/noData.png' />
+                <span style={{ fontSize: 48, lineHeight: 57 }}>НЕТ ДАННЫХ</span>
+              </div>
             )}
           </>
         ) : (
-          <div className='loader'>
+          <div className={classes.loader}>
             <CircularProgress />
           </div>
         )}
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Pagination
-            color='primary'
-            count={totalPages}
-            page={page}
-            shape="rounded"
-            onChange={onPaginationChange}
-          />
-        </div>
+        {length > 10 &&
+          <div className={classes.pagination}>
+            <Pagination
+              color='primary'
+              count={totalPages}
+              page={page}
+              shape="rounded"
+              onChange={onPaginationChange}
+            />
+          </div>
+        }
       </section>
     </>
   )

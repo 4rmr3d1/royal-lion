@@ -215,8 +215,10 @@
   @media (max-width: 575px) {
     padding: 0 15px;
     justify-content: space-between;
+    flex-wrap: wrap;
     button {
       margin-right: 7px;
+      margin-bottom: 7px;
     }
   }
   @media (min-width: 576px) {

@@ -85,7 +85,7 @@ const ResultInfo = ({ data }) => {
           </div>
         ) : (
           <div className="date">
-            <FormattedTime
+            <FormattedDate
               day='2-digit'
               month='short'
               value={data?.game_start}
