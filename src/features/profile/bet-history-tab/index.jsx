@@ -8,8 +8,6 @@ import classes from './style.module.scss'
 
 export const BetHistoryTab = () => {
   const { dispatch } = useDispatch()
-  const breakPoint = useMediaQuery('(max-width: 575px)')
-  console.log(breakPoint)
 
   const history = useSelector(state => state.bet.betHistory)
 
@@ -22,7 +20,10 @@ export const BetHistoryTab = () => {
       <h3>История ставок</h3>
 
       <Block>
-        <h4 className={classes.title}>Результаты</h4>
+        <h4 className={classes.title}>
+          <i className='iconAward'></i>
+          Результаты
+        </h4>
       </Block>
 
       <Block>
@@ -40,42 +41,127 @@ export const BetHistoryTab = () => {
 // Bets api doesn't work at this moment
 
 const HistoryItem = ({ data }) => {
+  const breakPoint = useMediaQuery('(max-width: 575px)')
+
+  const event = React.useMemo(() => {
+    return data.events?.map(event => event)[0]
+  }, [data])
+
+  const matchMap = React.useMemo(() => {
+    return data.events?.map(event => event.match_list).map(match => match[0])
+  }, [data])
+
+  const match = React.useMemo(() => {
+    return matchMap[0]
+  }, [matchMap])
+
+  const splitScore = React.useMemo(() => {
+    return match.score_full.split(':')
+  }, [match])
+
   return (
-    <div
-      className={classes.historyItem}
-    >
+    <div className={classes.historyItem}>
+      {!breakPoint ? (
+        <>
+          <Chip variant='muted'>
+            {data.bet_code}
+          </Chip>
 
-      <Chip variant='muted'>
-        {data.bet_code}
-      </Chip>
+          <div className={classes.historyItemDate}>
+            <div>
+              <FormattedDate value={data.date_created}/>
+            </div>
 
-      <div className={classes.historyItemDate}>
-        <div>
-          <FormattedDate value={data.date_created}/>
-        </div>
+            <div>
+              <FormattedTime value={data.date_created}/>
+            </div>
+          </div>
 
-        <div>
-          <FormattedTime value={data.date_created}/>
-        </div>
-      </div>
+          <div className={classes.historyItemResult}>
+            <h5>
+              {match.tournament.name}
+            </h5>
+            <div>
+              <h6>
+                {match.opp_1_name}&nbsp;
+                <span>({splitScore[0]})—({splitScore[0]})</span>
+                &nbsp;{match.opp_2_name}
+              </h6>
+            </div>
+          </div>
 
-      <div className={classes.historyItemResult}>
-        <h5></h5>
+          <Chip variant='outlined'>
+            {data.user_win} ₽
+          </Chip>
 
-        <div>
-          <h6>
-          </h6>
-        </div>
-      </div>
+          <Chip variant='contained'>
+            {event.short_name}&nbsp;{data.win_coefficient}
+          </Chip>
+        </>
+      ) : (
+        <>
+          <div className={classes.match}>
+            <div className={classes.time}>
+              <span>
+                <FormattedTime value={data.date_created}/>
+              </span>
 
-      <Chip variant='outlined'>
-        {data.user_win} ₽
-      </Chip>
+              <span>
+                <FormattedDate
+                  day='2-digit'
+                  month='short'
+                  value={data.date_created}
+                />
+              </span>
+            </div>
 
-      <Chip variant='contained'>
-        {data.win_coefficient}
-      </Chip>
+            <div className={classes.teams}>
+              <div className={classes.team}>
+                <img
+                  alt=""
+                  src={match.opp_1_icon}
+                />
+                <span>
+                  {match.opp_1_name}
+                </span>
+              </div>
 
+              <div className={classes.team}>
+                <img
+                  alt=""
+                  src={match.opp_2_icon}
+                />
+                <span>
+                  {match.opp_2_name}
+                </span>
+              </div>
+            </div>
+
+            <div className={classes.score}>
+              <span>
+                {splitScore[0]}
+              </span>
+              <span>
+                {splitScore[1]}
+              </span>
+            </div>
+          </div>
+
+          <div className={classes.event}>
+            <Chip variant='muted'>
+              {data.bet_code}
+            </Chip>
+
+            <Chip variant='outlined'>
+              {data.user_win} ₽
+            </Chip>
+
+            <Chip variant='contained'>
+              {event.short_name}&nbsp;{data.win_coefficient}
+            </Chip>
+          </div>
+        </>
+      )}
     </div>
   )
 }
