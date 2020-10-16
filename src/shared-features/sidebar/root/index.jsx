@@ -31,7 +31,7 @@ export const Sidebar = () => {
 
   const onArrowClick = React.useCallback((scrollOffset) => {
     container.current.scrollLeft += scrollOffset
-  }, [])
+  }, [container])
 
   const currentTitle = React.useMemo(() => {
     switch (location.pathname) {
@@ -41,7 +41,7 @@ export const Sidebar = () => {
 
     default: return null
     }
-  }, [location.pathname])
+  }, [location])
 
   return (
     <>

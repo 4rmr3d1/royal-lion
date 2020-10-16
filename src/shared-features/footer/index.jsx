@@ -53,9 +53,9 @@ export const Footer = () => {
             </div>
           </div>
           <nav>
-            <NavLink href="/rules">
+            <Link href="/rules">
               Правила сайта
-            </NavLink>
+            </Link>
             <Link to="policy.docx">
               Пользовательское соглашение
             </Link>
