@@ -73,6 +73,9 @@ export const MatchInfo = ({ data, tournament }) => {
   const bothScore = React.useMemo(() => {
     return data.additional_events.filter(event => event.oc_group_name === 'Обе забьют')
   }, [data.additional_events])
+  const splitScore = React.useMemo(() => {
+    return data?.score_full.split(':')
+  }, [data])
 
   return (
     <>
@@ -317,7 +320,8 @@ export const MatchInfo = ({ data, tournament }) => {
               </div>
               <div style={{ width: 25 }}>
                 <div className={classes.score}>
-                  {data?.score_full}
+                  <div>{ splitScore[0] }</div>
+                  <div>{ splitScore[1] }</div>
                 </div>
               </div>
             </div>

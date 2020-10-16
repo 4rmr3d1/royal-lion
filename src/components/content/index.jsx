@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { Activate, Line, Live, Contact, Result, Registration, Profile } from '@app/features'
+import { Activate, Line, Live, Contact, Result, Registration, Profile, Rules, NotFound } from '@app/features'
 
 import classes from './style.module.scss'
 
@@ -38,6 +38,11 @@ export const Content = () => {
           exact
           path='/activate/:id'
         />
+        <Route
+          component={Rules}
+          path='/rules'
+        />
+        <Route component={NotFound} />
       </Switch>
     </div>
   )

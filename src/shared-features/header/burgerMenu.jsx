@@ -115,13 +115,6 @@ const BurgerMenu = () => {
               >
                   Результаты
               </NavLink>
-              <NavLink
-                activeClassName={classes.activeLink}
-                to='/contact'
-                onClick={handleBurger}
-              >
-                  Контакты
-              </NavLink>
             </nav>
           </div>
         </Slide>
