@@ -125,6 +125,7 @@ const changeContacts = data => dispatch => {
     .then(response => {
       if (response.data) {
         dispatch({ type: '@USER/change-contacts-success', user: response.data })
+        dispatch(userActions.getUser())
       }
     })
     .catch(error => {
@@ -253,6 +254,7 @@ const makeBet = ({ betType, amount, betId, onSuccess }) => dispatch => {
       if (response.data) {
         dispatch({ type: '@BET/make-bet-success' })
         dispatch({ type: '@USER/change-property', payload: { betModalVisible: false } })
+        dispatch(userActions.getUser())
       }
       onSuccess()
     })
