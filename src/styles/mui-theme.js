@@ -59,6 +59,11 @@ export const theme = createMuiTheme({
         borderRadius: 10,
         padding: 30
       }
+    },
+    MuiPagination: {
+      ul: {
+        flexWrap: 'nowrap'
+      }
     }
   }
 })

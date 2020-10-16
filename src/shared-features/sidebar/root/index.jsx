@@ -1,5 +1,6 @@
 import React from 'react'
 import cn from 'classnames'
+import { useLocation } from 'react-router-dom'
 import { useMediaQuery, Drawer, Toolbar } from '@material-ui/core'
 import { ArrowBack, ArrowForward } from '@material-ui/icons'
 import { useDispatch } from '@app/store'
@@ -20,6 +21,7 @@ const categories = {
 }
 
 export const Sidebar = () => {
+  const location = useLocation()
   const xlBreakPoint = useMediaQuery('(min-width: 1280px)')
   const lgBreakPoint = useMediaQuery('(max-width: 1279px)')
   const smBreakPoint = useMediaQuery('(max-width: 599px)')
@@ -30,6 +32,16 @@ export const Sidebar = () => {
   const onArrowClick = React.useCallback((scrollOffset) => {
     container.current.scrollLeft += scrollOffset
   }, [])
+
+  const currentTitle = React.useMemo(() => {
+    switch (location.pathname) {
+    case '/': return 'Линия'
+    case '/live': return 'Лайв'
+    case '/result': return 'Результаты'
+
+    default: return null
+    }
+  }, [location.pathname])
 
   return (
     <>
@@ -67,14 +79,19 @@ export const Sidebar = () => {
             className={classes.categories}
           >
             {smBreakPoint && (
-              <div className={classes.arrows}>
-                <button onClick={() => onArrowClick(-69)}>
-                  <ArrowBack/>
-                </button>
-                <button onClick={() => onArrowClick(69)}>
-                  <ArrowForward/>
-                </button>
-              </div>
+              <>
+                <div className={classes.title}>
+                  {currentTitle}
+                </div>
+                <div className={classes.arrows}>
+                  <button onClick={() => onArrowClick(-69)}>
+                    <ArrowBack/>
+                  </button>
+                  <button onClick={() => onArrowClick(69)}>
+                    <ArrowForward/>
+                  </button>
+                </div>
+              </>
             )}
             <nav ref={container}>
               <Categories.Provider
