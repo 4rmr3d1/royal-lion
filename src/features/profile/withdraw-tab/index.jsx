@@ -199,41 +199,37 @@ export const WithdrawHistoryItem = ({ status, data }) => {
               flexBasis={'35%'}
               status={status}
             >
-              {status === 'pending' && 'В работе'}
-              {status === 'success' && 'Успешно!'}
-              {status === 'error' && 'Ошибка'}
+              {status === null && 'В работе'}
+              {status === true && 'Успешно!'}
+              {status === false && 'Ошибка'}
             </Chip>
 
             <h5>
               <span>
-                <FormattedDate
-                  hour='2-digit'
-                  minute='2-digit'
-                  value={new Date()}
-                />
+                <FormattedTime value={data.date_created}/>
               </span>
               <span>
                 <FormattedDate
                   day='2-digit'
                   month='short'
-                  value={new Date()}
+                  value={data.date_created}
                 />
               </span>
             </h5>
 
             <Chip variant='contained'>
-            37 829 ₽
+              {data.amount}₽
             </Chip>
           </div>
 
-          <div>
+          {/* <div>
             <Chip
               flexBasis={'100%'}
               variant='outlined'
             >
               СберБанк 1234 **** **** 6789
             </Chip>
-          </div>
+          </div> */}
         </>
       )}
 
