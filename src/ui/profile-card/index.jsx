@@ -1,78 +1,64 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Menu, MenuItem, IconButton, makeStyles } from '@material-ui/core'
+import { Menu, MenuItem, IconButton } from '@material-ui/core'
+import { Skeleton } from '@material-ui/lab'
 import { ArrowDropDown } from '@material-ui/icons'
-import { useDispatch } from '@app/store'
+import { useDispatch, useSelector } from '@app/store'
 import { userActions } from '@app/store/actions/userActions'
 import { Block } from '../block'
 
 import classes from './style.module.scss'
 
 export const ProfileCard = ({ firstName, lastName, email, balance }) => {
+  const logining = useSelector(state => state.authReducer.login.logining)
+
   return (
     <Block>
       <div className={classes.profileCard}>
         <img
           src='img/defaultAvatar.png'
         />
+
         <h3>
-          {firstName} {lastName}
+          {logining ? (
+            <Skeleton
+              heigth={40}
+              width={170}
+            />
+          ) : (
+            <>{firstName} {lastName}</>
+          )}
         </h3>
+
         <h4>
-          {email}
+          {logining ? (
+            <Skeleton
+              heigth={20}
+              width={170}
+            />
+          ) : (
+            <>{ email }</>
+          )}
         </h4>
+
         <div className={classes.balance}>
-          {balance}
+          {logining ? (
+            <Skeleton
+              heigth={50}
+              width={170}
+            />
+          ) : (
+            <>{ balance }</>
+          )}
         </div>
       </div>
     </Block>
   )
 }
 
-const useStyles = makeStyles({
-  MuiList: {
-    root: {
-      background: 'rgba(255, 255, 255, 0.8)',
-      border: '1px solid #EDEFF5',
-      borderRadius: 5
-    },
-    padding: {
-      paddingTop: 10,
-      paddingBottom: 10,
-      paddingRight: 15,
-      paddingLeft: 15
-    }
-  },
-  MuiListItem: {
-    root: {
-      paddingTop: 0,
-      '&:not(:last-child)': {
-        borderBottom: '1px solid #EDEFF5',
-        paddingBottom: 10
-      },
-      '&:not(:first-child)': {
-        paddingTop: 10
-      }
-    },
-    gutters: {
-      paddingLeft: 0,
-      paddingRight: 0
-    }
-  },
-  MuiMenuItem: {
-    root: {
-      color: '#939A9E',
-      lineHeight: '14px',
-      fontSize: 12
-    }
-  }
-})
-
 export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
   const { dispatch } = useDispatch()
   const history = useHistory()
-  const styles = useStyles()
-  console.log(styles)
 
   const [anchorEl, setAnchorEl] = React.useState(null)
 
