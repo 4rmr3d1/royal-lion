@@ -38,7 +38,7 @@ export const BetModal = ({ open, onClose }) => {
       betType,
       amount,
       betId,
-      onSuccess: () => showSuccessMessage('Ставка успешно поставлена!')
+      onSuccess: () => showSuccessMessage('Ваша ставка успешно принята')
     }))
   })
 

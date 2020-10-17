@@ -1,7 +1,9 @@
 import React from 'react'
 import { Router } from 'react-router-dom'
+import { SnackbarProvider } from 'notistack'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { useDispatch, userActions } from '@app/store'
+import { SuccessMessage } from '@app/ui'
 import { theme } from '@app/styles/mui-theme'
 import { PageLayout } from '../page-layout'
 import history from '@app/lib/history'
@@ -18,9 +20,21 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Router history={history}>
-        <PageLayout />
-      </Router>
+      <SnackbarProvider
+        content={(key, message) => (
+          <SuccessMessage
+            id={key}
+            message={message}
+          />
+        )}
+        hideIconVariant
+        maxSnack={3}
+      >
+        <Router history={history}>
+          <PageLayout />
+        </Router>
+      </SnackbarProvider>
+
     </ThemeProvider>
   )
 }

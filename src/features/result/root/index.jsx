@@ -1,10 +1,10 @@
 import React from 'react'
 import { FormattedTime, FormattedDate } from 'react-intl'
 import { Pagination } from '@material-ui/lab'
-import { useMediaQuery, AccordionDetails, Accordion, AccordionSummary } from '@material-ui/core/'
+import { useMediaQuery, AccordionDetails, Accordion, AccordionSummary, CircularProgress } from '@material-ui/core/'
 import { useSelector, useDispatch, results } from '@app/store'
 
-import './index.scss'
+import classes from './style.module.scss'
 
 export const Result = () => {
   const { dispatch } = useDispatch()
@@ -12,6 +12,7 @@ export const Result = () => {
   const sportId = useSelector(state => state.selectedCategory.category)
   const matchesResults = useSelector(state => state.results?.matches)
   const length = useSelector(state => state.results?.length)
+  const loading = useSelector(state => state.results?.loading)
 
   const [page, setPage] = React.useState(1)
 
@@ -30,9 +31,9 @@ export const Result = () => {
   React.useEffect(() => { document.title = 'Royal Lion | Результаты' }, [])
 
   return (
-    <section className='result'>
+    <section className={classes.result}>
       {length > 20 &&
-          <div className='pagination'>
+          <div className={classes.pagination}>
             <Pagination
               color='primary'
               count={totalPages}
@@ -43,23 +44,29 @@ export const Result = () => {
           </div>
       }
 
-      <Accordion expanded>
-        <AccordionSummary>
+      {!loading ? (
+        <Accordion expanded>
+          <AccordionSummary>
           Результаты
-        </AccordionSummary>
-        <AccordionDetails>
-          {matchesResults?.map((result, index) => (
-            <AccordionDetails key={index}>
-              <ResultInfo
-                data={result}
-              />
-            </AccordionDetails>
-          ))}
-        </AccordionDetails>
-      </Accordion>
+          </AccordionSummary>
+          <AccordionDetails>
+            {matchesResults?.map((result, index) => (
+              <AccordionDetails key={index}>
+                <ResultInfo
+                  data={result}
+                />
+              </AccordionDetails>
+            ))}
+          </AccordionDetails>
+        </Accordion>
+      ) : (
+        <div className={classes.loader}>
+          <CircularProgress />
+        </div>
+      )}
 
       {length > 20 &&
-        <div className='pagination'>
+        <div className={classes.pagination}>
           <Pagination
             color='primary'
             count={totalPages}
@@ -72,14 +79,15 @@ export const Result = () => {
     </section>
   )
 }
+
 const ResultInfo = ({ data }) => {
   const lgBreakPoint = useMediaQuery('(max-width: 991px)')
   return (
-    <div className="resultInfo">
+    <div className={classes.resultInfo}>
       {lgBreakPoint
         ? (
-          <div className="date">
-            <div className="time">
+          <div className={classes.date}>
+            <div className={classes.time}>
               <FormattedTime value={data?.game_start}/>
             </div>
             <FormattedDate
@@ -89,7 +97,7 @@ const ResultInfo = ({ data }) => {
             />
           </div>
         ) : (
-          <div className="date">
+          <div className={classes.date}>
             <FormattedDate
               day='2-digit'
               month='short'
@@ -104,35 +112,35 @@ const ResultInfo = ({ data }) => {
       {lgBreakPoint
         ? (
           <>
-            <div className="name">
-              <div className="command">
-                <div className="logo">
+            <div className={classes.name}>
+              <div className={classes.command}>
+                <div className={classes.logo}>
                   <img
                     alt=''
                     src={data.opp_1_icon}
                     style={{ maxWidth: 30, height: 'auto' }}
                   />
                 </div>
-                <div className="label">{data.opp_1_name}</div>
+                <div className={classes.label}>{data.opp_1_name}</div>
               </div>
-              <div className="command">
-                <div className="logo">
+              <div className={classes.command}>
+                <div className={classes.logo}>
                   <img
                     alt=''
                     src={data.opp_2_icon}
                     style={{ maxWidth: 30, height: 'auto' }}
                   />
                 </div>
-                <div className="label">{data.opp_2_name}</div>
+                <div className={classes.label}>{data.opp_2_name}</div>
               </div>
             </div>
-            <div className="score">{data.score_full}</div>
+            <div className={classes.score}>{data.score_full}</div>
           </>
         ) : (
-          <div className="name">
-            <div className="command">
-              <div className="label">{data.opp_1_name}</div>
-              <div className="logo">
+          <div className={classes.name}>
+            <div className={classes.command}>
+              <div className={classes.label}>{data.opp_1_name}</div>
+              <div className={classes.logo}>
                 <img
                   alt=''
                   src={data.opp_1_icon}
@@ -140,16 +148,16 @@ const ResultInfo = ({ data }) => {
                 />
               </div>
             </div>
-            <div className="score">{data.score_full}</div>
-            <div className="command">
-              <div className="logo">
+            <div className={classes.score}>{data.score_full}</div>
+            <div className={classes.command}>
+              <div className={classes.logo}>
                 <img
                   alt=''
                   src={data.opp_2_icon}
                   style={{ maxWidth: 30, height: 'auto' }}
                 />
               </div>
-              <div className="label">{data.opp_2_name}</div>
+              <div className={classes.label}>{data.opp_2_name}</div>
             </div>
           </div>
         )
