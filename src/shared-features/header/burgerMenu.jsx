@@ -63,6 +63,7 @@ const BurgerMenu = () => {
         }}
         closeAfterTransition
         open={visible}
+        style={{ zIndex: 1099 }}
         onClose={handleBurger}
       >
         <Slide
