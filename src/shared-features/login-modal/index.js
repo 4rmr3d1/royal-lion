@@ -29,7 +29,8 @@ export const LoginModal = ({ visible, onClose }) => {
     dispatch({
       type: '@USER/change-property',
       payload: {
-        authModalVisible: false
+        authModalVisible: false,
+        burgerVisible: false
       }
     })
 
