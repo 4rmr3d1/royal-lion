@@ -50,6 +50,46 @@
     color: #939A9E;
     padding-top: 5px;
   }
+  
+}
+
+.menu {
+  :global {
+    
+    .MuiList-root {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid #EDEFF5;
+      border-radius: 5px;
+    }
+    
+    .MuiList-padding {
+      padding: 10px 15px;
+    }
+    
+    .MuiListItem-root {
+      padding-top: 0;
+      
+      &:not(:last-child) {
+        border-bottom: 1px solid  #EDEFF5;
+        padding-bottom: 10px;
+      }
+      
+      &:not(:first-child) {
+        padding-top: 10px;
+      }
+    }
+    
+    .MuiListItem-gutters {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
+    .MuiMenuItem-root {
+      color: #939A9E;
+      line-height: 14px;
+      font-size: 12px;
+    }
+  }
 }
 
 .profileCardSmall {

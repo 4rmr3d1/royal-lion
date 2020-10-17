@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Menu, MenuItem, IconButton } from '@material-ui/core'
+import { Menu, MenuItem, IconButton, makeStyles } from '@material-ui/core'
 import { ArrowDropDown } from '@material-ui/icons'
 import { useDispatch } from '@app/store'
 import { userActions } from '@app/store/actions/userActions'
@@ -29,9 +29,50 @@ export const ProfileCard = ({ firstName, lastName, email, balance }) => {
   )
 }
 
+const useStyles = makeStyles({
+  MuiList: {
+    root: {
+      background: 'rgba(255, 255, 255, 0.8)',
+      border: '1px solid #EDEFF5',
+      borderRadius: 5
+    },
+    padding: {
+      paddingTop: 10,
+      paddingBottom: 10,
+      paddingRight: 15,
+      paddingLeft: 15
+    }
+  },
+  MuiListItem: {
+    root: {
+      paddingTop: 0,
+      '&:not(:last-child)': {
+        borderBottom: '1px solid #EDEFF5',
+        paddingBottom: 10
+      },
+      '&:not(:first-child)': {
+        paddingTop: 10
+      }
+    },
+    gutters: {
+      paddingLeft: 0,
+      paddingRight: 0
+    }
+  },
+  MuiMenuItem: {
+    root: {
+      color: '#939A9E',
+      lineHeight: '14px',
+      fontSize: 12
+    }
+  }
+})
+
 export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
   const { dispatch } = useDispatch()
   const history = useHistory()
+  const styles = useStyles()
+  console.log(styles)
 
   const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -79,6 +120,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
         <Menu
           anchorEl={anchorEl}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          className={classes.menu}
           getContentAnchorEl={null}
           keepMounted
           open={Boolean(anchorEl)}
@@ -91,7 +133,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile')
             }}
           >
-            Профиль
+              Профиль
           </MenuItem>
 
           <MenuItem
@@ -100,7 +142,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile/configurations')
             }}
           >
-            Настройки профиля
+              Настройки профиля
           </MenuItem>
 
           <MenuItem
@@ -109,7 +151,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile/history')
             }}
           >
-            История ставок
+              История ставок
           </MenuItem>
 
           <MenuItem
@@ -118,7 +160,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile/withdraw')
             }}
           >
-            Вывод средств
+              Вывод средств
           </MenuItem>
 
           <MenuItem
@@ -127,7 +169,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile/support')
             }}
           >
-            Поддержка
+              Поддержка
           </MenuItem>
 
           <MenuItem
@@ -136,13 +178,13 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile/coupon')
             }}
           >
-            Купон
+              Купон
           </MenuItem>
 
           <MenuItem
             onClick={onLogout}
           >
-            Выход
+              Выход
           </MenuItem>
         </Menu>
       </div>

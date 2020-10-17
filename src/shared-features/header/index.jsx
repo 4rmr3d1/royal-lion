@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { AppBar, Toolbar, useMediaQuery } from '@material-ui/core'
+import { Skeleton } from '@material-ui/lab'
 import { useSelector, useDispatch } from '@app/store'
 import { HeaderProfileCard } from '@app/ui'
 import { LoginModal } from '../login-modal'
@@ -14,6 +15,8 @@ export const Header = () => {
   const firstName = useSelector(state => state.authReducer.user?.data?.first_name)
   const secondName = useSelector(state => state.authReducer.user?.data?.second_name)
   const balance = useSelector(state => state.authReducer.user?.data?.customer_account?.current_balance)
+
+  const logining = useSelector(state => state.authReducer.login.logining)
 
   const authModalVisible = useSelector(state => state.authReducer.properties.authModalVisible)
   const mdBreakPoint = useMediaQuery('(min-width: 991px)')
@@ -85,29 +88,39 @@ export const Header = () => {
                     Контакты
                   </NavLink> */}
                 </nav>
-                {isLoggedIn ? (
-                  <HeaderProfileCard
-                    balance={balance}
-                    firstName={firstName}
-                    secondName={secondName}
+                {logining ? (
+                  <Skeleton
+                    heigth={45}
+                    width={200}
                   />
                 ) : (
-                  <div className={`col-lg-3 col-auto ${classes.userNav}`}>
-                    <a
-                      className={classes.enter}
-                      href='#'
-                      onClick={onAuthModalOpen}
-                    >
+                  <>
+                    {isLoggedIn ? (
+                      <HeaderProfileCard
+                        balance={balance}
+                        firstName={firstName}
+                        secondName={secondName}
+                      />
+                    ) : (
+                      <div className={`col-lg-3 col-auto ${classes.userNav}`}>
+                        <a
+                          className={classes.enter}
+                          href='#'
+                          onClick={onAuthModalOpen}
+                        >
                         Вход
-                    </a>
-                    <NavLink
-                      className='btn btn-mini'
-                      to='/registration'
-                    >
+                        </a>
+                        <NavLink
+                          className='btn btn-mini'
+                          to='/registration'
+                        >
                         Регистрация
-                    </NavLink>
-                  </div>
+                        </NavLink>
+                      </div>
+                    )}
+                  </>
                 )}
+
               </div>
             </Toolbar>
           </div>

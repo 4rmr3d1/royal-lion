@@ -179,7 +179,7 @@ const ContactsChange = () => {
   const isChanged = useSelector(state => state.authReducer.configurations?.isPhoneOrEmailChanged)
   const isChanging = useSelector(state => state.authReducer.configurations?.phoneOrEmailChanging)
 
-  const loggining = useSelector(state => state.authReducer.login.loggining)
+  const logining = useSelector(state => state.authReducer.login.logining)
 
   const phoneNumber = useSelector(state => state.authReducer.user.data?.phone_number)
   const email = useSelector(state => state.authReducer.user.data?.email)
@@ -230,7 +230,7 @@ const ContactsChange = () => {
       <BlockItem>
         <div className='row'>
           <div className='col-lg-4 col-12'>
-            {loggining && !formik.values.email ? (
+            {logining && !formik.values.email ? (
               <Skeleton
                 height={70}
                 width='100%'
@@ -253,7 +253,7 @@ const ContactsChange = () => {
           </div>
 
           <div className='col-lg-4 col-12'>
-            {loggining && !formik.values.phoneNumber ? (
+            {logining && !formik.values.phoneNumber ? (
               <Skeleton
                 height={70}
                 width='100%'

@@ -33,6 +33,7 @@
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.6.3",
     "socket-io": "^1.0.0",
+    "styled-components": "^5.2.0",
     "yup": "^0.29.3"
   },
   "scripts": {
