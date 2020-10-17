@@ -111,7 +111,6 @@ export const authReducer = (state = initialState, action) => {
       ...state,
       login: {
         ...state.login,
-        isLoggedIn: false,
         logining: true
       }
     }

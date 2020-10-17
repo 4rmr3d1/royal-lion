@@ -60,6 +60,8 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
   const { dispatch } = useDispatch()
   const history = useHistory()
 
+  const logining = useSelector(state => state.authReducer.login.logining)
+
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const onMenuOpen = React.useCallback(e => {
@@ -90,17 +92,35 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
 
       <div>
         <span>
-          {firstName} {lastName}
-          <IconButton
-            size='small'
-            onClick={onMenuOpen}
-          >
-            <ArrowDropDown/>
-          </IconButton>
+          {logining ? (
+            <Skeleton
+              heigth={30}
+              width={110}
+            />
+          ) : (
+            <>
+              {firstName} {lastName}
+              <IconButton
+                size='small'
+                onClick={onMenuOpen}
+              >
+                <ArrowDropDown/>
+              </IconButton>
+            </>
+          )}
         </span>
 
         <div className={classes.balance}>
-          {balance}
+          {logining ? (
+            <Skeleton
+              heigth={22}
+              width={110}
+            />
+          ) : (
+            <>
+              {balance}
+            </>
+          )}
         </div>
 
         <Menu
