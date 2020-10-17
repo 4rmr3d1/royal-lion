@@ -73,14 +73,14 @@ const register = ({ user, resetForm, onSuccess }) => (dispatch) => {
 }
 
 const getUser = () => (dispatch) => {
+  dispatch({ type: '@USER/get-info-request' })
+
   return axios.get(`${API_URL}/user/my`, {
     headers: authHeader()
   })
     .then((response) => {
-      dispatch({ type: '@USER/get-info-request' })
-
       if (response.data) {
-        dispatch({ type: '@USER/get-info-success', isLoggedIn: true, user: response.data })
+        dispatch({ type: '@USER/get-info-success', isLoggedIn: response.data.success, user: response.data })
       }
     })
     .catch((error) => {

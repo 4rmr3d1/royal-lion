@@ -44,7 +44,7 @@ export const Live = () => {
 
   React.useEffect(() => {
     const timer = setInterval(() => {
-      dispatch(live.loadLiveTournaments({ sportId, page }))
+      dispatch(live.loadLiveTournaments({ sportId, page: page - 1 }))
     }, 60000)
 
     return () => clearInterval(timer)

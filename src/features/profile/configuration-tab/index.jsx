@@ -1,7 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
 import { useFormik } from 'formik'
-import { Alert } from '@material-ui/lab'
+import { Alert, Skeleton } from '@material-ui/lab'
 import { TextField, FormControl, OutlinedInput } from '@material-ui/core'
 import { useDispatch, useSelector, userActions } from '@app/store'
 import { Block, BlockItem, Button, ErrorText, PhoneTextMask } from '@app/ui'
@@ -175,16 +175,18 @@ const ContactsChangeValidationSchema = yup.object({
 const ContactsChange = () => {
   const { dispatch } = useDispatch()
 
-  const serverErrors = useSelector(state => state.authReducer?.configurations.phoneOrEmailChangeError)
-  const isChanged = useSelector(state => state.authReducer?.configurations.isPhoneOrEmailChanged)
-  const isChanging = useSelector(state => state.authReducer?.configurations.phoneOrEmailChanging)
+  const serverErrors = useSelector(state => state.authReducer.configurations?.phoneOrEmailChangeError)
+  const isChanged = useSelector(state => state.authReducer.configurations?.isPhoneOrEmailChanged)
+  const isChanging = useSelector(state => state.authReducer.configurations?.phoneOrEmailChanging)
 
-  const phoneNumber = useSelector(state => state.authReducer.user?.data?.phone_number)
-  const email = useSelector(state => state.authReducer.user?.data?.email)
+  const loggining = useSelector(state => state.authReducer.login.loggining)
+
+  const phoneNumber = useSelector(state => state.authReducer.user.data?.phone_number)
+  const email = useSelector(state => state.authReducer.user.data?.email)
 
   const initialValues = {
-    email,
-    phoneNumber
+    phoneNumber,
+    email
   }
 
   const formik = useFormik({
@@ -197,6 +199,8 @@ const ContactsChange = () => {
   const hasErrors = React.useMemo(() => {
     return formik.errors || null
   }, [formik])
+
+  console.log(formik.values.email)
 
   return (
     <form
@@ -226,36 +230,51 @@ const ContactsChange = () => {
       <BlockItem>
         <div className='row'>
           <div className='col-lg-4 col-12'>
-            <FormControl fullWidth>
-              <TextField
-                disabled={!!isChanging}
-                error={!!hasErrors.email}
-                name='email'
-                placeholder='Электронная почта'
-                value={formik.values?.email}
-                variant='outlined'
-                onChange={formik.handleChange}
+            {loggining && !formik.values.email ? (
+              <Skeleton
+                height={70}
+                width='100%'
               />
+            ) : (
+              <FormControl fullWidth>
+                <TextField
+                  disabled={!!isChanging}
+                  error={!!hasErrors.email}
+                  name='email'
+                  placeholder='Электронная почта'
+                  value={formik.values.email}
+                  variant='outlined'
+                  onChange={formik.handleChange}
+                />
 
-              <ErrorText message={hasErrors.email}/>
-            </FormControl>
+                <ErrorText message={hasErrors.email}/>
+              </FormControl>
+            )}
           </div>
 
           <div className='col-lg-4 col-12'>
-            <FormControl fullWidth>
-              <OutlinedInput
-                disabled={!!isChanging}
-                error={!!hasErrors.phoneNumber}
-                inputComponent={PhoneTextMask}
-                name='phoneNumber'
-                placeholder='Номер телефона'
-                value={formik.values?.phoneNumber}
-                variant='outlined'
-                onChange={formik.handleChange}
+            {loggining && !formik.values.phoneNumber ? (
+              <Skeleton
+                height={70}
+                width='100%'
               />
+            ) : (
+              <FormControl fullWidth>
+                <OutlinedInput
+                  disabled={!!isChanging}
+                  error={!!hasErrors.phoneNumber}
+                  inputComponent={PhoneTextMask}
+                  name='phoneNumber'
+                  placeholder='Номер телефона'
+                  value={formik.values.phoneNumber}
+                  variant='outlined'
+                  onChange={formik.handleChange}
+                />
 
-              <ErrorText message={hasErrors.phoneNumber}/>
-            </FormControl>
+                <ErrorText message={hasErrors.phoneNumber}/>
+              </FormControl>
+            )}
+
           </div>
         </div>
       </BlockItem>

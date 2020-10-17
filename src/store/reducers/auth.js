@@ -110,6 +110,7 @@ export const authReducer = (state = initialState, action) => {
     return {
       ...state,
       login: {
+        ...state.login,
         isLoggedIn: false,
         loggining: true
       }
@@ -119,7 +120,8 @@ export const authReducer = (state = initialState, action) => {
     return {
       ...state,
       login: {
-        isLoggedIn: true,
+        ...state.login,
+        isLoggedIn: action.isLoggedIn,
         logginig: false
       },
       error: null,
@@ -130,7 +132,8 @@ export const authReducer = (state = initialState, action) => {
     return {
       ...state,
       login: {
-        ...state.login
+        ...state.login,
+        isLoggedIn: false
       },
       error: action.error
     }
