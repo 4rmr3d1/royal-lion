@@ -13,7 +13,7 @@ export const Header = () => {
   const isLoggedIn = useSelector(state => state.authReducer.login.isLoggedIn)
   const firstName = useSelector(state => state.authReducer.user?.data?.first_name)
   const secondName = useSelector(state => state.authReducer.user?.data?.second_name)
-  const balance = useSelector(state => state.authReducer.user?.data?.customer_account.current_balance)
+  const balance = useSelector(state => state.authReducer.user?.data?.customer_account?.current_balance)
 
   const authModalVisible = useSelector(state => state.authReducer.properties.authModalVisible)
   const mdBreakPoint = useMediaQuery('(min-width: 991px)')

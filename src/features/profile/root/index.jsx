@@ -28,7 +28,7 @@ export const Profile = () => {
   const firstName = useSelector(state => state.authReducer?.user?.data?.first_name)
   const secondName = useSelector(state => state.authReducer?.user?.data?.second_name)
   const email = useSelector(state => state.authReducer.user?.data?.email)
-  const balance = useSelector(state => state.authReducer.user?.data?.customer_account.current_balance)
+  const balance = useSelector(state => state.authReducer.user?.data?.customer_account?.current_balance)
 
   const breakPoint = useMediaQuery('(max-width: 576px)')
 

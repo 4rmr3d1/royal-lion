@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^5.6.4",
+    "@hot-loader/react-dom": "^17.0.0-rc.2",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
@@ -14,6 +15,7 @@
     "classnames": "^2.2.6",
     "craco-alias": "^2.1.1",
     "formik": "^2.1.5",
+    "mini-css-extract-plugin": "^1.0.0",
     "node-sass": "^4.14.1",
     "notistack": "^1.0.1",
     "prop-types": "^15.7.2",

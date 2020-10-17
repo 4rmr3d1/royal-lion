@@ -1,7 +1,12 @@
 import React from 'react'
 
 import classes from './style.module.scss'
+
 export const Rules = () => {
+  React.useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className={classes.rules}>
       <h1>Правила сайта</h1>

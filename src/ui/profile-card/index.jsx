@@ -1,6 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Menu, MenuItem } from '@material-ui/core'
+import { Menu, MenuItem, IconButton } from '@material-ui/core'
+import { ArrowDropDown } from '@material-ui/icons'
 import { useDispatch } from '@app/store'
 import { userActions } from '@app/store/actions/userActions'
 import { Block } from '../block'
@@ -59,10 +60,17 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
         alt=""
         src="img/defaultAvatar.png"
       />
+
       <div>
-        <button onClick={onMenuOpen}>
+        <span>
           {firstName} {lastName}
-        </button>
+          <IconButton
+            size='small'
+            onClick={onMenuOpen}
+          >
+            <ArrowDropDown/>
+          </IconButton>
+        </span>
 
         <div className={classes.balance}>
           {balance}

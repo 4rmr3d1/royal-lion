@@ -269,7 +269,7 @@ const ContactsChange = () => {
             type='submit'
             variant='big'
           >
-            {isChanging ? 'Подождите..' : 'Изменить пароль' }
+            {isChanging ? 'Подождите..' : 'Сохранить' }
           </Button>
         </div>
       </div>
