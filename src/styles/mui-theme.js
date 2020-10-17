@@ -64,6 +64,42 @@ export const theme = createMuiTheme({
       ul: {
         flexWrap: 'nowrap'
       }
+    },
+    MuiList: {
+      root: {
+        background: 'rgba(255, 255, 255, 0.8)',
+        border: '1px solid #EDEFF5',
+        borderRadius: 5
+      },
+      padding: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingRight: 15,
+        paddingLeft: 15
+      }
+    },
+    MuiListItem: {
+      root: {
+        paddingTop: 0,
+        '&:not(:last-child)': {
+          borderBottom: '1px solid #EDEFF5',
+          paddingBottom: 10
+        },
+        '&:not(:first-child)': {
+          paddingTop: 10
+        }
+      },
+      gutters: {
+        paddingLeft: 0,
+        paddingRight: 0
+      }
+    },
+    MuiMenuItem: {
+      root: {
+        color: '#939A9E',
+        lineHeight: '14px',
+        fontSize: 12
+      }
     }
   }
 })
