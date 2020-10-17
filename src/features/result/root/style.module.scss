@@ -144,6 +144,37 @@
       justify-content: flex-end;
     }
   }
+  
+  .emptyData {
+    text-align: center;
+    
+    &> div {
+      padding-top: 38px;
+      font-weight: bold;
+    }
+    
+    @media (min-width: 576px) {
+      &> div {
+        font-size: 48px;
+        line-height: 57px;
+      }
+      &>img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+    
+    @media (max-width: 575px) {
+      &>div {
+        font-size: 24px;
+        line-height: 28px;
+      }
+      &>img {
+        max-width: 260px;
+        height: auto;
+      }
+    }
+  }
 }
 
 @media(max-width: 991px){

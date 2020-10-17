@@ -1,12 +1,14 @@
 import 'react-app-polyfill/stable'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { enableES5 } from 'immer'
 import { Provider as ReduxProvider } from 'react-redux'
 import { IntlProvider } from 'react-intl'
 import { createStore } from '@app/store'
 import { App } from '@app/components'
 import * as serviceWorker from './serviceWorker'
 
+enableES5()
 const { store } = createStore()
 
 ReactDOM.render(

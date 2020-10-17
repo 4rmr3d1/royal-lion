@@ -45,20 +45,31 @@ export const Result = () => {
       }
 
       {!loading ? (
-        <Accordion expanded>
-          <AccordionSummary>
-          Результаты
-          </AccordionSummary>
-          <AccordionDetails>
-            {matchesResults?.map((result, index) => (
-              <AccordionDetails key={index}>
-                <ResultInfo
-                  data={result}
-                />
-              </AccordionDetails>
-            ))}
-          </AccordionDetails>
-        </Accordion>
+        <>
+          {matchesResults.length > 0 ? (
+            <>
+              <Accordion expanded>
+                <AccordionSummary>
+            Результаты
+                </AccordionSummary>
+                <AccordionDetails>
+                  {matchesResults?.map((result, index) => (
+                    <AccordionDetails key={index}>
+                      <ResultInfo
+                        data={result}
+                      />
+                    </AccordionDetails>
+                  ))}
+                </AccordionDetails>
+              </Accordion>
+            </>
+          ) : (
+            <div className={classes.emptyData}>
+              <img src='img/noData.png' />
+              <div>НЕТ ДАННЫХ</div>
+            </div>
+          )}
+        </>
       ) : (
         <div className={classes.loader}>
           <CircularProgress />

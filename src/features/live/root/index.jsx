@@ -99,15 +99,26 @@ export const Live = () => {
 
         {isLoaded ? (
           <>
-            {liveMatches?.map((data, index) => (
-              <MatchInfo
-                data={data}
-                key={index | data.api_id}
-              />
-            ))}
+            {liveMatches.length > 0 ? (
+              <>
+                {liveMatches?.map((data, index) => (
+                  <MatchInfo
+                    data={data}
+                    key={index | data.api_id}
+                  />
+                ))}
+              </>
+            ) : (
+              <div className={classes.emptyData}>
+                <img src='img/noData.png' />
+                <div>НЕТ ДАННЫХ</div>
+              </div>
+            )}
           </>
         ) : (
-          <CircularProgress />
+          <div className={classes.loader}>
+            <CircularProgress />
+          </div>
         )}
 
         {length > 10 &&

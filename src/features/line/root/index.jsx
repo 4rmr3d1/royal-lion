@@ -68,15 +68,16 @@ export const Line = () => {
         {isLoaded ? (
           <>
             {lineMatches.length > 0
-              ? <>
-                {lineMatches?.map((data, index) => (
-                  <MatchInfo
-                    data={data}
-                    key={index}
-                  />
-                ))}
-              </>
-              : (
+              ? (
+                <>
+                  {lineMatches?.map((data, index) => (
+                    <MatchInfo
+                      data={data}
+                      key={index}
+                    />
+                  ))}
+                </>
+              ) : (
                 <div className={classes.emptyData}>
                   <img src='img/noData.png' />
                   <div>НЕТ ДАННЫХ</div>
