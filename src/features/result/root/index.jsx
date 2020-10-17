@@ -33,15 +33,15 @@ export const Result = () => {
   return (
     <section className={classes.result}>
       {length > 20 &&
-          <div className={classes.pagination}>
-            <Pagination
-              color='primary'
-              count={totalPages}
-              page={page}
-              shape="rounded"
-              onChange={onPaginationChange}
-            />
-          </div>
+        <div className={classes.pagination}>
+          <Pagination
+            color='primary'
+            count={totalPages}
+            page={page}
+            shape="rounded"
+            onChange={onPaginationChange}
+          />
+        </div>
       }
 
       {!loading ? (

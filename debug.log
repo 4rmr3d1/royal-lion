@@ -2,3 +2,4 @@
 [1010/133400.793:ERROR:file_io.cc(90)] ReadExactly: expected 36, observed 0
 [1010/134215.787:ERROR:file_io.cc(90)] ReadExactly: expected 36, observed 0
 [1010/144940.292:ERROR:file_io.cc(90)] ReadExactly: expected 36, observed 0
+[1017/223258.529:ERROR:directory_reader_win.cc(43)] FindFirstFile: Системе не удается найти указанный путь. (0x3)

@@ -4,6 +4,7 @@ import { useFormik } from 'formik'
 import { Alert } from '@material-ui/lab'
 import { TextField, Select, MenuItem, FormControl, OutlinedInput } from '@material-ui/core'
 import { useDispatch, useSelector, userActions } from '@app/store'
+import { useNotifications } from '@app/lib'
 import { Button, ErrorText, PhoneTextMask, DateBirthTextMask } from '@app/ui'
 
 import classes from './style.module.scss'
@@ -40,8 +41,8 @@ const validationSchema = yup.object({
 
 export const Registration = () => {
   const { dispatch } = useDispatch()
+  const { showSuccessMessage } = useNotifications()
 
-  const isRegistred = useSelector(state => state.authReducer.registration.isRegistred)
   const serverErrors = useSelector(state => state.authReducer.registration?.error)
   const registrating = useSelector(state => state.authReducer.registration.registrating)
 
@@ -61,11 +62,14 @@ export const Registration = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      dispatch(userActions.register(values, { resetForm }))
+    onSubmit: (values) => {
+      dispatch(userActions.register({
+        user: values,
+        onSuccess: () => showSuccessMessage('Вы успешно зарегистрировались!'),
+        resetForm: () => formik.resetForm()
+      }))
     },
-    validateOnChange: false,
-    validateOnBlur: true
+    validateOnChange: false
   })
 
   const onAuthModalOpen = React.useCallback(() => {
@@ -98,14 +102,6 @@ export const Registration = () => {
         <div className={classes.alertInfo}>
           <Alert severity='error'>
             {serverErrors}
-          </Alert>
-        </div>
-      )}
-
-      {isRegistred && (
-        <div className={classes.alertInfo}>
-          <Alert severity='success'>
-              Учётная запись успешно зарегистрирована
           </Alert>
         </div>
       )}

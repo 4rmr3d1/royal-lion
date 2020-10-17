@@ -39,7 +39,9 @@ const login = ({ username, password }) => (dispatch) => {
     })
 }
 
-const register = (user, { resetForm }) => (dispatch) => {
+const register = ({ user, resetForm, onSuccess }) => (dispatch) => {
+  dispatch({ type: '@USER/register-request' })
+
   return axios.post(`${API_URL}/user/create/`, {
     first_name: user.firstName,
     second_name: user.secondName,
@@ -53,12 +55,13 @@ const register = (user, { resetForm }) => (dispatch) => {
     password2: user.password2
   })
     .then((response) => {
-      dispatch({ type: '@USER/register-request' })
-
-      if (response.data?.success) {
+      if (response.data) {
         dispatch({ type: '@USER/register-success', isRegistred: response.data?.success })
+        onSuccess()
         resetForm()
+      }
 
+      if (response.status === 201) {
         setTimeout(() => {
           history.push('/')
         }, 3000)
@@ -82,7 +85,6 @@ const getUser = () => (dispatch) => {
     })
     .catch((error) => {
       dispatch({ type: '@USER/get-info-error', error: error?.response })
-      history.push('/')
     })
 }
 
