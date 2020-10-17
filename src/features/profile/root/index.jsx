@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Redirect } from 'react-router-dom'
 import { useMediaQuery } from '@material-ui/core'
 import { ProfileCard, ProfileCardSmall, Tabs } from '@app/ui'
 import { useSelector, userActions, useDispatch } from '@app/store'
@@ -25,6 +25,8 @@ export const Profile = () => {
   const { dispatch } = useDispatch()
   const location = useLocation()
 
+  const isLoggedIn = useSelector(state => state.authReducer.login.isLoggedIn)
+
   const firstName = useSelector(state => state.authReducer?.user?.data?.first_name)
   const secondName = useSelector(state => state.authReducer?.user?.data?.second_name)
   const email = useSelector(state => state.authReducer.user?.data?.email)
@@ -43,6 +45,10 @@ export const Profile = () => {
   }, [dispatch])
 
   React.useEffect(() => { document.title = 'Royal Lion | Профиль' }, [])
+
+  if (!isLoggedIn) {
+    return <Redirect to='/' />
+  }
 
   return (
     <Tabs.Provider
