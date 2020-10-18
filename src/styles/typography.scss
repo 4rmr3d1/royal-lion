@@ -57,6 +57,8 @@ h4 {
 		padding: 11px 33px 11px 34px;
 	}
 	&-coefficient{
+    overflow: hidden;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;

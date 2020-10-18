@@ -239,6 +239,90 @@
   }
 }
 
+.btnCoefficient {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  background: #F6F8FD;
+  border: 1px solid #EDEFF5;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 12px;
+  color: #939A9E;
+  display: block;
+  .number{
+    color: #343949;
+  }
+  &:hover{
+    background: #E8EEFF;
+    border: 1px solid #E1E7F9;
+  }
+  &:active{
+    background: #4286F4;
+    border: 1px solid #4286F4;
+    color: #FFF;
+    span{
+      color: #FFF;
+    }
+  }
+  @media (max-width: 575px) {
+    min-width: 55px;
+    height: 34px;
+    padding: 5px;
+  }
+  
+  @media (min-width: 576px) {
+    min-width: 60px;
+    height: 38px;
+    padding: 0 8px;
+  }
+  
+  &.up {
+    background: #ECF8ED;
+    border-color: #BEE8C2;
+    
+    &::before {
+      position: absolute;
+      content: '';
+      top: -8px;
+      right: -8px;
+      width: 16px;
+      height: 16px;
+      background: #BEE8C2;
+      transform: rotate(45deg);
+    }
+    
+    .rate {
+      color: #70CA78;
+    }
+  }
+  
+  &.down {
+    background: #FFECEC;
+    border-color:#FFB9B9;
+    
+    &::before {
+      position: absolute;
+      content: '';
+      bottom: -8px;
+      left: -8px;
+      width: 16px;
+      height: 16px;
+      background:#FFB9B9;
+      transform: rotate(45deg);
+    }
+    
+    .rate {
+      color:#F83159;
+    }
+  }
+}
+
+
+
 .more{
   display: flex;
   align-items: center;
