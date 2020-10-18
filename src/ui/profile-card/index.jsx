@@ -16,7 +16,7 @@ export const ProfileCard = ({ firstName, lastName, email, balance }) => {
     <Block>
       <div className={classes.profileCard}>
         <img
-          src='img/defaultAvatar.png'
+          src='https://royal-lion.bet/img/defaultAvatar.png'
         />
 
         <h3>
@@ -87,7 +87,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
     <div className={classes.headerProfileCard}>
       <img
         alt=""
-        src="img/defaultAvatar.png"
+        src="https://royal-lion.bet/img/defaultAvatar.png"
       />
 
       <div>
@@ -202,7 +202,7 @@ export const ProfileCardSmall = ({ firstName, lastName, email, balance }) => {
   return (
     <div className={classes.profileCardSmall}>
       <div>
-        <img src="img/defaultAvatar.png'"/>
+        <img src='https://royal-lion.bet/img/defaultAvatar.png'/>
       </div>
 
       <div>

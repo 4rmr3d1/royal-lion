@@ -17,7 +17,7 @@ export const Footer = () => {
                 <div className={classes.brand}>
                   <img
                     alt=''
-                    src='img/logo-footer.svg'
+                    src='https://royal-lion.bet/img/logo-footer.svg'
                   />
                 </div>
               </div>
@@ -44,7 +44,7 @@ export const Footer = () => {
             <div className={classes.brand}>
               <img
                 alt=''
-                src='img/logo-footer.svg'
+                src='https://royal-lion.bet/img/logo-footer.svg'
               />
             </div>
 

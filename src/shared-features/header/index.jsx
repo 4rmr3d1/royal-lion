@@ -141,7 +141,7 @@ export const Header = () => {
                     <NavLink to='/'>
                       <img
                         alt=''
-                        src='img/logo.svg'
+                        src='https://royal-lion.bet/img/logo.svg'
                       />
                     </NavLink>
                   </div>
