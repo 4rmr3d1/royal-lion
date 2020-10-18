@@ -4,7 +4,7 @@ import history from '@app/lib/history'
 export const API_URL = 'https://api.royal-lion.bet'
 
 export function authHeader () {
-  const user = JSON.parse(window.localStorage.getItem('user'))
+  const user = JSON.parse(localStorage.getItem('user'))
 
   if (user && user.key) {
     return { Authorization: `Token ${user.key}` }
@@ -19,7 +19,7 @@ const login = ({ username, password }) => (dispatch) => {
       dispatch({ type: '@USER/login-request', response })
 
       if (response.data.key) {
-        window.localStorage.setItem('user', JSON.stringify(response.data))
+        localStorage.setItem('user', JSON.stringify(response.data))
 
         dispatch({ type: '@USER/login-success', isLoggedIn: true })
         dispatch({
@@ -35,7 +35,6 @@ const login = ({ username, password }) => (dispatch) => {
     })
     .catch((error) => {
       dispatch({ type: '@USER/login-error', error: error.response.data })
-      history.push('/')
     })
 }
 
@@ -90,7 +89,7 @@ const getUser = () => (dispatch) => {
 
 const logout = () => (dispatch) => {
   dispatch({ type: '@USER/logout' })
-  window.localStorage.removeItem('user')
+  localStorage.removeItem('user')
   history.push('/')
 }
 

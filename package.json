@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.2",
     "classnames": "^2.2.6",
+    "core-js": "^3.6.5",
     "craco-alias": "^2.1.1",
     "formik": "^2.1.5",
     "immer": "^7.0.9",
