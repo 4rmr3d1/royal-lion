@@ -84,8 +84,8 @@ const getUser = () => (dispatch) => {
       }
     })
     .catch((error) => {
-      console.log(error)
       dispatch({ type: '@USER/get-info-error', error: error?.response })
+      history.push('/')
     })
 }
 
