@@ -26,10 +26,10 @@ export const Footer = () => {
                   Правила сайта
                 </NavLink>
                 <a
-                  href="policy.docx"
+                  href="/policy"
                   target="_blank"
                 >
-                  Пользовательское соглашение
+                  Политика конфиденциальности
                 </a>
               </nav>
               <div className='col-lg-3'>
@@ -56,8 +56,8 @@ export const Footer = () => {
             <Link href="/rules">
               Правила сайта
             </Link>
-            <Link to="policy.docx">
-              Пользовательское соглашение
+            <Link href="/policy">
+            Политика конфиденциальности
             </Link>
           </nav>
         </footer>
