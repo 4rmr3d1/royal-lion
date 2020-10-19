@@ -127,7 +127,6 @@ export const Registration = () => {
                 value={formik.values.firstName || ''}
                 variant='outlined'
                 onChange={formik.handleChange}
-
               />
 
               <ErrorText message={hasErrors.firstName || serverErrors?.first_name}/>

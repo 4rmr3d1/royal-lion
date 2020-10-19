@@ -190,7 +190,11 @@ const ContactsChange = () => {
   }
 
   const formik = useFormik({
-    initialValues,
+    initialValues: {
+      phoneNumber: initialValues.phoneNumber ? initialValues.phoneNumber : '',
+      email: initialValues.email ? initialValues.email : ''
+    },
+    enableReinitialize: true,
     validationSchema: ContactsChangeValidationSchema,
     validateOnChange: false,
     onSubmit: values => dispatch(userActions.changeContacts(values))

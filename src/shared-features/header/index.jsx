@@ -69,24 +69,27 @@ export const Header = () => {
                   >
                     Линия
                   </NavLink>
+
                   <NavLink
                     activeClassName={classes.activeLink}
                     to='/live'
                   >
                     Лайв
                   </NavLink>
+
                   <NavLink
                     activeClassName={classes.activeLink}
                     to='/result'
                   >
                     Результаты
                   </NavLink>
-                  {/* <NavLink
+
+                  <NavLink
                     activeClassName={classes.activeLink}
                     to='/contact'
                   >
                     Контакты
-                  </NavLink> */}
+                  </NavLink>
                 </nav>
                 {logining ? (
                   <Skeleton

@@ -170,6 +170,24 @@ const createRequest = ({ data, onSuccess, resetForm }) => (dispatch) => {
     })
 }
 
+const supportFeedback = ({ data, onSuccess, resetForm }) => dispatch => {
+  dispatch({ type: '@USER/support-feedback-request' })
+
+  axios.post(`${API_URL}/support/feedback/`, {
+    name: data.name,
+    phone: data.phone,
+    text: data.text
+  })
+    .then(response => {
+      dispatch({ type: '@USER/support-feedback-succes' })
+      onSuccess()
+      resetForm()
+    })
+    .catch(error => {
+      dispatch({ type: '@USER/support-feedback-succes', error: error })
+    })
+}
+
 export const userActions = {
   activateAccount,
   login,
@@ -178,7 +196,8 @@ export const userActions = {
   getUser,
   changePassword,
   changeContacts,
-  createRequest
+  createRequest,
+  supportFeedback
 }
 
 const loadLineTournaments = ({ sportId, page }) => dispatch => {

@@ -12,7 +12,9 @@ const urls = [
   '/profile/history',
   '/profile/withdraw',
   '/profile/support',
-  '/profile/coupon'
+  '/profile/coupon',
+  '/registration',
+  '/contact'
 ]
 
 export const PageLayout = () => {
