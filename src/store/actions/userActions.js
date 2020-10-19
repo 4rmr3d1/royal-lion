@@ -173,7 +173,7 @@ const createRequest = ({ data, onSuccess, resetForm }) => (dispatch) => {
 const supportFeedback = ({ data, onSuccess, resetForm }) => dispatch => {
   dispatch({ type: '@USER/support-feedback-request' })
 
-  axios.post(`${API_URL}/support/feedback/`, {
+  return axios.post(`${API_URL}/support/feedback/`, {
     name: data.name,
     phone: data.phone,
     text: data.text
