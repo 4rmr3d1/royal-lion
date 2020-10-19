@@ -11,6 +11,10 @@
   }
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 .categories {
   max-width: 1170px;
   width: 100%;

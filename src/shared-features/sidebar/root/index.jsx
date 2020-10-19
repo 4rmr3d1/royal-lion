@@ -3,7 +3,7 @@ import cn from 'classnames'
 import { useLocation } from 'react-router-dom'
 import { useMediaQuery, Drawer, Toolbar } from '@material-ui/core'
 import { ArrowBack, ArrowForward } from '@material-ui/icons'
-import { useDispatch } from '@app/store'
+import { useDispatch, useSelector } from '@app/store'
 
 import classes from './style.module.scss'
 
@@ -20,13 +20,16 @@ const categories = {
   Badminton: '16'
 }
 
-export const Sidebar = () => {
+export const Sidebar = ({ disabled }) => {
   const location = useLocation()
+
   const xlBreakPoint = useMediaQuery('(min-width: 1280px)')
   const lgBreakPoint = useMediaQuery('(max-width: 1279px)')
   const smBreakPoint = useMediaQuery('(max-width: 599px)')
 
-  const [activeCategory, setActveCategory] = React.useState(categories.Football)
+  const category = useSelector(state => state.selectedCategory.category)
+
+  const [activeCategory, setActiveCategory] = React.useState(category)
   const container = React.useRef()
 
   const onArrowClick = React.useCallback((scrollOffset) => {
@@ -43,6 +46,10 @@ export const Sidebar = () => {
     }
   }, [location])
 
+  React.useEffect(() => {
+    disabled ? setActiveCategory(null) : setActiveCategory(category)
+  }, [disabled, setActiveCategory])
+
   return (
     <>
       {xlBreakPoint && (
@@ -51,10 +58,10 @@ export const Sidebar = () => {
           variant='permanent'
         >
           <Toolbar/>
-          <div className={classes.categoryColumn}>
+          <div className={cn(classes.categoryColumn, { [classes.disabled]: disabled })}>
             <Categories.Provider
               activeCategory={activeCategory}
-              onCategoryChange={setActveCategory}
+              onCategoryChange={setActiveCategory}
             >
               {Object.entries(categories).map(([key, category], index) => (
                 <div
@@ -76,7 +83,7 @@ export const Sidebar = () => {
       {lgBreakPoint && (
         <aside className={classes.aside}>
           <div
-            className={classes.categories}
+            className={cn(classes.categories, { [classes.disabled]: disabled })}
           >
             {smBreakPoint && (
               <>
@@ -96,7 +103,7 @@ export const Sidebar = () => {
             <nav ref={container}>
               <Categories.Provider
                 activeCategory={activeCategory}
-                onCategoryChange={setActveCategory}
+                onCategoryChange={setActiveCategory}
               >
                 {Object.entries(categories).map(([key, category], index) => (
                   <div

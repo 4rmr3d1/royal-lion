@@ -6,7 +6,7 @@ import { Content } from '../content'
 
 import classes from './style.module.scss'
 
-const hiddenSideBarUrls = [
+const urls = [
   '/profile',
   '/profile/configurations',
   '/profile/history',
@@ -20,14 +20,20 @@ export const PageLayout = () => {
   const breakPoint = useMediaQuery('(max-width: 576px)')
 
   const isSidebarVisible = React.useMemo(() => {
-    return hiddenSideBarUrls.some(url => url === location.pathname) && breakPoint
+    return urls.some(url => url === location.pathname) && breakPoint
   }, [location.pathname, breakPoint])
+
+  const isSidebarDisabled = React.useMemo(() => {
+    return urls.some(url => url === location.pathname)
+  })
+
+  console.log(isSidebarDisabled)
 
   return (
     <div className={classes.pageContainer}>
       <Header />
       {!isSidebarVisible && (
-        <Sidebar />
+        <Sidebar disabled = {!!isSidebarDisabled}/>
       )}
       <Content />
       <Footer />
