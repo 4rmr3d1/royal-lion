@@ -240,6 +240,7 @@
 }
 
 .btnCoefficient {
+  
   overflow: hidden;
   position: relative;
   display: flex;
@@ -251,10 +252,9 @@
   border-radius: 8px;
   font-weight: 500;
   font-size: 12px;
-  color: #939A9E;
   display: block;
   .number{
-    color: #343949;
+    color: #939A9E;
   }
   &:hover{
     background: #E8EEFF;
@@ -281,8 +281,7 @@
   }
   
   &.up {
-    background: #ECF8ED;
-    border-color: #BEE8C2;
+    animation: changeColorUp 3s;
     
     &::before {
       position: absolute;
@@ -291,18 +290,47 @@
       right: -8px;
       width: 16px;
       height: 16px;
-      background: #BEE8C2;
       transform: rotate(45deg);
+      
+      animation: changeColorUpPseudo 3s;
     }
     
     .rate {
-      color: #70CA78;
+      animation: changeColorUpRate 3s
+    }
+    
+    @keyframes changeColorUp {
+      from {
+        background: #ECF8ED;
+        border-color: #BEE8C2;
+      }
+      to {
+        background: #F6F8FD;
+        border-color:#EDEFF5;
+      }
+    }
+    
+    @keyframes changeColorUpPseudo {
+      from {
+        background: #BEE8C2;
+      }
+      to {
+        background: transparent;
+      }
+    }
+    
+    @keyframes changeColorUpRate {
+      from {
+        color: #70CA78;
+      }
+      to {
+        color: #343949;
+      }
     }
   }
   
   &.down {
-    background: #FFECEC;
-    border-color:#FFB9B9;
+    animation: changeColorDown 3s;
     
     &::before {
       position: absolute;
@@ -311,13 +339,45 @@
       left: -8px;
       width: 16px;
       height: 16px;
-      background:#FFB9B9;
       transform: rotate(45deg);
+      
+      animation: changeColorDownPseudo 3s;
     }
     
     .rate {
-      color:#F83159;
+      animation: changeColorDownRate 3s;
     }
+    
+    @keyframes changeColorDown {
+      from {
+        background: #FFECEC;
+        border-color:#FFB9B9;
+      }
+      to {
+        background: #F6F8FD;
+        border-color:#EDEFF5;
+      }
+    }
+    
+        
+    @keyframes changeColorDownPseudo {
+      from {
+        background: #FFB9B9;
+      }
+      to {
+        background: transparent;
+      }
+    }
+    
+    @keyframes changeColorDownRate {
+      from {
+        color: #F83159;
+      }
+      to {
+        color: #343949;
+      }
+    }
+
   }
 }
 

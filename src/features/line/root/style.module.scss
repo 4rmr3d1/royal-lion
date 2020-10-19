@@ -5,14 +5,15 @@
   width: 100%;
   padding: 0 15px;
   
+  .loader {
+    height: 80%;
+    flex: 1 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
   :global {
-    .loader {
-      flex: 1 0 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     .MuiAccordion-root {
       margin-bottom: 15px;
       &:before {

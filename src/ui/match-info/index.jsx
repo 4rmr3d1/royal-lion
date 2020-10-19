@@ -73,6 +73,7 @@ export const MatchInfo = ({ data, tournament }) => {
   const bothScore = React.useMemo(() => {
     return data.additional_events.filter(event => event.oc_group_name === 'Обе забьют')
   }, [data.additional_events])
+
   const splitScore = React.useMemo(() => {
     return data?.score_full.split(':')
   }, [data])
@@ -162,10 +163,11 @@ export const MatchInfo = ({ data, tournament }) => {
                       onClick={() => onOpen(event)}
                     >
                       <span className={classes.number}>
-                        {event.short_name}&nbsp;
-                        <span className={classes.rate}>
-                          {event.oc_rate}
-                        </span>
+                        {event.short_name}
+                      </span>
+                          &nbsp;
+                      <span className={classes.rate}>
+                        {event.oc_rate}
                       </span>
                     </button>
                   )}
@@ -181,6 +183,36 @@ export const MatchInfo = ({ data, tournament }) => {
             {show &&
           <div className={classes.matchMore}>
             <div className={classes.matchMoreButtons}>
+
+              {doubleChance.length > 0 &&
+                <>
+                  <div className={classes.eventType}>
+                    <span>
+                    Двойной шанс
+                    </span>
+                    <div>
+                      {doubleChance.map((event, index) =>
+                        <button
+                          className={cn(classes.btnCoefficient,
+                            { [classes.up]: event.last_changed === 1 },
+                            { [classes.down]: event.last_changed === -1 }
+                          )}
+                          key={index}
+                          onClick={() => onOpen(event)}
+                        >
+                          <span className={classes.number}>
+                            {event.short_name}
+                          </span>
+                          &nbsp;
+                          <span className={classes.rate}>
+                            {event.oc_rate}
+                          </span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              }
 
               {advantage.length > 0 &&
                 <>
@@ -199,10 +231,11 @@ export const MatchInfo = ({ data, tournament }) => {
                           onClick={() => onOpen(event)}
                         >
                           <span className={classes.number}>
-                            {event.short_name}&nbsp;
-                            <span className={classes.rate}>
-                              {event.oc_rate}
-                            </span>
+                            {event.short_name}
+                          </span>
+                          &nbsp;
+                          <span className={classes.rate}>
+                            {event.oc_rate}
                           </span>
                         </button>
                       )}
@@ -228,10 +261,11 @@ export const MatchInfo = ({ data, tournament }) => {
                           onClick={() => onOpen(event)}
                         >
                           <span className={classes.number}>
-                            {event.short_name}&nbsp;
-                            <span className={classes.rate}>
-                              {event.oc_rate}
-                            </span>
+                            {event.short_name}
+                          </span>
+                          &nbsp;
+                          <span className={classes.rate}>
+                            {event.oc_rate}
                           </span>
                         </button>
                       )}
@@ -257,39 +291,11 @@ export const MatchInfo = ({ data, tournament }) => {
                           onClick={() => onOpen(event)}
                         >
                           <span className={classes.number}>
-                            {event.short_name}&nbsp;
-                            <span className={classes.rate}>
-                              {event.oc_rate}
-                            </span>
+                            {event.short_name}
                           </span>
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </>
-              }
-
-              {doubleChance.length > 0 &&
-                <>
-                  <div className={classes.eventType}>
-                    <span>
-                    Двойной шанс
-                    </span>
-                    <div>
-                      {doubleChance.map((event, index) =>
-                        <button
-                          className={cn(classes.btnCoefficient,
-                            { [classes.up]: event.last_changed === 1 },
-                            { [classes.down]: event.last_changed === -1 }
-                          )}
-                          key={index}
-                          onClick={() => onOpen(event)}
-                        >
-                          <span className={classes.number}>
-                            {event.short_name}&nbsp;
-                            <span className={classes.rate}>
-                              {event.oc_rate}
-                            </span>
+                          &nbsp;
+                          <span className={classes.rate}>
+                            {event.oc_rate}
                           </span>
                         </button>
                       )}

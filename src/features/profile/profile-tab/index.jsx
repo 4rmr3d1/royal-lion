@@ -1,14 +1,16 @@
 import React from 'react'
 import { TextField } from '@material-ui/core'
-import { Button, Block } from '@app/ui'
+import { Button, Block, ErrorText } from '@app/ui'
 import { useDispatch, useSelector, payment } from '@app/store'
 
 import classes from './style.module.scss'
 
 export const ProfileTab = () => {
   const { dispatch } = useDispatch()
+
   const error = useSelector(state => state.payments?.inputError)
-  const [amount, setAmount] = React.useState(100)
+
+  const [amount, setAmount] = React.useState(500)
 
   const onAmountChange = React.useCallback((e) => {
     setAmount(e.target.value)
@@ -19,6 +21,10 @@ export const ProfileTab = () => {
 
     dispatch(payment.paymentsInput({ amount }))
   })
+
+  React.useEffect(() => {
+    dispatch(payment.getPaymentsInput())
+  }, [])
 
   return (
     <>
@@ -38,6 +44,8 @@ export const ProfileTab = () => {
               variant='outlined'
               onChange={onAmountChange}
             />
+
+            <ErrorText message={error}/>
           </div>
         </div>
 

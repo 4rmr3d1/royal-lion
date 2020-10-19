@@ -1,6 +1,5 @@
 import React from 'react'
 import cn from 'classnames'
-import { CircularProgress } from '@material-ui/core'
 import { Pagination } from '@material-ui/lab'
 import { MatchInfoPane as MatchInfo } from '@app/ui'
 import { useSelector, useDispatch, live } from '@app/store'
@@ -23,7 +22,6 @@ export const Live = () => {
 
   const sportId = useSelector(state => state.selectedCategory.category)
 
-  const isLoaded = useSelector(state => state.liveMatches.isLoaded)
   const liveMatches = useSelector(state => state.liveMatches?.tournaments)
   const length = useSelector(state => state.liveMatches.length)
 
@@ -45,7 +43,7 @@ export const Live = () => {
   React.useEffect(() => {
     const timer = setInterval(() => {
       dispatch(live.loadLiveTournaments({ sportId, page: page - 1 }))
-    }, 60000)
+    }, 10000)
 
     return () => clearInterval(timer)
   })
@@ -55,7 +53,7 @@ export const Live = () => {
   }, [setPage])
 
   const totalPages = React.useMemo(() => {
-    return Math.ceil(length / 10)
+    return Math.ceil(length / 5)
   }, [length])
 
   React.useEffect(() => {
@@ -97,29 +95,23 @@ export const Live = () => {
           </div>
         }
 
-        {isLoaded ? (
-          <>
-            {liveMatches.length > 0 ? (
-              <>
-                {liveMatches?.map((data, index) => (
-                  <MatchInfo
-                    data={data}
-                    key={index | data.api_id}
-                  />
-                ))}
-              </>
-            ) : (
-              <div className={classes.emptyData}>
-                <img src='img/noData.png' />
-                <div>НЕТ ДАННЫХ</div>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className={classes.loader}>
-            <CircularProgress />
-          </div>
-        )}
+        <>
+          {liveMatches.length > 0 ? (
+            <>
+              {liveMatches?.map((data, index) => (
+                <MatchInfo
+                  data={data}
+                  key={index | data.api_id}
+                />
+              ))}
+            </>
+          ) : (
+            <div className={classes.emptyData}>
+              <img src='img/noData.png' />
+              <div>НЕТ ДАННЫХ</div>
+            </div>
+          )}
+        </>
 
         {length > 10 &&
           <div className={classes.pagination}>

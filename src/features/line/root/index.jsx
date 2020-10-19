@@ -36,8 +36,16 @@ export const Line = () => {
   }, [setPage])
 
   const totalPages = React.useMemo(() => {
-    return Math.ceil(length / 10)
+    return Math.ceil(length / 5)
   }, [length])
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      dispatch(line.loadLineTournaments({ sportId, page: page - 1 }))
+    }, 600000)
+
+    return () => clearInterval(timer)
+  })
 
   React.useEffect(() => {
     dispatch(line.loadLineTournaments({ sportId, page: page - 1 }))

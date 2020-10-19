@@ -363,8 +363,22 @@ const getPaymentsOutput = () => dispatch => {
     })
 }
 
+const getPaymentsInput = () => dispatch => {
+  dispatch({ type: '@PAYMENT/get-payment-input-request' })
+
+  return axios.get(`${API_URL}/payments/input/`,
+    { headers: authHeader() })
+    .then(response => {
+      dispatch({ type: '@PAYMENT/get-payment-input-success', payload: response.data.data })
+    })
+    .catch(error => {
+      dispatch({ type: '@PAYMENT/get-payment-input-error', error: error.response.data.errors })
+    })
+}
+
 export const payment = {
   paymentsInput,
   paymentOutput,
-  getPaymentsOutput
+  getPaymentsOutput,
+  getPaymentsInput
 }
