@@ -35,3 +35,20 @@ export const DateBirthTextMask = ({ inputRef, ...other }) => {
 DateBirthTextMask.propTypes = {
   inputRef: PropTypes.func.isRequired
 }
+
+export const BankCardTextMask = ({ inputRef, ...other }) => {
+  return (
+    <MaskedInput
+      {...other}
+      mask={[
+        /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/
+      ]}
+      placeholderChar={'\u2000'}
+      ref={ref => { inputRef(ref ? ref.inputElement : null) }}
+    />
+  )
+}
+
+BankCardTextMask.propTypes = {
+  inputRef: PropTypes.func.isRequired
+}

@@ -1,9 +1,9 @@
 import React from 'react'
 import { FormattedDate, FormattedTime } from 'react-intl'
 import { Alert } from '@material-ui/lab'
-import { TextField, FormControl, useMediaQuery, Select, MenuItem } from '@material-ui/core'
+import { TextField, FormControl, OutlinedInput, useMediaQuery, Select, MenuItem } from '@material-ui/core'
 import { useNotifications } from '@app/lib'
-import { Button, Block, BlockItem, Chip } from '@app/ui'
+import { Button, Block, BlockItem, Chip, BankCardTextMask } from '@app/ui'
 import { useDispatch, useSelector, payment } from '@app/store'
 
 import classes from './style.module.scss'
@@ -31,16 +31,26 @@ export const WithdrawForm = () => {
   const error = useSelector(state => state.payments.outputError)
 
   const [amount, setAmount] = React.useState(100)
-  const [paymentMethod, setPaymentMethod] = React.useState(0)
+  const [method, setMethod] = React.useState(0)
+  const [cardNumber, setCardNumber] = React.useState()
 
   const onAmountChange = React.useCallback((e) => {
     setAmount(e.target.value)
   }, [setAmount])
 
+  const onSetCardNumber = React.useCallback((e) => {
+    setCardNumber(e.target.value)
+  }, [setAmount])
+
   const onSubmit = React.useCallback((e) => {
     e.preventDefault(e)
 
-    dispatch(payment.paymentOutput({ amount, onSuccess: () => showSuccessMessage('Заявка на вывод успешно создана') }))
+    dispatch(payment.paymentOutput({
+      amount,
+      method,
+      cardNumber,
+      onSuccess: () => showSuccessMessage('Заявка на вывод успешно создана')
+    }))
   })
 
   return (
@@ -74,9 +84,13 @@ export const WithdrawForm = () => {
 
         <div className="col-lg-4 col-sm-5">
           <FormControl fullWidth>
-            <TextField
+            <OutlinedInput
+              error={!!error}
+              inputComponent={BankCardTextMask}
               placeholder='Номер кошелька/счета'
+              value={cardNumber}
               variant='outlined'
+              onChange={onSetCardNumber}
             />
           </FormControl>
         </div>
@@ -88,8 +102,8 @@ export const WithdrawForm = () => {
           >
             <Select
               name='gender'
-              value={paymentMethod}
-              onChange={e => setPaymentMethod(e.target.value)}
+              value={method}
+              onChange={e => setMethod(e.target.value)}
             >
               <MenuItem
                 style={{ display: 'none' }}
@@ -187,9 +201,9 @@ export const WithdrawHistoryItem = ({ status, data }) => {
               {data.amount}₽
             </Chip>
 
-            {/* <Chip variant='outlined'>
-            СберБанк 1234 **** **** 6789
-            </Chip> */}
+            <Chip variant='outlined'>
+              {data.account_number}
+            </Chip>
           </div>
         </>
       ) : (
@@ -222,14 +236,14 @@ export const WithdrawHistoryItem = ({ status, data }) => {
             </Chip>
           </div>
 
-          {/* <div>
+          <div>
             <Chip
               flexBasis={'100%'}
               variant='outlined'
             >
-              СберБанк 1234 **** **** 6789
+              {data.account_number}
             </Chip>
-          </div> */}
+          </div>
         </>
       )}
 

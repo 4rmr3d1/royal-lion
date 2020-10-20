@@ -336,9 +336,13 @@ const paymentsInput = ({ amount, onSuccess }) => dispatch => {
     })
 }
 
-const paymentOutput = ({ amount, onSuccess }) => dispatch => {
+const paymentOutput = ({ amount, method, cardNumber, onSuccess }) => dispatch => {
   return axios.post(`${API_URL}/payments/output/create`,
-    { amount },
+    {
+      amount,
+      method,
+      account_number: cardNumber
+    },
     { headers: authHeader() })
     .then(response => {
       dispatch({ type: '@PAYMENT/payment-output-error' })
@@ -366,7 +370,7 @@ const getPaymentsOutput = () => dispatch => {
 const getPaymentsInput = () => dispatch => {
   dispatch({ type: '@PAYMENT/get-payment-input-request' })
 
-  return axios.get(`${API_URL}/payments/input`,
+  return axios.get(`${API_URL}/payments/input/`,
     { headers: authHeader() })
     .then(response => {
       dispatch({ type: '@PAYMENT/get-payment-input-success', payload: response.data.data })

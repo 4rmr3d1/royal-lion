@@ -144,10 +144,6 @@ export const WithdrawHistoryItem = ({ status, data }) => {
             <Chip variant='contained'>
               {data.amount}₽
             </Chip>
-
-            {/* <Chip variant='outlined'>
-            СберБанк 1234 **** **** 6789
-            </Chip> */}
           </div>
         </>
       ) : (
@@ -179,18 +175,8 @@ export const WithdrawHistoryItem = ({ status, data }) => {
               {data.amount}₽
             </Chip>
           </div>
-
-          {/* <div>
-            <Chip
-              flexBasis={'100%'}
-              variant='outlined'
-            >
-              СберБанк 1234 **** **** 6789
-            </Chip>
-          </div> */}
         </>
       )}
-
     </div>
   )
 }

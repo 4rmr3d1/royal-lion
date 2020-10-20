@@ -66,6 +66,8 @@
 
     &>div:last-child {
       flex: 0 0 40%;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 

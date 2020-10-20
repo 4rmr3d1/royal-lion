@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMediaQuery, Link } from '@material-ui/core'
+import { useMediaQuery } from '@material-ui/core'
 import { NavLink } from 'react-router-dom'
 
 import classes from './style.module.scss'
@@ -25,12 +25,10 @@ export const Footer = () => {
                 <NavLink to="/rules">
                   Правила сайта
                 </NavLink>
-                <a
-                  href="/policy"
-                  target="_blank"
-                >
+
+                <NavLink to="/policy">
                   Политика конфиденциальности
-                </a>
+                </NavLink>
               </nav>
               <div className='col-lg-3'>
                 <p className='copy'>@ 1994-2020 All rights reserved</p>
@@ -53,12 +51,13 @@ export const Footer = () => {
             </div>
           </div>
           <nav>
-            <Link href="/rules">
+            <NavLink to="/rules">
               Правила сайта
-            </Link>
-            <Link href="/policy">
-            Политика конфиденциальности
-            </Link>
+            </NavLink>
+
+            <NavLink to="/policy">
+              Политика конфиденциальности
+            </NavLink>
           </nav>
         </footer>
       )}
