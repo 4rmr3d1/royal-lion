@@ -189,11 +189,20 @@ const supportFeedback = ({ data, onSuccess, resetForm }) => dispatch => {
 }
 
 const forgotPassword = ({ data }) => dispatch => {
-  return axios.post(`${API_URL}/user/password/forgot`, {
+  dispatch({ type: '@USER/password-recovery-request' })
+
+  return axios.post(`${API_URL}/user/password/forgot/`, {
     user_info: data
   })
     .then(response => {
-      dispatch({ type: '@USER/change-property', payload: { authModalStep: 'success' } })
+      if (response.data) {
+        dispatch({ type: '@USER/password-recovery-success' })
+
+        dispatch({ type: '@USER/change-property', payload: { authModalStep: 'success' } })
+      }
+    })
+    .catch(error => {
+      dispatch({ type: '@USER/password-recovery-error', error: error.response.data.errors })
     })
 }
 

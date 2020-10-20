@@ -9,7 +9,8 @@ const initialState = {
   login: {
     isLoggedIn: false,
     logining: null,
-    error: null
+    error: null,
+    recoveryError: null
   },
   activation: {
     success: null,
@@ -237,6 +238,15 @@ export const authReducer = (state = initialState, action) => {
       activation: {
         success: action.activation,
         error: action.error
+      }
+    }
+  }
+
+  case '@USER/password-recovery-error': {
+    return {
+      ...state,
+      login: {
+        recoveryError: action.error
       }
     }
   }

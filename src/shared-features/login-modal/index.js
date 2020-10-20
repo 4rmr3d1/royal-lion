@@ -27,6 +27,7 @@ export const LoginModal = ({ visible, onClose }) => {
     switch (state) {
     case 'auth': return 'Авторизация'
     case 'passwordForgot': return 'Востановление пароля'
+    case 'success': return 'Ваш пароль уже на почте'
 
     default: return 'Авторизация'
     }
@@ -35,7 +36,6 @@ export const LoginModal = ({ visible, onClose }) => {
   return (
     <>
       <Dialog
-        minWidth='sm'
         open={visible}
         onClose={onClose}
       >
@@ -189,6 +189,9 @@ export const AuthModal = () => {
 
 const PasswordForgotModal = () => {
   const { dispatch } = useDispatch()
+
+  const error = useSelector(state => state.authReducer.login.recoveryError)
+
   const [data, setData] = React.useState('')
 
   const onDataChange = React.useCallback((e) => {
@@ -196,8 +199,10 @@ const PasswordForgotModal = () => {
   }, [setData])
 
   const onSubmit = React.useCallback((e) => {
+    e.preventDefault()
+
     dispatch(userActions.forgotPassword({ data }))
-  }, [dispatch])
+  }, [dispatch, data])
 
   return (
     <>
@@ -211,14 +216,14 @@ const PasswordForgotModal = () => {
       >
         <div>
           <TextField
+            error={!!error}
             fullWidth
-            name='password'
             placeholder='Введите Ваш логин или e-mail'
-            type='password'
             value={data}
             variant='outlined'
             onChange={onDataChange}
           />
+          <ErrorText message={error}/>
         </div>
 
         <Button
