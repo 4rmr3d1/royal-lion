@@ -181,7 +181,8 @@ export const bet = (state = betInitialState, action) => {
 const paymentsInitialState = {
   outputError: '',
   inputError: '',
-  outputRequests: null
+  outputRequests: null,
+  inputRequests: null
 }
 
 export const payments = (state = paymentsInitialState, action) => {
@@ -210,6 +211,22 @@ export const payments = (state = paymentsInitialState, action) => {
     }
 
   case '@PAYMENT/get-payment-output-error':
+    return {
+      ...state
+    }
+
+  case '@PAYMENT/get-payment-input-request':
+    return {
+      ...state
+    }
+
+  case '@PAYMENT/get-payment-input-success':
+    return {
+      ...state,
+      inputRequests: action.payload
+    }
+
+  case '@PAYMENT/get-payment-input-error':
     return {
       ...state
     }

@@ -366,7 +366,7 @@ const getPaymentsOutput = () => dispatch => {
 const getPaymentsInput = () => dispatch => {
   dispatch({ type: '@PAYMENT/get-payment-input-request' })
 
-  return axios.get(`${API_URL}/payments/input/`,
+  return axios.get(`${API_URL}/payments/input`,
     { headers: authHeader() })
     .then(response => {
       dispatch({ type: '@PAYMENT/get-payment-input-success', payload: response.data.data })
