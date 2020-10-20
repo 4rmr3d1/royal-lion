@@ -48,20 +48,25 @@ export const Result = () => {
         <>
           {matchesResults.length > 0 ? (
             <>
-              <Accordion expanded>
-                <AccordionSummary>
-            Результаты
-                </AccordionSummary>
-                <AccordionDetails>
-                  {matchesResults?.map((result, index) => (
-                    <AccordionDetails key={index}>
-                      <ResultInfo
-                        data={result}
-                      />
-                    </AccordionDetails>
-                  ))}
-                </AccordionDetails>
-              </Accordion>
+              {matchesResults.map((league, index) =>
+                <Accordion
+                  defaultExpanded
+                  key={index}
+                >
+                  <AccordionSummary>
+                    {league.name}
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    {league.matches?.map((result, index) => (
+                      <AccordionDetails key={index}>
+                        <ResultInfo
+                          data={result}
+                        />
+                      </AccordionDetails>
+                    ))}
+                  </AccordionDetails>
+                </Accordion>
+              )}
             </>
           ) : (
             <div className={classes.emptyData}>
