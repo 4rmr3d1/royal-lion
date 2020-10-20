@@ -270,13 +270,13 @@
   }
   @media (max-width: 575px) {
     min-width: 55px;
-    height: 34px;
+    min-height: 34px;
     padding: 5px;
   }
   
   @media (min-width: 576px) {
     min-width: 60px;
-    height: 38px;
+    min-height: 38px;
     padding: 0 8px;
   }
   
