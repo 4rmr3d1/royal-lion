@@ -17,6 +17,7 @@ const initialState = {
   },
   properties: {
     authModalVisible: false,
+    authModalStep: 'auth',
     betModalVisible: false,
     burgerVisible: false
   },

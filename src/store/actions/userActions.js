@@ -188,6 +188,15 @@ const supportFeedback = ({ data, onSuccess, resetForm }) => dispatch => {
     })
 }
 
+const forgotPassword = ({ data }) => dispatch => {
+  return axios.post(`${API_URL}/user/password/forgot`, {
+    user_info: data
+  })
+    .then(response => {
+      dispatch({ type: '@USER/change-property', payload: { authModalStep: 'success' } })
+    })
+}
+
 export const userActions = {
   activateAccount,
   login,
@@ -197,7 +206,8 @@ export const userActions = {
   changePassword,
   changeContacts,
   createRequest,
-  supportFeedback
+  supportFeedback,
+  forgotPassword
 }
 
 const loadLineTournaments = ({ sportId, page }) => dispatch => {

@@ -26,7 +26,8 @@ const BurgerMenu = () => {
     dispatch({
       type: '@USER/change-property',
       payload: {
-        authModalVisible: true
+        authModalVisible: true,
+        authModalStep: 'auth'
       }
     })
   }, [dispatch])

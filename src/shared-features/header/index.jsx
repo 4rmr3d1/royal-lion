@@ -25,7 +25,8 @@ export const Header = () => {
     dispatch({
       type: '@USER/change-property',
       payload: {
-        authModalVisible: true
+        authModalVisible: true,
+        authModalStep: 'auth'
       }
     })
   }, [dispatch])
@@ -34,7 +35,8 @@ export const Header = () => {
     dispatch({
       type: '@USER/change-property',
       payload: {
-        authModalVisible: false
+        authModalVisible: false,
+        authModalStep: 'auth'
       }
     })
   }, [dispatch])

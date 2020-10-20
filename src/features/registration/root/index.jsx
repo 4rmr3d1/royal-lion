@@ -73,7 +73,7 @@ export const Registration = () => {
   })
 
   const onAuthModalOpen = React.useCallback(() => {
-    dispatch({ type: '@USER/change-property', payload: { authModalVisible: true } })
+    dispatch({ type: '@USER/change-property', payload: { authModalVisible: true, authModalStep: 'auth' } })
   })
 
   const hasErrors = React.useMemo(() => {

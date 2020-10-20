@@ -14,7 +14,60 @@ const validationSchema = yup.object({
   password: yup.string().required('Поле необходимо заполнить')
 })
 
+const modalState = {
+  auth: 'auth',
+  passwordForgot: 'passwordForgot',
+  success: 'success'
+}
+
 export const LoginModal = ({ visible, onClose }) => {
+  const state = useSelector(state => state.authReducer.properties.authModalStep)
+
+  const modalTitle = React.useMemo(() => {
+    switch (state) {
+    case 'auth': return 'Авторизация'
+    case 'passwordForgot': return 'Востановление пароля'
+
+    default: return 'Авторизация'
+    }
+  }, [state])
+
+  return (
+    <>
+      <Dialog
+        minWidth='sm'
+        open={visible}
+        onClose={onClose}
+      >
+        <DialogTitle
+          disableTypography
+          style={{ textAlign: 'center' }}
+        >
+          <h2>{modalTitle}</h2>
+        </DialogTitle>
+
+        <DialogContent>
+
+          {state === modalState.auth && (
+            <AuthModal />
+          )}
+
+          {state === modalState.passwordForgot && (
+            <PasswordForgotModal />
+          )}
+
+          {state === modalState.success && (
+            <Success />
+          )}
+
+        </DialogContent>
+      </Dialog>
+
+    </>
+  )
+}
+
+export const AuthModal = () => {
   const { dispatch } = useDispatch()
   const history = useHistory()
 
@@ -46,6 +99,17 @@ export const LoginModal = ({ visible, onClose }) => {
     validateOnChange: false
   })
 
+  const onPasswordForgotClick = React.useCallback((e) => {
+    e.preventDefault()
+
+    dispatch({
+      type: '@USER/change-property',
+      payload: {
+        authModalStep: modalState.passwordForgot
+      }
+    })
+  }, [dispatch, modalState])
+
   const hasErrors = React.useMemo(() => {
     return formik.errors || null
   }, [formik])
@@ -57,71 +121,126 @@ export const LoginModal = ({ visible, onClose }) => {
   })
 
   return (
-    <Dialog
-      open={visible}
-      onClose={onClose}
-    >
-      <DialogTitle
-        disableTypography
-        style={{ textAlign: 'center' }}
+    <>
+      <form
+        className={classes.form}
+        onSubmit={formik.handleSubmit}
       >
-        <h2>Авторизация</h2>
-      </DialogTitle>
-
-      <DialogContent>
-        <form
-          className={classes.form}
-          onSubmit={formik.handleSubmit}
-        >
-          {hasServerErrors && (
-            <ErrorText message='Неверный логин или пароль'/>
-          )}
-          <div>
-            <TextField
-              error={!!hasErrors.username || hasServerErrors}
-              fullWidth
-              name='username'
-              placeholder='Логин'
-              value={formik.values.username}
-              variant='outlined'
-              onChange={formik.handleChange}
-            />
-            <ErrorText message={hasErrors.username}/>
-          </div>
-
-          <div>
-            <TextField
-              error={!!hasErrors.password || hasServerErrors}
-              fullWidth
-              name='password'
-              placeholder='Пароль'
-              type='password'
-              value={formik.values.password}
-              variant='outlined'
-              onChange={formik.handleChange}
-            />
-            <ErrorText message={hasErrors.password}/>
-          </div>
-
-          <Button
-            color='primary'
+        {hasServerErrors && (
+          <ErrorText message='Неверный логин или пароль'/>
+        )}
+        <div>
+          <TextField
+            error={!!hasErrors.username || hasServerErrors}
             fullWidth
-            type='submit'
-            variant='big'
-          >
-            Войти
-          </Button>
-        </form>
+            name='username'
+            placeholder='Логин'
+            value={formik.values.username}
+            variant='outlined'
+            onChange={formik.handleChange}
+          />
+          <ErrorText message={hasErrors.username}/>
+        </div>
+
+        <div>
+          <TextField
+            error={!!hasErrors.password || hasServerErrors}
+            fullWidth
+            name='password'
+            placeholder='Пароль'
+            type='password'
+            value={formik.values.password}
+            variant='outlined'
+            onChange={formik.handleChange}
+          />
+          <ErrorText message={hasErrors.password}/>
+        </div>
 
         <Button
-          color='secondary'
+          color='primary'
           fullWidth
+          type='submit'
           variant='big'
-          onClick={() => onRegistrationClick()}
         >
-          регистрация
+          Войти
         </Button>
-      </DialogContent>
-    </Dialog>
+      </form>
+
+      <div className={classes.forgot}>
+        <a
+          href='#'
+          onClick={onPasswordForgotClick}
+        >
+          Забыли пароль
+        </a>
+      </div>
+
+      <Button
+        color='secondary'
+        fullWidth
+        variant='big'
+        onClick={() => onRegistrationClick()}
+      >
+        регистрация
+      </Button>
+    </>
+  )
+}
+
+const PasswordForgotModal = () => {
+  const { dispatch } = useDispatch()
+  const [data, setData] = React.useState('')
+
+  const onDataChange = React.useCallback((e) => {
+    setData(e.target.value)
+  }, [setData])
+
+  const onSubmit = React.useCallback((e) => {
+    dispatch(userActions.forgotPassword({ data }))
+  }, [dispatch])
+
+  return (
+    <>
+      <div className={classes.description}>
+        Ввелите логин или пароль, а мы вышлем вам новый пароль
+      </div>
+
+      <form
+        className={classes.form}
+        onSubmit={onSubmit}
+      >
+        <div>
+          <TextField
+            fullWidth
+            name='password'
+            placeholder='Введите Ваш логин или e-mail'
+            type='password'
+            value={data}
+            variant='outlined'
+            onChange={onDataChange}
+          />
+        </div>
+
+        <Button
+          color='primary'
+          fullWidth
+          type='submit'
+          variant='big'
+        >
+          Войти
+        </Button>
+      </form>
+    </>
+  )
+}
+
+const Success = () => {
+  return (
+    <div className={classes.success}>
+      <img
+        alt=""
+        src="https://royal-lion.bet/img/success.svg"
+      />
+    </div>
   )
 }
