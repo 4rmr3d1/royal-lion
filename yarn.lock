@@ -9660,6 +9660,11 @@ react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-i
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
+react-jivosite@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-jivosite/-/react-jivosite-1.0.0.tgz#963b5a605d1686e2e7ccc51dc46098c127b903c3"
+  integrity sha512-68Xvp2rfpTJMrqZYyHyzENKOZOrZ+Y5wQDsLb9Sn1WrXPKF7eQDC39hTxjsAHIM62DgNKQWhRYtD/OY3XW3vmQ==
+
 react-redux@^7.2.1:
   version "7.2.1"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.1.tgz#8dedf784901014db2feca1ab633864dee68ad985"

@@ -3,7 +3,7 @@ import cn from 'classnames'
 
 import classes from './style.module.scss'
 
-export const Chip = ({ children, variant, status, flexBasis, padding }) => {
+export const Chip = ({ children, variant, status, flexBasis, padding, style }) => {
   return (
     <div
       className={cn(
@@ -17,7 +17,8 @@ export const Chip = ({ children, variant, status, flexBasis, padding }) => {
       )}
       style={{
         flexBasis: flexBasis,
-        padding: padding
+        padding: padding,
+        ...style
       }}
     >
       <span>

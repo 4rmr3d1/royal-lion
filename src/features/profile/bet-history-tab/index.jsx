@@ -124,7 +124,7 @@ const HistoryItem = ({ data }) => {
 
       {!breakPoint ? (
         <>
-          <div style={{ width: 100 }}>
+          <div style={{ width: 80 }}>
             <Chip
               padding='12px 10px'
               variant='muted'
@@ -156,16 +156,48 @@ const HistoryItem = ({ data }) => {
             </div>
           </div>
 
-          <div style={{ width: 105 }}>
-            <Chip variant='outlined'>
-              {data?.user_win} ₽
+          <div style={{ width: 90 }}>
+            <Chip
+              padding='5px 12px'
+              style={{ justifyContent: 'flex-start' }}
+              variant={data?.is_went === true ? 'contained' : 'outlined'}
+            >
+              <div className={classes.valueLabel}>
+                <div style={{ fontWeight: '400', fontSize: 10 }}>
+                  Ставка:
+                </div>
+
+                <div>
+                  {data?.user_bet} ₽
+                </div>
+              </div>
             </Chip>
           </div>
 
-          <div style={{ width: 105 }}>
-            <Chip variant='contained'>
-              {event?.short_name}&nbsp;{data?.win_coefficient}
-            </Chip>
+          <div style={{ width: 185 }}>
+            {data?.is_went === true ? (
+              <div className={classes.winChip}>
+                <div className={classes.winChipContainer}>
+                  <div className={classes.valueLabel}>
+                    <div style={{ fontWeight: '400', fontSize: 10 }}>
+                    Выигрыш:
+                    </div>
+
+                    <div style={{ fontWeight: '500', fontSize: 12 }}>
+                      {data?.user_win} ₽
+                    </div>
+                  </div>
+
+                  <div style={{ fontWeight: '500', fontSize: 12 }}>
+                    {event?.short_name}&nbsp;{data?.win_coefficient}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <Chip variant='outlined'>
+                {event?.short_name}&nbsp;{data?.win_coefficient}
+              </Chip>
+            )}
           </div>
         </>
       ) : (
@@ -218,17 +250,41 @@ const HistoryItem = ({ data }) => {
           </div>
 
           <div className={classes.event}>
-            <Chip variant='muted'>
-              {data?.bet_code}
-            </Chip>
+            <div>
+              <Chip variant='muted'>
+                {data?.bet_code}
+              </Chip>
 
-            <Chip variant='outlined'>
-              {data?.user_win} ₽
-            </Chip>
+              <Chip variant='outlined'>
+                {data?.user_win} ₽
+              </Chip>
+            </div>
 
-            <Chip variant='contained'>
-              {event?.short_name}&nbsp;{data?.win_coefficient}
-            </Chip>
+            <div>
+              {data?.is_went === true ? (
+                <div className={classes.winChip}>
+                  <div className={classes.winChipContainer}>
+                    <div className={classes.valueLabel}>
+                      <div style={{ fontWeight: '400', fontSize: 10 }}>
+                    Выигрыш:
+                      </div>
+
+                      <div style={{ fontWeight: '500', fontSize: 12 }}>
+                        {data?.user_win} ₽
+                      </div>
+                    </div>
+
+                    <div style={{ fontWeight: '500', fontSize: 12 }}>
+                      {event?.short_name}&nbsp;{data?.win_coefficient}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Chip variant='outlined'>
+                  {event?.short_name}&nbsp;{data?.win_coefficient}
+                </Chip>
+              )}
+            </div>
           </div>
         </>
       )}
