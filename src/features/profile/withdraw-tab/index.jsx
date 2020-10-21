@@ -58,8 +58,6 @@ export const WithdrawForm = () => {
       className={classes.form}
       onSubmit={onSubmit}
     >
-      <h4>Для вывода средств необходимо пополнить баланс не менее 5 раз</h4>
-
       {!!error && (
         <Alert
           severity='error'
