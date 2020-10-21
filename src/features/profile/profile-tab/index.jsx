@@ -62,6 +62,7 @@ export const ProfileTab = () => {
                   />
                   <Button
                     color='primary'
+                    fullWidth
                     type='submit'
                     variant='big'
                   >
@@ -80,6 +81,7 @@ export const ProfileTab = () => {
                   />
                   <Button
                     color='primary'
+                    fullWidth
                     type='submit'
                     variant='big'
                   >

@@ -21,7 +21,7 @@ export const Result = () => {
   }, [setPage])
 
   const totalPages = React.useMemo(() => {
-    return Math.ceil(length / 10)
+    return Math.ceil(length / 5)
   }, [length])
 
   React.useEffect(() => {
@@ -32,7 +32,7 @@ export const Result = () => {
 
   return (
     <section className={classes.result}>
-      {length > 20 &&
+      {length > 5 &&
         <div className={classes.pagination}>
           <Pagination
             color='primary'
