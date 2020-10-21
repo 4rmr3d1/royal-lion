@@ -34,7 +34,6 @@ const login = ({ username, password }) => (dispatch) => {
       return response.data.key
     })
     .catch((error) => {
-      console.log(error)
       dispatch({ type: '@USER/login-error', error: error.response.data })
     })
 }
