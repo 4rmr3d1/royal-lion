@@ -255,8 +255,20 @@ const HistoryItem = ({ data }) => {
                 {data?.bet_code}
               </Chip>
 
-              <Chip variant='outlined'>
-                {data?.user_win} ₽
+              <Chip
+                padding='5px 12px'
+                style={{ justifyContent: 'flex-start' }}
+                variant={data?.is_went === true ? 'contained' : 'outlined'}
+              >
+                <div className={classes.valueLabel}>
+                  <div style={{ fontWeight: '400', fontSize: 10 }}>
+                  Ставка:
+                  </div>
+
+                  <div>
+                    {data?.user_bet} ₽
+                  </div>
+                </div>
               </Chip>
             </div>
 
