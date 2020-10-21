@@ -18,11 +18,11 @@ export const BetHistoryTab = () => {
   }, [dispatch])
 
   const liveBets = React.useMemo(() => {
-    return history?.filter(bet => bet.bet_type === 'live')
+    return history?.filter(bet => bet.bet_type === 'live' && bet.is_went === null)
   }, [history])
 
   const lineBets = React.useMemo(() => {
-    return history?.filter(bet => bet.bet_type === 'line')
+    return history?.filter(bet => bet.bet_type === 'line' && bet.is_went === null)
   }, [history])
 
   const archiveBets = React.useMemo(() => {
@@ -91,8 +91,6 @@ export const BetHistoryTab = () => {
     </>
   )
 }
-
-// Bets api doesn't work at this moment
 
 const HistoryItem = ({ data }) => {
   const breakPoint = useMediaQuery('(max-width: 575px)')
