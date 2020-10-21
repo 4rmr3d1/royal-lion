@@ -204,8 +204,6 @@ const ContactsChange = () => {
     return formik.errors || null
   }, [formik])
 
-  console.log(formik.values.email)
-
   return (
     <form
       className={classes.form}

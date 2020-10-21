@@ -31,8 +31,6 @@ export const PageLayout = () => {
     return urls.some(url => url === location.pathname)
   })
 
-  console.log(isSidebarDisabled)
-
   return (
     <div className={classes.pageContainer}>
       <Header />

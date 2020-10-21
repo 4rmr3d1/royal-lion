@@ -331,7 +331,6 @@ const checkBetCoupon = ({ ticket }) => dispatch => {
     })
     .catch(error => {
       dispatch({ type: '@BET/check-coupon-error', couponError: error.response.data.errors })
-      console.log(error.response)
     })
 }
 
