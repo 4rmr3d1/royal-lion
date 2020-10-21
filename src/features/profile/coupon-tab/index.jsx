@@ -76,7 +76,7 @@ const CheckCoupon = () => {
           </span>
           <div>
             <span>
-              {couponData.user_bet} ₽
+              {couponData.is_went === true ? couponData.user_win : couponData.user_bet} ₽
             </span>
           </div>
         </div>
