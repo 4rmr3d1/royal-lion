@@ -68,8 +68,11 @@ const CheckCoupon = () => {
       {couponData &&
         <div className={classes.couponStatus}>
           <span>Статус купона:&nbsp;
-            <strong>{couponData.bet_type === 'live' && 'В игре' }</strong>
-            <strong>{couponData.bet_type === 'line' && 'В линии' }</strong>
+            <strong>{couponData.bet_type === 'live' && couponData.is_went === null && 'В игре' }</strong>
+            <strong>{couponData.bet_type === 'line' && couponData.is_went === null && 'В линии' }</strong>
+            <strong>{couponData.is_went === true && 'Рассчитан'}</strong>
+            <strong>{couponData.is_went === false && 'Проигрыш'}</strong>
+            <strong>{couponData.returned === true && 'Отменен'}</strong>
           </span>
           <div>
             <span>
