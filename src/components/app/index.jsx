@@ -21,6 +21,7 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <SnackbarProvider
+        autoHideDuration={3000}
         content={(key, message) => (
           <SuccessMessage
             id={key}

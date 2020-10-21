@@ -9,7 +9,44 @@
   }
 }
 
+.betBlock {
+  position: relative;
+  margin-top: 60px;
+  
+  &> span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: uppercase;
+    
+    position: absolute;
+    padding: 8px 15px;
+    bottom: 100%;
+    left: 10px;
+    color: #fff;
+    border-radius: 4px 4px 0px 0px;
+    
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    
+    &.live {
+      background: #E1163F;
+    }
+    
+    &.line {
+      background: #5B5D6E;
+    }
+    
+    &.archive {
+      background: #4286F4;
+    }
+  }
+}
+
 .historyItem {
+  position: relative;
+  
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,9 +60,30 @@
     padding: 10px 15px;
   }
   
+  .condition {
+    position: absolute;
+    width: 2px;
+    height: 40px;
+    left: 0;
+    border-radius: 8px;
+    
+    &.win {
+      background: #58CC78;
+    }
+    
+    &.lose {
+      background: #E84A4A;
+    }
+    
+    &.returned {
+      background: #5B5D6E;
+    }
+  }
+  
   &Date {
+    width: 85px;
+    
     display: flex;
-    flex: 0 0 12%;
     justify-content: center;
     flex-direction: column;
     font-size: 14px;
@@ -34,7 +92,7 @@
   }
   
   &Result {
-    flex: 0 0 50%;
+    width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;

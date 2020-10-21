@@ -1,6 +1,8 @@
 import React from 'react'
+import cn from 'classnames'
 import { FormattedTime, FormattedDate } from 'react-intl'
 import { useMediaQuery } from '@material-ui/core'
+import { FiberManualRecord, History, Forward } from '@material-ui/icons'
 import { Block, Chip } from '@app/ui'
 import { bet, useDispatch, useSelector } from '@app/store'
 
@@ -13,7 +15,19 @@ export const BetHistoryTab = () => {
 
   React.useEffect(() => {
     dispatch(bet.getBets())
-  }, [])
+  }, [dispatch])
+
+  const liveBets = React.useMemo(() => {
+    return history?.filter(bet => bet.bet_type === 'live')
+  }, [history])
+
+  const lineBets = React.useMemo(() => {
+    return history?.filter(bet => bet.bet_type === 'line')
+  }, [history])
+
+  const archiveBets = React.useMemo(() => {
+    return history?.filter(bet => bet.is_went !== null)
+  }, [history])
 
   return (
     <>
@@ -26,14 +40,54 @@ export const BetHistoryTab = () => {
         </h4>
       </Block>
 
-      <Block>
-        {history?.map((match, index) =>
-          <HistoryItem
-            data={match}
-            key={index}
-          />
-        )}
-      </Block>
+      {liveBets?.length > 0 &&
+        <div className={classes.betBlock}>
+          <span className={classes.live}>
+            <FiberManualRecord style={{ fontSize: 6, marginRight: 10 }}/> В игре
+          </span>
+          <Block>
+            {liveBets?.map((match, index) =>
+              <HistoryItem
+                data={match}
+                key={index}
+              />
+            )}
+          </Block>
+        </div>
+      }
+
+      {lineBets?.length > 0 &&
+        <div className={classes.betBlock}>
+          <span className={classes.line}>
+            <Forward style={{ fontSize: 20, marginRight: 10 }}/> Будущие матчи
+          </span>
+          <Block>
+            {lineBets?.map((match, index) =>
+              <HistoryItem
+                data={match}
+                key={index}
+              />
+            )}
+          </Block>
+        </div>
+      }
+
+      {archiveBets?.length > 0 &&
+        <div className={classes.betBlock}>
+          <span className={classes.archive}>
+            <History style={{ fontSize: 20, marginRight: 10 }}/> архив
+          </span>
+          <Block>
+            {archiveBets?.map((match, index) =>
+              <HistoryItem
+                data={match}
+                key={index}
+              />
+            )}
+          </Block>
+        </div>
+      }
+
     </>
   )
 }
@@ -61,11 +115,25 @@ const HistoryItem = ({ data }) => {
 
   return (
     <div className={classes.historyItem}>
+      <span
+        className={cn(
+          classes.condition,
+          { [classes.win]: data?.is_went === true },
+          { [classes.lose]: data?.is_went === false },
+          { [classes.returned]: data?.returned === true }
+        )}
+      ></span>
+
       {!breakPoint ? (
         <>
-          <Chip variant='muted'>
-            {data?.bet_code}
-          </Chip>
+          <div style={{ width: 100 }}>
+            <Chip
+              padding='12px 10px'
+              variant='muted'
+            >
+              {data?.bet_code}
+            </Chip>
+          </div>
 
           <div className={classes.historyItemDate}>
             <div>
@@ -90,13 +158,17 @@ const HistoryItem = ({ data }) => {
             </div>
           </div>
 
-          <Chip variant='outlined'>
-            {data?.user_win} ₽
-          </Chip>
+          <div style={{ width: 105 }}>
+            <Chip variant='outlined'>
+              {data?.user_win} ₽
+            </Chip>
+          </div>
 
-          <Chip variant='contained'>
-            {event?.short_name}&nbsp;{data?.win_coefficient}
-          </Chip>
+          <div style={{ width: 105 }}>
+            <Chip variant='contained'>
+              {event?.short_name}&nbsp;{data?.win_coefficient}
+            </Chip>
+          </div>
         </>
       ) : (
         <>

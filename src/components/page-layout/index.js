@@ -14,7 +14,9 @@ const urls = [
   '/profile/support',
   '/profile/coupon',
   '/registration',
-  '/contact'
+  '/contact',
+  '/rules',
+  '/policy'
 ]
 
 export const PageLayout = () => {
