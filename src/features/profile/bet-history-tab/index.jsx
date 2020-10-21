@@ -150,7 +150,7 @@ const HistoryItem = ({ data }) => {
             <div>
               <h6>
                 {match?.opp_1_name}&nbsp;
-                <span>({splitScore[0]})—({splitScore[0]})</span>
+                <span>({splitScore[0]})—({splitScore[1]})</span>
                 &nbsp;{match?.opp_2_name}
               </h6>
             </div>
