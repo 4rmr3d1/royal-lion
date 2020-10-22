@@ -1,8 +1,8 @@
 import React from 'react'
 import cn from 'classnames'
 import { useLocation } from 'react-router-dom'
-import { DialogTitle, DialogContent, TextField } from '@material-ui/core'
-import { Dialog, Button, ErrorText } from '@app/ui'
+import { DialogTitle, DialogContent, TextField, OutlinedInput } from '@material-ui/core'
+import { Dialog, Button, ErrorText, AmountTextMask } from '@app/ui'
 import { useSelector, useDispatch, bet } from '@app/store'
 import { useNotifications } from '@app/lib/use-notifications'
 
@@ -25,7 +25,7 @@ export const BetModal = ({ open, onClose }) => {
 
   const isLoggedIn = useSelector(state => state.authReducer.login.isLoggedIn)
 
-  const [amount, setAmount] = React.useState(50)
+  const [amount, setAmount] = React.useState(50.00)
 
   const onAmountChange = React.useCallback((e) => {
     setAmount(e.target.value)
@@ -114,10 +114,11 @@ export const BetModal = ({ open, onClose }) => {
               Сумма ставки:
               </div>
               <div>
-                <TextField
+                <OutlinedInput
                   disabled={!isLoggedIn}
                   error={!!error}
                   fullWidth
+                  inputComponent={AmountTextMask}
                   value={amount}
                   variant='outlined'
                   onChange={onAmountChange}

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import MaskedInput from 'react-text-mask'
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
 export const PhoneTextMask = ({ inputRef, ...other }) => {
   return (
@@ -51,4 +52,33 @@ export const BankCardTextMask = ({ inputRef, ...other }) => {
 
 BankCardTextMask.propTypes = {
   inputRef: PropTypes.func.isRequired
+}
+
+const defaultMaskOptions = {
+  prefix: '',
+  suffix: '',
+  decimalSymbol: '.',
+  allowDecimal: true,
+  includeThousandsSeparator: false,
+  decimalLimit: 2,
+  allowNegative: false,
+  allowLeadingZeroes: false
+}
+
+export const AmountTextMask = ({ inputRef, ...other }) => {
+  const mask = createNumberMask(defaultMaskOptions)
+  return (
+    <MaskedInput
+      {...other}
+      mask={mask}
+      placeholderChar={'\u2000'}
+      ref={ref => { inputRef(ref ? ref.inputElement : null) }}
+    />
+  )
+}
+
+AmountTextMask.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  inputMode: 'numeric',
+  maskOptions: {}
 }
