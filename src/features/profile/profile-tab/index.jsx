@@ -24,6 +24,10 @@ export const ProfileTab = () => {
     dispatch(payment.paymentsInput({ amount }))
   })
 
+  const firstInputs = React.useMemo(() => {
+    return inputRequests?.filter(input => input.accepted).length >= 1
+  }, [inputRequests])
+
   React.useEffect(() => {
     dispatch(payment.getPaymentsInput())
   }, [])
@@ -32,6 +36,9 @@ export const ProfileTab = () => {
     <>
       <h3>Пополнение баланса</h3>
       <BlockItem>
+        {!firstInputs &&
+          <div style={{ marginBottom: 15 }}>Бонус: X2 на первый платеж!</div>
+        }
         <form
           className={classes.form}
           onSubmit={onSubmit}

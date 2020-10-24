@@ -79,6 +79,6 @@ export const AmountTextMask = ({ inputRef, ...other }) => {
 
 AmountTextMask.propTypes = {
   inputRef: PropTypes.func.isRequired,
-  inputMode: 'numeric',
-  maskOptions: {}
+  inputMode: PropTypes.string,
+  maskOptions: PropTypes.func
 }

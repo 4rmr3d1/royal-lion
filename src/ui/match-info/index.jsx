@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { FormattedDate, FormattedTime } from 'react-intl'
 import { useMediaQuery, Tooltip, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
+import { ArrowForward } from '@material-ui/icons'
 import { useDispatch } from '@app/store'
 import cn from 'classnames'
 
@@ -35,6 +36,17 @@ export const MatchInfo = ({ data, tournament }) => {
   const xsBreakPoint = useMediaQuery('(min-width: 576px)')
 
   const [show, setShow] = useState(false)
+  const [hide, setHide] = useState(false)
+
+  const container = React.useRef()
+
+  const onArrowClick = React.useCallback(() => {
+    container.current.scrollLeft += 180
+  }, [container.current])
+
+  const arrowHideToggle = React.useCallback(() => {
+    container.current?.scrollLeft > 180 ? setHide(true) : setHide(false)
+  }, [container.current?.scrollLeft, setHide])
 
   const onShowCoefClick = useCallback(() => {
     setShow(!show)
@@ -72,6 +84,10 @@ export const MatchInfo = ({ data, tournament }) => {
 
   const bothScore = React.useMemo(() => {
     return data.additional_events.filter(event => event.oc_group_name === 'Обе забьют')
+  }, [data.additional_events])
+
+  const exactScore = React.useMemo(() => {
+    return data.additional_events.filter(event => event.oc_group_name === 'Точный счёт')
   }, [data.additional_events])
 
   const splitScore = React.useMemo(() => {
@@ -304,6 +320,35 @@ export const MatchInfo = ({ data, tournament }) => {
                 </>
               }
 
+              {exactScore.length > 0 &&
+                <>
+                  <div className={classes.eventType}>
+                    <span>
+                      Точный счёт
+                    </span>
+                    <div>
+                      {exactScore.map((event, index) =>
+                        <button
+                          className={cn(classes.btnCoefficient,
+                            { [classes.up]: event.last_changed === 1 },
+                            { [classes.down]: event.last_changed === -1 }
+                          )}
+                          key={index}
+                          onClick={() => onOpen(event)}
+                        >
+                          <span className={classes.number}>
+                            {event.short_name}
+                          </span>
+                          &nbsp;
+                          <span className={classes.rate}>
+                            {event.oc_rate}
+                          </span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </>
+              }
             </div>
           </div>
             }
@@ -397,7 +442,7 @@ export const MatchInfo = ({ data, tournament }) => {
                         <span>
                         Двойной шанс
                         </span>
-                        <div>
+                        <div className={classes.buttons}>
                           {doubleChance.map((event, index) =>
                             <button
                               className={cn(classes.btnCoefficient,
@@ -427,7 +472,7 @@ export const MatchInfo = ({ data, tournament }) => {
                         <span>
                           Фора
                         </span>
-                        <div>
+                        <div className={classes.buttons}>
                           {advantage.map((event, index) =>
                             <button
                               className={cn(classes.btnCoefficient,
@@ -457,7 +502,7 @@ export const MatchInfo = ({ data, tournament }) => {
                         <span>
                           Индивидуальный тотал
                         </span>
-                        <div>
+                        <div className={classes.buttons}>
                           {individualTotal.map((event, index) =>
                             <button
                               className={cn(classes.btnCoefficient,
@@ -487,7 +532,7 @@ export const MatchInfo = ({ data, tournament }) => {
                         <span>
                           Обе забьют
                         </span>
-                        <div>
+                        <div className={classes.buttons}>
                           {bothScore.map((event, index) =>
                             <button
                               className={cn(classes.btnCoefficient,
@@ -511,6 +556,56 @@ export const MatchInfo = ({ data, tournament }) => {
                     </>
                   }
                 </div>
+              </div>
+            }
+            {show &&
+              <div className={cn(classes.exactScore, classes.matchMore)}>
+                <span>
+                  Точный счёт
+                </span>
+                {exactScore.length > 0 &&
+                  <div
+                    className={classes.exactScoreScroll}
+                    ref={container}
+                    onScroll={() => arrowHideToggle()}
+                  >
+                    <div
+                      className={cn(
+                        classes.exactScoreScrollButton,
+                        { [classes.hide]: hide }
+                      )}
+                    >
+                      <button onClick={() => onArrowClick()}>
+                        <ArrowForward style={{ fontSize: 14, color: 'white' }}/>
+                      </button>
+                    </div>
+
+                    <div className={classes.matchMoreButtons}>
+                      <div className={classes.eventType}>
+                        <div className={classes.exactScoreButtons}>
+                          {exactScore.map((event, index) =>
+                            <button
+                              className={cn(classes.btnCoefficient,
+                                { [classes.up]: event.last_changed === 1 },
+                                { [classes.down]: event.last_changed === -1 }
+                              )}
+                              key={index}
+                              onClick={() => onOpen(event)}
+                            >
+                              <span className={classes.number}>
+                                {event.short_name}
+                              </span>
+                              &nbsp;
+                              <span className={classes.rate}>
+                                {event.oc_rate}
+                              </span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
               </div>
             }
           </>
