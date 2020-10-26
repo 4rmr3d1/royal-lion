@@ -62,7 +62,9 @@ export const Contact = () => {
             Понедельник - Воскресенье: 8:00 - 22:00
           </p>
 
-          <div className={classes.contactEmail}>info@royal-lion.bet</div>
+          <div className={classes.contactEmail}>
+            royalbet177@gmail.com
+          </div>
         </div>
         <form
           className={`col-lg-6 ml-lg-auto ${classes.form}`}

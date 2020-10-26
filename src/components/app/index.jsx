@@ -1,11 +1,10 @@
 import React from 'react'
 import { Router } from 'react-router-dom'
-import { SnackbarProvider } from 'notistack'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { useDispatch, userActions } from '@app/store'
-import { SuccessMessage } from '@app/ui'
 import { theme } from '@app/styles/mui-theme'
 import { PageLayout } from '../page-layout'
+import { SnackbarProvider } from '../snackbar'
 import history from '@app/lib/history'
 
 import '@app/styles/style.scss'
@@ -20,17 +19,7 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <SnackbarProvider
-        autoHideDuration={3000}
-        content={(key, message) => (
-          <SuccessMessage
-            id={key}
-            message={message}
-          />
-        )}
-        hideIconVariant
-        maxSnack={3}
-      >
+      <SnackbarProvider>
         <Router history={history}>
           <PageLayout />
         </Router>
