@@ -10,6 +10,7 @@ export const ProfileTab = () => {
   const { dispatch } = useDispatch()
 
   const error = useSelector(state => state.payments?.inputError)
+  const paymentURL = useSelector(state => state.payments?.paymentURL)
   const inputRequests = useSelector(state => state.payments?.inputRequests)
 
   const [amount, setAmount] = React.useState(500)
@@ -22,7 +23,7 @@ export const ProfileTab = () => {
     e.preventDefault(e)
 
     dispatch(payment.paymentsInput({ amount }))
-  })
+  }, [dispatch, paymentURL])
 
   const firstInputs = React.useMemo(() => {
     return inputRequests?.filter(input => input.accepted).length >= 1

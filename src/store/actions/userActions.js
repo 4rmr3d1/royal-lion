@@ -344,12 +344,15 @@ const paymentsInput = ({ amount, onSuccess }) => dispatch => {
     { amount },
     { headers: authHeader() })
     .then(response => {
-      if (response.data) {
-        window.open(`${response.data.data.url}`)
-      }
+      dispatch({ type: '@PAYMENT/payment-input-success', url: response.data?.data.url })
+
+      var a = document.createElement('a')
+      a.href = String(response.data?.data.url)
+      a.setAttribute('target', '_blank')
+      a.click()
     })
     .catch(error => {
-      dispatch({ type: '@PAYMENT/payment-input-error', error: error.response.data.errors })
+      dispatch({ type: '@PAYMENT/payment-input-error', error: error.response?.data.errors })
     })
 }
 

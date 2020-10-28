@@ -62,6 +62,15 @@ export const Contact = () => {
             Понедельник - Воскресенье: 8:00 - 22:00
           </p>
 
+          <a
+            href="https://vk.com/royal_bk"
+          >
+            <img
+              alt="vk icon"
+              src="https://royal-lion.bet/img/vk.svg"
+            />
+          </a>
+
           <div className={classes.contactEmail}>
             royalbet177@gmail.com
           </div>

@@ -182,11 +182,18 @@ const paymentsInitialState = {
   outputError: '',
   inputError: '',
   outputRequests: null,
-  inputRequests: null
+  inputRequests: null,
+  paymentURL: null
 }
 
 export const payments = (state = paymentsInitialState, action) => {
   switch (action.type) {
+  case '@PAYMENT/payment-input-success':
+    return {
+      ...state,
+      paymentURL: action.url
+    }
+
   case '@PAYMENT/payment-input-error':
     return {
       ...state,
