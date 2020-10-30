@@ -13,7 +13,7 @@ export const ProfileTab = () => {
   const paymentURL = useSelector(state => state.payments?.paymentURL)
   const inputRequests = useSelector(state => state.payments?.inputRequests)
 
-  const [amount, setAmount] = React.useState(500)
+  const [amount, setAmount] = React.useState()
 
   const onAmountChange = React.useCallback((e) => {
     setAmount(e.target.value)

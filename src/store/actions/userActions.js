@@ -348,7 +348,7 @@ const paymentsInput = ({ amount, onSuccess }) => dispatch => {
 
       var a = document.createElement('a')
       a.href = String(response.data?.data.url)
-      a.setAttribute('target', '_blank')
+
       a.click()
     })
     .catch(error => {

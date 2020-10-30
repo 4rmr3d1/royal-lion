@@ -1,9 +1,9 @@
 import React from 'react'
 import { FormattedDate, FormattedTime } from 'react-intl'
 import { Alert } from '@material-ui/lab'
-import { TextField, FormControl, OutlinedInput, useMediaQuery, Select, MenuItem } from '@material-ui/core'
+import { TextField, FormControl, useMediaQuery, Select, MenuItem } from '@material-ui/core'
 import { useNotifications } from '@app/lib'
-import { Button, Block, BlockItem, Chip, BankCardTextMask } from '@app/ui'
+import { Button, Block, BlockItem, Chip } from '@app/ui'
 import { useDispatch, useSelector, payment } from '@app/store'
 
 import classes from './style.module.scss'
@@ -82,9 +82,8 @@ export const WithdrawForm = () => {
 
         <div className="col-lg-4 col-sm-5">
           <FormControl fullWidth>
-            <OutlinedInput
+            <TextField
               error={!!error}
-              inputComponent={BankCardTextMask}
               placeholder='Номер кошелька/счета'
               value={cardNumber}
               variant='outlined'

@@ -5,7 +5,7 @@ import { Alert } from '@material-ui/lab'
 import { TextField, Select, MenuItem, FormControl, OutlinedInput } from '@material-ui/core'
 import { useDispatch, useSelector, userActions } from '@app/store'
 import { useNotifications } from '@app/lib'
-import { Button, ErrorText, PhoneTextMask, DateBirthTextMask } from '@app/ui'
+import { Button, ErrorText, DateBirthTextMask } from '@app/ui'
 
 import classes from './style.module.scss'
 
@@ -22,7 +22,6 @@ const validationSchema = yup.object({
     .required('Поле необходимо для заполнения')
     .typeError('Введите корректное значение'),
   phoneNumber: yup.string()
-    .matches(/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){11}(\s*)?$/, 'Введите номер полностью')
     .required('Поле необходимо для заполнения'),
   gender: yup.number()
     .min(1, 'Выберите пол')
@@ -187,10 +186,9 @@ export const Registration = () => {
 
           <div className='col-md-4'>
             <FormControl fullWidth>
-              <OutlinedInput
+              <TextField
                 disabled={registrating}
                 error={!!hasErrors.phoneNumber || serverErrors?.phone_number}
-                inputComponent={PhoneTextMask}
                 name='phoneNumber'
                 placeholder='Ваш номер телефона'
                 value={formik.values.phoneNumber}
