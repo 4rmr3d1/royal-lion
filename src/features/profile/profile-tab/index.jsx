@@ -13,7 +13,7 @@ export const ProfileTab = () => {
   const paymentURL = useSelector(state => state.payments?.paymentURL)
   const inputRequests = useSelector(state => state.payments?.inputRequests)
 
-  const [amount, setAmount] = React.useState()
+  const [amount, setAmount] = React.useState('')
 
   const onAmountChange = React.useCallback((e) => {
     setAmount(e.target.value)
@@ -23,7 +23,7 @@ export const ProfileTab = () => {
     e.preventDefault(e)
 
     dispatch(payment.paymentsInput({ amount }))
-  }, [dispatch, paymentURL])
+  }, [dispatch, paymentURL, amount])
 
   const firstInputs = React.useMemo(() => {
     return inputRequests?.filter(input => input.accepted).length >= 1

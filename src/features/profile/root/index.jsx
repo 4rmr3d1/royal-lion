@@ -65,42 +65,42 @@ export const Profile = () => {
               tabKey={tabs.profile}
               to={'/profile'}
             >
-                Профиль
+              Пополнить счёт
             </Tabs.Link>
 
             <Tabs.Link
               tabKey={tabs.configurations}
               to={'/profile/configurations'}
             >
-                Настройки профиля
+              Настройки профиля
             </Tabs.Link>
 
             <Tabs.Link
               tabKey={tabs.history}
               to={'/profile/history'}
             >
-                История ставок
+              История ставок
             </Tabs.Link>
 
             <Tabs.Link
               tabKey={tabs.withdraw}
               to={'/profile/withdraw'}
             >
-                Вывод средств
+              Вывод средств
             </Tabs.Link>
 
             <Tabs.Link
               tabKey={tabs.support}
               to={'/profile/support'}
             >
-                Поддержка
+              Поддержка
             </Tabs.Link>
 
             <Tabs.Link
               tabKey={tabs.coupon}
               to={'/profile/coupon'}
             >
-                Купон
+              Купон
             </Tabs.Link>
           </div>
         </div>

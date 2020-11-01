@@ -139,7 +139,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile')
             }}
           >
-              Профиль
+            Пополнить счёт
           </MenuItem>
 
           <MenuItem
@@ -148,7 +148,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile/configurations')
             }}
           >
-              Настройки профиля
+            Настройки профиля
           </MenuItem>
 
           <MenuItem
@@ -157,7 +157,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile/history')
             }}
           >
-              История ставок
+            История ставок
           </MenuItem>
 
           <MenuItem
@@ -166,7 +166,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile/withdraw')
             }}
           >
-              Вывод средств
+            Вывод средств
           </MenuItem>
 
           <MenuItem
@@ -175,7 +175,7 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile/support')
             }}
           >
-              Поддержка
+            Поддержка
           </MenuItem>
 
           <MenuItem
@@ -184,13 +184,13 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               history.push('/profile/coupon')
             }}
           >
-              Купон
+            Купон
           </MenuItem>
 
           <MenuItem
             onClick={onLogout}
           >
-              Выход
+            Выход
           </MenuItem>
         </Menu>
       </div>
