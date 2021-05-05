@@ -1,0 +1,78 @@
+@import '../../styles/variables';
+
+.chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border-width: 1px;
+  border-style: solid;
+
+  & > span {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  @media (max-width: 575px) {
+    padding: 10px;
+  }
+
+  @media (min-width: 576px) {
+    padding: 12px 17px;
+  }
+}
+
+.outlined {
+  background: white;
+  border-color: $c-muted;
+
+  & > span {
+    color: $c-main;
+  }
+}
+
+.contained {
+  background: $c-main;
+  border-color: $c-main;
+
+  & > span {
+    color: #fff
+  }
+}
+
+.muted {
+  background: #F6F8FD;
+  border-color: $c-muted;
+
+  & > span {
+    color: #939A9E;
+  }
+}
+
+.pending {
+  background: #FFEAC0;
+  border-color: #FFD687;
+
+  & > span {
+    color: #D7981E;
+  }
+}
+
+.error {
+  background: #FFECEC;
+  border-color: #FFB9B9;
+
+  & > span {
+    color: #E84A4A;
+  }
+}
+
+.success {
+  background: #ECF8ED;
+  border-color: #BEE8C2;
+
+  & > span {
+    color: #58CC78;
+  }
+}

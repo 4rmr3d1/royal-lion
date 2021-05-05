@@ -1,0 +1,57 @@
+@import "../../styles/variables";
+
+.btn {
+  justify-content: center;
+  border-radius: 8px;
+
+  &:active {
+    color: #fff;
+    background: $c-main;
+    box-shadow: none;
+  }
+
+  &Big {
+    font-weight: bold;
+    line-height: 1.16;
+    text-transform: uppercase;
+    @media (max-width: 575px) {
+      font-size: 16px;
+      line-height: 19px;
+      padding: 18px 0;
+    }
+    @media (min-width: 576px) {
+      padding: 18px 38px;
+      font-size: 18px;
+    }
+  }
+
+  &Small {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.4;
+    padding: 11px 33px;
+  }
+
+  &FullWidth {
+    width: 100%
+  }
+
+  &:disabled {
+    background: grey
+  }
+}
+
+.primary {
+  background: $c-main;
+  color: #fff;
+
+  &:hover {
+    box-shadow: $b-shadow;
+  }
+}
+
+.secondary {
+  background: transparent;
+  color: $c-main;
+  border: 2px solid $c-main;
+}

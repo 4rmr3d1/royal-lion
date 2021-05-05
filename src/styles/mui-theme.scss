@@ -1,0 +1,24 @@
+// mui-overrides
+
+.MuiOutlinedInput-root.Mui-error {
+  input { background: rgba(255, 240, 240, 0.8);}
+}
+
+.MuiOutlinedInput-root.Mui-focused {
+  input { background: #F4F6FB; }
+}
+
+
+.MuiDialog-paper {
+  @media (max-width: 576px) {
+    padding: 20px;
+    .MuiDialogTitle-root {
+      padding: 31px 16px 24px 16px;
+      
+      & > h2 {
+        font-size: 21px;
+        line-height: 25px;
+      }
+    }
+  }
+}

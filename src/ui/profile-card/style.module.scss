@@ -1,0 +1,137 @@
+.profileCard{
+  padding: 30px 40px 31px 41px;
+  text-align: center;
+  img{
+    display: block;
+    margin: 0 auto 31px;
+  }
+  h3{
+    margin-bottom: 16px;
+  }
+  h4{
+    font-size: 16px;
+    line-height: 1.1875;
+    color: #939A9E;
+    margin-bottom: 25px;
+    display: block;
+  }
+  .balance{
+    background: linear-gradient(151.68deg, #526BFF 0%, #4286F4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 1.2;
+  }
+}
+
+
+.headerProfileCard{
+  display: flex;
+  img {
+    max-width: 50px;
+    max-height: 50px;
+  }
+  &>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  span {
+    color: #526BFF;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: left;
+  }
+  .balance{
+    font-size: 14px;
+    line-height: 17px;
+    color: #939A9E;
+    padding-top: 5px;
+  }
+  
+}
+
+.menu {
+  :global {
+    
+    .MuiList-root {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid #EDEFF5;
+      border-radius: 5px;
+    }
+    
+    .MuiList-padding {
+      padding: 10px 15px;
+    }
+    
+    .MuiListItem-root {
+      padding-top: 0;
+      
+      &:not(:last-child) {
+        border-bottom: 1px solid  #EDEFF5;
+        padding-bottom: 10px;
+      }
+      
+      &:not(:first-child) {
+        padding-top: 10px;
+      }
+    }
+    
+    .MuiListItem-gutters {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    
+    .MuiMenuItem-root {
+      color: #939A9E;
+      line-height: 14px;
+      font-size: 12px;
+    }
+  }
+}
+
+.profileCardSmall {
+  margin-top: 30px;
+  max-width: 576px;
+  width: 100%;
+  padding: 0 15px;
+  overflow: hidden;
+  
+  display: flex;
+  &>div {
+    flex: 1 0 50%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+    &>h4 {
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 21px;
+      padding-bottom: 5px;
+      color: #343949;
+    }
+    &>span {
+      font-size: 12px;
+      line-height: 14px;
+      color: #939A9E;
+      padding-bottom: 15px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    &>h3 {
+      font-weight: bold;
+      font-size: 21px;
+      line-height: 25px;
+      color: #4286F4;
+    }
+  }
+  &>div>img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+

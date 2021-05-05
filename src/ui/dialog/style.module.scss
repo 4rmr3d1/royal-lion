@@ -1,0 +1,37 @@
+@import "../../styles/variables";
+
+.closeButton {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+  @media (max-width: 576px) {
+    left: 50%;
+    top: -31px;
+    transform: translateX(-50%);
+    width: 61px;
+    height: 61px;
+    background-color: transparent;
+  }
+  
+  @media (min-width: 577px) {
+    top: -31px;
+    right: -31px;
+  }
+  
+  & > button {
+    color: white;
+    background: $c-main;
+    box-shadow: $b-shadow;
+    border-radius: 8px;
+    padding: 8px;
+  }
+}
+
+
+
+
+
+

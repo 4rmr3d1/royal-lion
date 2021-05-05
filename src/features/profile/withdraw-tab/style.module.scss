@@ -1,0 +1,110 @@
+.form {
+  &>h4 {
+    padding-bottom: 30px;
+  }
+}
+
+.title {
+  padding: 20px;
+}
+
+.withdrawHistoryItem {
+  display: flex;
+  justify-content: space-between;
+  @media (min-width: 576px) {
+
+    padding: 11px 17px;
+
+    &>div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &>div:first-child {
+      flex: 0 0 35%;
+    }
+
+    &>div:last-child {
+      &>div:last-child {
+        margin-left: 7px;
+      }
+    }
+  }
+
+  @media (max-width: 575px) {
+    flex-direction: column;
+    padding: 15px;
+
+    &>div {
+      display: flex;
+      justify-content: space-between;
+      &>h5 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 12px;
+        line-height: 14px;
+        &>span {
+          color: #343949;
+          font-weight: 500;
+          margin-bottom: 4px;
+        }
+        &>span:last-child {
+          color: #939A9E;
+        }
+      }
+    }
+
+    &>div:last-child {
+      margin-top: 10px;
+      width: 100%;
+    }
+  }
+
+}
+
+@media (max-width: 575px) {
+  .form {
+    margin: 0 auto
+
+    :global {
+      .MuiFormControl-fullWidth {
+        margin-bottom: 25px;
+      }
+    }
+  }
+
+  .button {
+    padding: 0 15px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 1086px){
+  .button {
+    margin-top: 30px;
+  }
+
+}
+@media (min-width: 576px) and (max-width: 991px){
+  .withdrawHistoryItem {
+    padding: 11px 17px;
+    flex-wrap: wrap;
+    &>div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+    }
+
+    &>div:first-child {
+      flex: 0 0 100%;
+      margin-bottom: 30px;
+    }
+
+    &>div:last-child {
+      flex: 0 0 100%;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+.notFound {
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+	max-width: 1170px;
+  width: 100%;
+  padding: 40px 15px;
+
+
+
+  p{
+    font-size: 18px;
+    color: #86888A;
+    a{
+      color: #4286F4;
+      text-decoration-line: underline;
+    }
+  }
+  img{
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .label{
+    margin: 0 0 40px 0;
+  }
+
+  @media(max-width: 991px){
+    text-align: center;
+    .label{
+      margin: 80px auto 40px;
+    }
+  }
+}
