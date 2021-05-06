@@ -47,7 +47,7 @@ export const Footer = () => {
             </div>
 
             <div className={classes.credits}>
-              @ 1994-2020 All rights reserved
+              @ 2020-2021 All rights reserved
             </div>
           </div>
           <nav>
