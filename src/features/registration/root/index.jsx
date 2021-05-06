@@ -79,7 +79,7 @@ export const Registration = () => {
     return formik.errors || null
   }, [formik])
 
-  React.useEffect(() => { document.title = 'Royal Lion | Линия' }, [])
+  React.useEffect(() => { document.title = 'King-Kong BET | Линия' }, [])
 
   return (
     <section className={classes.registration}>

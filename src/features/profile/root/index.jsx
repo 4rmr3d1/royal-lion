@@ -42,7 +42,7 @@ export const Profile = () => {
     dispatch(userActions.getUser())
   }, [dispatch])
 
-  React.useEffect(() => { document.title = 'Royal Lion | Профиль' }, [])
+  React.useEffect(() => { document.title = 'King-Kong BET | Профиль' }, [])
 
   return (
     <Tabs.Provider

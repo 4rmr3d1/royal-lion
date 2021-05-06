@@ -51,7 +51,7 @@ export const Line = () => {
     dispatch(line.loadLineTournaments({ sportId, page: page - 1 }))
   }, [sportId, page])
 
-  React.useEffect(() => { document.title = 'Royal Lion | Линия' }, [])
+  React.useEffect(() => { document.title = 'King-Kong BET | Линия' }, [])
 
   return (
     <>

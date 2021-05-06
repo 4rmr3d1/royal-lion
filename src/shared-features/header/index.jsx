@@ -53,8 +53,8 @@ export const Header = () => {
           position='sticky'
         >
           <div className={classes.header}>
-            <Toolbar className='justify-content-center'>
-              <div className='container row align-items-center'>
+            <Toolbar>
+              <div className='row w-100 align-items-center'>
                 <div className={`col-lg-2 col-auto ${classes.brand}`}>
                   <NavLink to='/'>
                     <img

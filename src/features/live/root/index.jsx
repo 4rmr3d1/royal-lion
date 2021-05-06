@@ -60,7 +60,7 @@ export const Live = () => {
     dispatch(live.loadLiveTournaments({ sportId, page: page - 1 }))
   }, [sportId, page])
 
-  React.useEffect(() => { document.title = 'Royal Lion | Лайв' }, [])
+  React.useEffect(() => { document.title = 'King-Kong BET | Лайв' }, [])
 
   return (
     <>

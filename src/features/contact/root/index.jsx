@@ -70,10 +70,6 @@ export const Contact = () => {
               src="https://king-kong.bet/img/vk.svg"
             />
           </a>
-
-          <div className={classes.contactEmail}>
-            royalbet177@gmail.com
-          </div>
         </div>
         <form
           className={`col-lg-6 ml-lg-auto ${classes.form}`}

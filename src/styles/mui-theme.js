@@ -28,7 +28,16 @@ export const theme = createMuiTheme({
         borderRadius: 10
       }
     },
+    MuiToolbar: {
+      gutters: {
+        paddingLeft: 45,
+        paddingRight: 45
+      }
+    },
     MuiDrawer: {
+      paper: {
+        zIndex: 1000
+      },
       paperAnchorDockedLeft: {
         borderRight: 'none'
       }

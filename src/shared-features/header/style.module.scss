@@ -3,6 +3,14 @@
 .header {
   padding: 10px 0;
   background: #fcfeff;
+
+  & > div {
+    width: 100%;
+
+    & > div {
+      width: 100%;
+    }
+  }
 }
 
 .brand {

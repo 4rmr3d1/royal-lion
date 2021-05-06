@@ -11,7 +11,7 @@ export const Footer = () => {
     <>
       {!smBreakPoint ? (
         <footer className={classes.footer}>
-          <div className='container'>
+          <div>
             <div className='row align-items-center'>
               <div className='col-lg-3'>
                 <div className={classes.brand}>
@@ -31,7 +31,7 @@ export const Footer = () => {
                 </NavLink>
               </nav>
               <div className='col-lg-3'>
-                <p className='copy'>@ 1994-2020 All rights reserved</p>
+                <p className='copy'>@ 2020-2021 All rights reserved</p>
               </div>
             </div>
           </div>
