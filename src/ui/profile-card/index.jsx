@@ -138,8 +138,9 @@ export const HeaderProfileCard = ({ firstName, lastName, balance }) => {
               handleBurger()
               history.push('/profile')
             }}
+            style={{color: 'black'}}
           >
-            Пополнить счёт
+            <b>Пополнить счёт</b>
           </MenuItem>
 
           <MenuItem

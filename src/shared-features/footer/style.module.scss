@@ -2,10 +2,6 @@
   z-index: 1100;
   background: #FCFEFF;
 
-  & > div {
-    padding: 0 45px;
-  }
-
   @media (max-width: 575px) {
     padding-top: 10px;
     padding-left: 15px;
@@ -69,6 +65,10 @@
     position: sticky;
     bottom: 0;
     left: 0;
+
+    & > div {
+      padding: 0 45px;
+    }
       
     nav{
       display: flex;

@@ -140,7 +140,6 @@ export const Header = () => {
               className='justify-content-center'
               disableGutters
             >
-              <div className="container">
                 <div className='row align-items-center justify-content-between'>
                   <div className={`col-auto ${classes.brand}`}>
                     <NavLink to='/'>
@@ -153,7 +152,6 @@ export const Header = () => {
                   <div className="col-auto">
                     <BurgerMenu />
                   </div>
-                </div>
               </div>
             </Toolbar>
           </div>

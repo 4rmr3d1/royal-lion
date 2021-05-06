@@ -28,7 +28,7 @@ export const Result = () => {
     dispatch(results.loadResults({ sportId, page: page - 1 }))
   }, [sportId, page])
 
-  React.useEffect(() => { document.title = 'Royal Lion | Результаты' }, [])
+  React.useEffect(() => { document.title = 'King-Kong | Результаты' }, [])
 
   return (
     <section className={classes.result}>
