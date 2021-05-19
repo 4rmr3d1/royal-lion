@@ -25,8 +25,8 @@ const { store } = createStore()
 ReactDOM.render(
   <ReduxProvider store={store}>
     <IntlProvider
+      defaultLocale='ru'
       locale='ru'
-      timeZone='utc'
     >
       <App />
     </IntlProvider>
